@@ -39,7 +39,9 @@
 		            $('#status').html('Upload progress: ' + percent + '% ' + message);
 		        },
 		        onFinishS3Put: function(public_url) {
-		            $('#status').html('Upload completed. Uploaded to: '+ public_url);
+		            $('#status').html('Upload completed!');
+		            window.location.replace(window.location.hostname + "/" + document.getElementById('files').value);
+		            // Uploaded to: '+ public_url);
 		            // $("#avatar_url").val(public_url);
 		            // $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
 		        },
