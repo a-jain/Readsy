@@ -4,8 +4,6 @@ from flask import send_from_directory
 from werkzeug.utils import secure_filename
 import MySQLdb
 import json
-import slate
-from form import *
 
 application = Flask(__name__)
 application.debug = True
