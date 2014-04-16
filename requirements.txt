@@ -1,12 +1,9 @@
 Flask==0.10.1
 Jinja2==2.7.2
 MarkupSafe==0.18
-WTForms==1.0.5
-WTForms-Components==0.9.2
 Werkzeug==0.9.4
 decorator==3.4.0
 wsgiref==0.1.2
-validators==0.5.0
 gunicorn==18.0
 pdfminer==20140328
 HTMLParser==0.0.2
