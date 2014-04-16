@@ -12,6 +12,10 @@ body {
     position: relative
 }
 
+h1 {
+	font-family: 'Share Tech Mono';
+}
+
 div.outer {
    	width: 100%;
 	padding: 0;
@@ -30,7 +34,7 @@ div.middle {
 }
 
 div.inner {
-	width: 450px;
+	width: 444px;
 	background-color: #fff;
 	margin: 0 auto;
 	text-align: left;
