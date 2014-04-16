@@ -1,3 +1,5 @@
+@import url('http://fonts.googleapis.com/css?family=Share+Tech+Mono');
+
 body {
    background-color: #A9D0F5;
    margin-left: 20px;           
@@ -39,4 +41,15 @@ div.inner {
 	margin: 0 auto;
 	text-align: left;
 	padding: 10px;
+}
+
+#uploadPDF {
+	display: inline;
+	margin-bottom: 20px
+}
+
+#posttextarea {
+	color: #888888;
+	font-family: 'Share Tech Mono';
+	padding-bottom:10px;
 }
