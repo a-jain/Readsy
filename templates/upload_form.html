@@ -41,13 +41,13 @@
 		        onFinishS3Put: function(public_url) {
 		            $('#status').html('Upload completed!');
 		            var s = document.getElementById('files').value;
-		            s = s.split('\\').pop();
+		            s = s.split('\\').pop().toString();
 
 		            console.log(s);
 		            s = s.toString().split('\/');
-		            s = s[0] + "/spritzy/" + s[1];
-		            console.log(s);
-		            window.location.replace(s);
+		            var url = s.replace("\/", "\/spritzy\/")
+		            console.log(url);
+		            location.assign(url);
 		            // Uploaded to: '+ public_url);
 		            // $("#avatar_url").val(public_url);
 		            // $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
