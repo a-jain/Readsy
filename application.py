@@ -54,7 +54,7 @@ def spritz(filename=None):
 	if not filename:
 		return render_template('spritz.html', text="")
 
-	url = "static/spritz/" + filename
+	url = "https://spritzy.s3.amazonaws.com/" + filename
 	print url
 	s = convert_pdf_to_txt(url)
 	s = re.sub(r'\s+', ' ', s)

@@ -14,7 +14,7 @@ body {
     position: relative
 }
 
-h1 {
+h1, p {
 	font-family: 'Share Tech Mono';
 }
 
