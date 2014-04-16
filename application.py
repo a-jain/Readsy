@@ -47,11 +47,11 @@ def convert_pdf_to_txt(path):
     retstr.close()
     return str
 
-@application.route('/spritz')
+@application.route('/')
 @application.route('/spritzme/<filename>')
 def spritz(filename=None):
 	if not filename:
-		return render_template('spritz/spritz.html', text="")
+		return render_template('spritz.html', text="")
 
 	else:
 		url = "static/spritz/" + filename
@@ -64,11 +64,11 @@ def spritz(filename=None):
 		# s = s.decode('utf8').encode('ascii')
 		# print s
 		
-		return render_template('spritz/spritz.html', text=s) 
+		return render_template('spritz.html', text=s) 
 
 @application.route('/spritz/login_success')
 def spritz_login():
-	return render_template('spritz/login_success.html')
+	return render_template('login_success.html')
 
 def allowed_file(filename):
     return '.' in filename and \
