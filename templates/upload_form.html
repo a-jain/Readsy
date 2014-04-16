@@ -41,7 +41,7 @@
 		        onFinishS3Put: function(public_url) {
 		            $('#status').html('Upload completed!');
 		            var s = document.getElementById('files').value;
-		            window.location.replace(window.location.hostname + "/" + s.split('\\').pop());
+		            window.location.replace(s.split('\\').pop());
 		            // Uploaded to: '+ public_url);
 		            // $("#avatar_url").val(public_url);
 		            // $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
