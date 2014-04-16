@@ -7,7 +7,7 @@ from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from cStringIO import StringIO
-import re, sys, json, os, base64, hmac, urllib
+import re, sys, json, os, base64, hmac, urllib, time
 import HTMLParser
 reload(sys)
 sys.setdefaultencoding("utf-8")

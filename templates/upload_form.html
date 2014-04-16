@@ -18,9 +18,10 @@
 		<h1>Upload File to be Spritzed</h1>
 
 		<p id="status">Please select a file</p>
+		<input type="file" id="files"/>
 		<form action="" method="post" enctype="multipart/form-data">
 		  <p>
-		  	<input type="file" name="file" id="files"/>
+		  	<input type="file" name="file" id="files2"/>
 		    <input type="submit" value="Upload + Go!">
 		 </p>	
 		</form>
@@ -31,26 +32,25 @@
 	</div>
 	<script>
 		function s3_upload(){
-	    var s3upload = new S3Upload({
-	        file_dom_selector: '#files',
-	        s3_sign_put_url: '/sign_s3/',
+		    var s3upload = new S3Upload({
+		        file_dom_selector: '#files',
+		        s3_sign_put_url: '/sign_s3/',
+		        onProgress: function(percent, message) {
+		            $('#status').html('Upload progress: ' + percent + '% ' + message);
+		        },
+		        onFinishS3Put: function(public_url) {
+		            $('#status').html('Upload completed. Uploaded to: '+ public_url);
+		            // $("#avatar_url").val(public_url);
+		            // $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
+		        },
+		        onError: function(status) {
+		            $('#status').html('Upload error: ' + status);
+		        }
+		    });
+		}
 
-	        onProgress: function(percent, message) {
-	            $('#status').html('Upload progress: ' + percent + '%' + message);
-	        },
-	        onFinishS3Put: function(url) {
-	            $('#status').html('Upload completed. Uploaded to: '+ url);
-	            // $("#avatar_url").val(url);
-	            // $("#preview").html('<img src="'+url+'" style="width:300px;" />');
-	        },
-	        onError: function(status) {
-	            $('#status').html('Upload error: ' + status);
-	        }
-	    });
-	}
-	$().ready(function() {
-	    $('#files').on("change", s3_upload);
-	});
+		$().ready(function() {
+		    $('#files').on("change", s3_upload);
 	</script>
 </body>
 
