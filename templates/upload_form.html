@@ -4,6 +4,30 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="../static/css/all.css">
 	<title>Upload File to Spritzy</title>
+	<script type="text/javascript" src="../static/js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="https://raw.github.com/bestiejs/lodash/v1.1.1/dist/lodash.min.js"></script>
+	<script type="text/javascript" src="../static/js/s3upload.js"></script>
+
+	<script>
+		function s3_upload(){
+	    var s3upload = new S3Upload({
+	        file_dom_selector: 'file',
+	        s3_sign_put_url: '/sign_s3_upload/',
+
+	        onProgress: function(percent, message) {
+	            $('#status').html('Upload progress: ' + percent + '%' + message);
+	        },
+	        onFinishS3Put: function(url) {
+	            $('#status').html('Upload completed. Uploaded to: '+ url);
+	            // $("#avatar_url").val(url);
+	            // $("#preview").html('<img src="'+url+'" style="width:300px;" />');
+	        },
+	        onError: function(status) {
+	            $('#status').html('Upload error: ' + status);
+	        }
+	    });
+	}
+	</script>
 </head>
 
 <body>
@@ -14,10 +38,11 @@
 	<center>
 		<h1>Upload File to be Spritzed</h1>
 
-		<form action="" method=post enctype=multipart/form-data>
+		<p id="status">Please select a file</p>
+		<form action="" method="post" enctype="multipart/form-data">
 		  <p>
-		  	<input type=file name=file>
-		    <input type=submit value="Upload + Go!">
+		  	<input type="file" name="file" id="file" onchange="s3_upload();">
+		    <input type="submit" value="Upload + Go!">
 		 </p>	
 		</form>
 	</center>
