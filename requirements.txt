@@ -8,3 +8,4 @@ gunicorn==18.0
 pdfminer==20140328
 HTMLParser==0.0.2
 newrelic
+boto==2.27.0

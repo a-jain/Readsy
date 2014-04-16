@@ -7,6 +7,7 @@ from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from cStringIO import StringIO
+from boto.s3.connection import S3Connection
 import re, sys, json, os, base64, hmac, urllib, time
 import HTMLParser
 reload(sys)
@@ -15,6 +16,8 @@ sys.setdefaultencoding("utf-8")
 application = Flask(__name__)
 application.debug = True
 application.secret_key = '\x99\x02~p\x90\xa3\xce~\xe0\xe6Q\xe3\x8c\xac\xe9\x94\x84B\xe7\x9d=\xdf\xbb&'
+
+conn = S3Connection()
 
 UPLOAD_FOLDER = 'static/spritz/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
@@ -54,7 +57,7 @@ def spritz(filename=None):
 	if not filename:
 		return render_template('spritz.html', text="")
 
-	url = "https://spritzy.s3.amazonaws.com/" + filename
+	url = "http://spritzy.s3-website-us-east-1.amazonaws.com/" + filename
 	print url
 	s = convert_pdf_to_txt(url)
 	s = re.sub(r'\s+', ' ', s)
