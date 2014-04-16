@@ -18,7 +18,7 @@ application = Flask(__name__)
 application.debug = True
 application.secret_key = '\x99\x02~p\x90\xa3\xce~\xe0\xe6Q\xe3\x8c\xac\xe9\x94\x84B\xe7\x9d=\xdf\xbb&'
 
-UPLOAD_FOLDER = 'tmp/'
+UPLOAD_FOLDER = 'static/spritz/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 application.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
@@ -56,7 +56,7 @@ def spritz(filename=None):
 	if not filename:
 		return render_template('spritz.html', text="")
 
-	url = "tmp/" + filename
+	url = "static/spritz/" + filename
 	print url
 	s = convert_pdf_to_txt(url)
 	s = re.sub(r'\s+', ' ', s)
@@ -91,7 +91,6 @@ def uploaded_file(filename):
 		return redirect(url_for('uploaded_file', filename=filename))
 
 	return send_from_directory(application.config['UPLOAD_FOLDER'], filename)
-
 
 if __name__ == '__main__':
 	application.run(debug=True)
