@@ -1,0 +1,15 @@
+Flask==0.10.1
+Flask-MySQL==1.2
+Jinja2==2.7.2
+MarkupSafe==0.18
+MySQL-python==1.2.5
+WTForms==1.0.5
+WTForms-Components==0.9.2
+Werkzeug==0.9.4
+decorator==3.4.0
+wsgiref==0.1.2
+validators==0.5.0
+
+pdfminer==20140328
+https://codeload.github.com/timClicks/slate/zip/master
+HTMLParser==0.0.2

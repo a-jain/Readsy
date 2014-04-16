@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Spritz Login Success</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var hash = window.location.hash;
+			var origin = window.location.protocol + "//" + window.location.host;
+			
+			// postMessage does not work reliably in IE, pass the value through localStorage
+			
+            if (typeof(localStorage) !== 'undefined') {
+                try {
+                	localStorage.setItem("spritz.authResponse", hash);
+            	}
+            	catch(e) {
+            		if(console) {
+            			console.log(e, 'Can\'t write to localStorage');
+            		}
+            	}
+            }
+
+            if (window.opener) {
+               window.opener.postMessage(hash, origin);
+            }
+		</script>
+	</body>
+</html>
