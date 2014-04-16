@@ -1,15 +1,13 @@
-import os.path
 from flask import Flask, render_template, flash, url_for, request, redirect, abort
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
-import json
+from hashlib import sha1
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from cStringIO import StringIO
-import re
-import sys
+import re, sys, json, os, base64, hmac, urllib
 import HTMLParser
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -91,6 +89,31 @@ def uploaded_file(filename):
 		return redirect(url_for('uploaded_file', filename=filename))
 
 	return send_from_directory(application.config['UPLOAD_FOLDER'], filename)
+
+@application.route('/sign_s3/')
+def sign_s3():
+    AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    S3_BUCKET = os.environ.get('S3_BUCKET')
+
+    object_name = request.args.get('s3_object_name')
+    mime_type = request.args.get('s3_object_type')
+
+    expires = int(time.time()+10)
+    amz_headers = "x-amz-acl:public-read"
+
+    put_request = "PUT\n\n%s\n%d\n%s\n/%s/%s" % (mime_type, expires, amz_headers, S3_BUCKET, object_name)
+
+    signature = base64.encodestring(hmac.new(AWS_SECRET_KEY, put_request, sha1).digest())
+    signature = urllib.quote_plus(signature.strip())
+
+    url = 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, object_name)
+
+    return json.dumps({
+        'signed_request': '%s?AWSAccessKeyId=%s&Expires=%d&Signature=%s' % (url, AWS_ACCESS_KEY, expires, signature),
+         'url': url
+      })
+
 
 if __name__ == '__main__':
 	application.run(debug=True)
