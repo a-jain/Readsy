@@ -43,7 +43,7 @@ div.inner {
 	padding: 10px;
 }
 
-#uploadPDF {
+#uploadPDF, #files {
 	display: inline;
 	margin-bottom: 20px
 }
