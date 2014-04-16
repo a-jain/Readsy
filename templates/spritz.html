@@ -6,10 +6,11 @@
 	<title>Spritz Yo Shit! - Akash Jain</title>
 	<link href='http://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
 	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
 	<script type="text/javascript">
 		var SpritzSettings = {
 				clientId: "afb9145630773e008",
-				redirectUri: "http://www.tigergrowl.info/spritz/login_success",
+				redirectUri: "http://www.spritzy.us/spritz/login_success",
 	   };
 	</script>
 
@@ -17,50 +18,10 @@
 
     <script type="text/javascript" src="../static/js/app.js"></script>
 
-    <style type="text/css">
-       body {
-           background-color: #A9D0F5;
-           margin-left: 20px;           
-        }
-        .spritzer-container {
-		    width: 100%;
-		    height: 100%;
-		    min-width: 250px;
-		    min-height: 80px;
-		    max-height: 200px;
-		    background-color: #F0F0F0;
-		    position: relative
-		}
-
-		div.outer {
-		   	width: 100%;
-			padding: 0;
-			display: table;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			margin: 0;
-		}
-		div.middle {
-			padding: 0;
-			vertical-align: middle;
-			display: table-cell;
-			margin: 0;
-		}
-
-		div.inner {
-			width: 450px;
-			background-color: #fff;
-			margin: 0 auto;
-			text-align: left;
-			padding: 10px;
-		}
-    </style>
+    <link rel="stylesheet" type="text/css" href="../static/css/mystyle.css">
 
     <script>
 		s = "{{text}}"
-		// console.log(s)
 		$(document).ready(function() {
 			$("#inputText").text(jDecode(s));
 
@@ -73,24 +34,27 @@
 
 <body>
 
-	<div class = "outer">
-	<div class = "middle">
+	<div class="outer">
+	<div class="middle">
 	<div class="inner">
+
 	<center><h1 style="font-family: 'Share Tech Mono';">Spritzy</h1></center>
 	<p>
 	  	<div id="spritzer"></div>
   	</p>
     
     <p>
-
 	    <textarea id="inputText" rows="12" cols="60"></textarea><br>    
-	    <div style="color: #888888; font-family: 'Share Tech Mono'; padding-bottom:10px;"><center><small>Paste your own text or click the Fill button to load the sample text</small></center></div>
+	    <div style="color: #888888; font-family: 'Share Tech Mono'; padding-bottom:10px;">
+	    	<center><small>Paste your own text or click the Fill button to load the sample text</small></center>
+	    </div>
 	    <center>
-	    <button id="fill" type="submit">Sample</button>
-	    <button id="clear" type="submit">Clear</button>     
-	    <button id="startSpritz" type="submit">Spritz!</button>
+		    <button id="fill" type="submit">Sample</button>
+		    <button id="clear" type="submit">Clear</button>     
+		    <button id="startSpritz" type="submit">Spritz!</button>
 	    </center>
 	</p>
+
 	</div>
 	</div>
 	</div>
