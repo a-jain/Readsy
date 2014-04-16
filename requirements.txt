@@ -7,6 +7,6 @@ Werkzeug==0.9.4
 decorator==3.4.0
 wsgiref==0.1.2
 validators==0.5.0
-
+gunicorn==18.0
 pdfminer==20140328
 HTMLParser==0.0.2
