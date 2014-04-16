@@ -41,6 +41,9 @@
 		        onFinishS3Put: function(public_url) {
 		            $('#status').html('Upload completed!');
 		            var s = document.getElementById('files').value;
+		            s = s.split('\\').pop();
+		            console.log(s)
+		            console.log("/spritzy/" + s)
 		            window.location.replace(s.split('\\').pop());
 		            // Uploaded to: '+ public_url);
 		            // $("#avatar_url").val(public_url);
