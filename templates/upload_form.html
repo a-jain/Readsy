@@ -44,7 +44,7 @@
 		            s = s.split('\\').pop();
 		            console.log(s)
 		            console.log("/spritzy/" + s)
-		            window.location.replace(s.split('\\').pop());
+		            window.location.replace(window.location.host + "/" s);
 		            // Uploaded to: '+ public_url);
 		            // $("#avatar_url").val(public_url);
 		            // $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
