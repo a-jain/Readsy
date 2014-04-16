@@ -40,9 +40,9 @@
 		        },
 		        onFinishS3Put: function(public_url) {
 		            $('#status').html('Upload completed!');
-		            var s = $('#files').prop("files")['name'];
+		            var s = $('input[type=file]').val().split('\\').pop();
 
-		            url = window.location.hostname + "\/spritzy\/" + s;
+		            url = "\/spritzy\/" + s;
 		            console.log(url);
 		            location.assign(url);
 		            // Uploaded to: '+ public_url);
