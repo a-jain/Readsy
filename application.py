@@ -1,5 +1,5 @@
 from flask import Flask, render_template, flash, url_for, request, redirect, abort
-from flask import send_from_directory
+from flask import send_from_directory, safe_join
 from werkzeug.utils import secure_filename
 from hashlib import sha1
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
@@ -64,8 +64,10 @@ def spritz(filename=None):
 	if not filename:
 		return render_template('spritz.html', text="")
 
+	# flask.safe_join(directory, filename)
 	url = "http://spritzy.s3-website-us-east-1.amazonaws.com/" + filename
 	url = UPLOAD_FOLDER + filename
+	url = safe_join(application.config['UPLOAD_FOLDER'], filename)
 	print url
 	s = convert_pdf_to_txt(url)
 	s = re.sub(r'\s+', ' ', s)
