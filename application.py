@@ -56,7 +56,18 @@ def convert_pdf_to_txt(path):
 def allowed_file(filename):
 	return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-####################################################### 
+#######################################################
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return 'This page does not exist', 404
+
+@app.errorhandler(500)
+def special_exception_handler(error):
+    return 'File doesn\'t exist', 500
+
+
+#######################################################
 
 @application.route('/')
 @application.route('/spritzy/<filename>')
