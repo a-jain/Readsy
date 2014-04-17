@@ -18,10 +18,10 @@
     <link rel="stylesheet" type="text/css" href="../static/css/all.css">
 
     <script type="text/javascript">
-		s = "{{text}}"
+		formString = "{{text}}"
 		$(document).ready(function() {
-			$("#inputText").text(jDecode(s));
-			if (s != "")
+			$("#inputText").text(jDecode(formString));
+			if (formString != "")
 			{
 				$('#bigtitle').attr('href', '{{url_for('index')}}');
 			}
