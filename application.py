@@ -58,11 +58,11 @@ def allowed_file(filename):
 
 #######################################################
 
-@app.errorhandler(404)
+@application.errorhandler(404)
 def page_not_found(error):
     return 'This page does not exist', 404
 
-@app.errorhandler(500)
+@application.errorhandler(500)
 def special_exception_handler(error):
     return 'File doesn\'t exist', 500
 
