@@ -1,0 +1,11 @@
+Flask==0.10.1
+Jinja2==2.7.2
+MarkupSafe==0.18
+Werkzeug==0.9.4
+decorator==3.4.0
+wsgiref==0.1.2
+gunicorn==18.0
+pdfminer==20140328
+HTMLParser==0.0.2
+newrelic
+boto==2.27.0

@@ -53,3 +53,8 @@ div.inner {
 	font-family: 'Share Tech Mono';
 	padding-bottom:10px;
 }
+
+#bigtitle {
+	color: inherit;
+	text-decoration: none;
+}

@@ -22,7 +22,10 @@
 		s = "{{text}}"
 		$(document).ready(function() {
 			$("#inputText").text(jDecode(s));
-
+			if (s != "")
+			{
+				$('#bigtitle').attr('href', '{{url_for('index')}}');
+			}
 		});
 		function jDecode(str) {
     		return $("<div/>").html(str).text();
@@ -36,7 +39,7 @@
 	<div class="middle">
 	<div class="inner">
 	<center>
-	<h1>Readsy</h1>
+	<h1><a id="bigtitle">Readsy</a></h1>
 
 	<p>
 	  	<div id="spritzer"></div>
@@ -44,7 +47,7 @@
     
     <p>
 	    <form action="{{url_for('upload_file')}}">
-		    <input id="uploadPDF" type="submit" value="Upload PDF">
+		    <input id="uploadPDF" type="submit" value="Upload PDF/txt">
 		</form>
 
 	    <textarea id="inputText" rows="12" cols="60" placeholder="Upload a PDF, paste your own text, or click the Sample button to load the sample text" style="margin-bottom: 10px"></textarea><br>    
@@ -53,7 +56,7 @@
 	    <button id="clear" type="submit">Clear</button>     
 	    <button id="startSpritz" type="submit">Spritz!</button>
 	</p>
-	<p><small>&copy; 2014 Akash Jain</small></p>
+	<p><small>&copy; 2014 <a href="mailto:mr.akashj@gmail.com">Akash Jain</a></small></p>
 	</center>
 	</div>
 	</div>

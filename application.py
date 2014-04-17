@@ -28,7 +28,7 @@ application.secret_key = '\x99\x02~p\x90\xa3\xce~\xe0\xe6Q\xe3\x8c\xac\xe9\x94\x
 # conn = S3Connection()
 
 UPLOAD_FOLDER = 'tmp/'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'md'])
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 application.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
@@ -85,15 +85,18 @@ def spritz(filename=None):
 
 	url = "http://spritzy.s3-website-us-east-1.amazonaws.com/" + filename
 	url = safe_join(application.config['UPLOAD_FOLDER'], filename)
-	print url
+	# print url
 	if not os.path.isfile(url):
 		abort(500)
 		return
 
-	if filename.split('.')[-1] == "txt":
+	if filename.split('.')[-1] == "txt" or filename.split('.')[-1] == "md":
 		try:
-			fp = open(url, 'r', 1)
+			fp = open(url, 'r')
 			s = fp.read(application.config['MAX_CONTENT_LENGTH'])
+			s = s.encode('unicode-escape').decode()
+			s = re.sub(r'\s+', ' ', s)
+			# print s
 			return render_template('spritz.html', text=s) 
 
 		except IOError as e:
