@@ -71,14 +71,17 @@ def page_not_found(error):
 def special_exception_handler(error):
     return 'File doesn\'t exist any more :(', 500
 
-
 #######################################################
 
 @application.route('/')
+def index():
+	return render_template('spritz.html')
+
+@application.route('/spritzy')
 @application.route('/spritzy/<filename>')
 def spritz(filename=None):
 	if not filename:
-		return render_template('spritz.html', text="")
+		return redirect(url_for('index'))
 
 	url = "http://spritzy.s3-website-us-east-1.amazonaws.com/" + filename
 	url = safe_join(application.config['UPLOAD_FOLDER'], filename)
@@ -113,7 +116,7 @@ def spritz(filename=None):
 			abort(400)
 			return
 
-	return redirect(url_for(''))
+	return redirect(url_for('index'))
 	# print s
 	
 @application.route('/spritz/login_success')
