@@ -61,7 +61,7 @@ def allowed_file(filename):
 
 @application.errorhandler(400)
 def PDF_not_found(error):
-    return 'Invalid PDF for parsing', 400
+    return 'Invalid file for parsing', 400
 
 @application.errorhandler(404)
 def page_not_found(error):
@@ -80,16 +80,24 @@ def spritz(filename=None):
 	if not filename:
 		return render_template('spritz.html', text="")
 
-	else:
-		# flask.safe_join(directory, filename)
-		url = "http://spritzy.s3-website-us-east-1.amazonaws.com/" + filename
-		url = UPLOAD_FOLDER + filename
-		url = safe_join(application.config['UPLOAD_FOLDER'], filename)
-		print url
-		if not os.path.isfile(url):
-			abort(500)
+	url = "http://spritzy.s3-website-us-east-1.amazonaws.com/" + filename
+	url = safe_join(application.config['UPLOAD_FOLDER'], filename)
+	print url
+	if not os.path.isfile(url):
+		abort(500)
+		return
+
+	if filename.split('.')[-1] == "txt":
+		try:
+			fp = open(url, 'r', 1)
+			s = fp.read(application.config['MAX_CONTENT_LENGTH'])
+			return render_template('spritz.html', text=s) 
+
+		except IOError as e:
+			abort(400)
 			return
 
+	elif filename.split('.')[-1] == "pdf":
 		try:
 			s = convert_pdf_to_txt(url)
 			s = re.sub(r'\s+', ' ', s)
@@ -105,12 +113,9 @@ def spritz(filename=None):
 			abort(400)
 			return
 
-		return redirect(url_for(''))
+	return redirect(url_for(''))
 	# print s
 	
-	
-
-
 @application.route('/spritz/login_success')
 def spritz_login():
 	return render_template('login_success.html')
