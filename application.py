@@ -6,6 +6,7 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
+from pdfminer.pdfparser import PDFSyntaxError
 from cStringIO import StringIO
 # from boto.s3.connection import S3Connection
 # from boto.s3.key import Key
@@ -58,13 +59,17 @@ def allowed_file(filename):
 
 #######################################################
 
+@application.errorhandler(400)
+def PDF_not_found(error):
+    return 'Invalid PDF for parsing', 400
+
 @application.errorhandler(404)
 def page_not_found(error):
     return 'This page does not exist', 404
 
 @application.errorhandler(500)
 def special_exception_handler(error):
-    return 'File doesn\'t exist', 500
+    return 'File doesn\'t exist any more :(', 500
 
 
 #######################################################
@@ -75,18 +80,35 @@ def spritz(filename=None):
 	if not filename:
 		return render_template('spritz.html', text="")
 
-	# flask.safe_join(directory, filename)
-	url = "http://spritzy.s3-website-us-east-1.amazonaws.com/" + filename
-	url = UPLOAD_FOLDER + filename
-	url = safe_join(application.config['UPLOAD_FOLDER'], filename)
-	print url
-	s = convert_pdf_to_txt(url)
-	s = re.sub(r'\s+', ' ', s)
-	s = s.replace('!', '')
-	s = HTMLParser.HTMLParser().unescape(s)
+	else:
+		# flask.safe_join(directory, filename)
+		url = "http://spritzy.s3-website-us-east-1.amazonaws.com/" + filename
+		url = UPLOAD_FOLDER + filename
+		url = safe_join(application.config['UPLOAD_FOLDER'], filename)
+		print url
+		if not os.path.isfile(url):
+			abort(500)
+			return
+
+		try:
+			s = convert_pdf_to_txt(url)
+			s = re.sub(r'\s+', ' ', s)
+			s = s.replace('!', '')
+			s = HTMLParser.HTMLParser().unescape(s)
+			return render_template('spritz.html', text=s) 
+
+		except IOError as e:
+			abort(400)
+			return
+
+		except PDFSyntaxError as e:
+			abort(400)
+			return
+
+		return redirect(url_for(''))
 	# print s
 	
-	return render_template('spritz.html', text=s) 
+	
 
 
 @application.route('/spritz/login_success')
