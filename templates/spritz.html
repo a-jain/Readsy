@@ -4,8 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Readsy - Akash Jain</title>
-	<script src="../static/js/jquery-1.11.0.min.js"></script>
-
+	
 	<script type="text/javascript">
 		var SpritzSettings = {
 				clientId: "afb9145630773e008",
@@ -16,6 +15,8 @@
 	<script type="text/javascript" src="//sdk.spritzinc.com/js/1.0/js/spritz.min.js"></script>
     <script type="text/javascript" src="../static/js/app.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/all.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
 
     <script type="text/javascript">
 		formString = "{{text}}"
@@ -52,6 +53,13 @@
 	<h1><a id="bigtitle">Readsy</a></h1>
 
 	<p>
+		<form action="web" method="GET">
+			<input type="text" name="url"/>
+			<input type="submit" value="Submit URL"/>
+		</form>
+	</p>
+
+	<p>
 	  	<div id="spritzer"></div>
   	</p>
     
@@ -60,7 +68,7 @@
 		    <input id="uploadPDF" type="submit" value="Upload PDF/txt">
 		</form>
 
-	    <textarea id="inputText" rows="12" cols="60" placeholder="Upload a PDF, paste your own text, or click the Sample button to load the sample text" style="margin-bottom: 10px"></textarea><br>    
+	    <textarea id="inputText" placeholder="Upload a PDF, paste your own text, or click the Sample button to load the sample text"></textarea><br>    
 	    
 	    <button id="fill" type="submit">Sample</button>
 	    <button id="clear" type="submit">Clear</button>     
@@ -71,7 +79,8 @@
 	</div>
 	</div>
 	</div>
-
+	<script src="../static/js/jquery-1.11.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>

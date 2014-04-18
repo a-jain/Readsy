@@ -18,6 +18,15 @@ h1, p {
 	font-family: 'Share Tech Mono';
 }
 
+textarea {
+	font-family: 'Share Tech Mono', Arial;
+	width: 438px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+	height: 150px;
+}
+
 div.outer {
    	width: 100%;
 	padding: 0;
