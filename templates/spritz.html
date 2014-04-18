@@ -9,19 +9,22 @@
 		var SpritzSettings = {
 				clientId: "afb9145630773e008",
 				redirectUri: "http://www.readsy.co/spritz/login_success",
-	   };
+		 };
 	</script>
+
+		<link rel="stylesheet" href="../static/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../static/css/bootstrapcustom.css">
 
 	<script src="../static/js/jquery-1.11.0.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript" src="//sdk.spritzinc.com/js/1.0/js/spritz.min.js"></script>
-    <script type="text/javascript" src="../static/js/app.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/css/all.css">
+		<script type="text/javascript" src="../static/js/app.js"></script>
+		<!-- <link rel="stylesheet" type="text/css" href="../static/css/all.css"> -->
 
 
 
-    <script type="text/javascript">
+		<script type="text/javascript">
 		formString = "{{text}}"
 		$(document).ready(function() {
 			$("#inputText").text(jDecode(formString));
@@ -31,57 +34,65 @@
 			}
 		});
 		function jDecode(str) {
-    		return $("<div/>").html(str).text();
+				return $("<div/>").html(str).text();
 		}
 	</script>
 
 	<script type="text/javascript">
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-50152323-1', 'readsy.co');
-	  ga('send', 'pageview');
+		ga('create', 'UA-50152323-1', 'readsy.co');
+		ga('send', 'pageview');
 
 	</script>
 </head>
 
 <body>
 
-	<div class="outer">
-	<div class="middle">
-	<div class="inner">
-	<center>
-	<h1><a id="bigtitle">Readsy</a></h1>
+	<div class="container">
+		<div class="header">
+				<ul class="nav nav-pills pull-right">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+				<h3 class="text-muted">&nbsp;</h3>
+			</div>
 
-	<p>
-		<form action="web" method="GET">
-			<input type="text" name="url"/>
-			<input type="submit" value="Submit URL"/>
-		</form>
-	</p>
+		<div class="jumbotron">
+      <h1><a id="bigtitle">Readsy</a></h1>
 
-	<p>
-	  	<div id="spritzer"></div>
-  	</p>
-    
-    <p>
-	    <form action="{{url_for('upload_file')}}">
-		    <input id="uploadPDF" type="submit" value="Upload PDF/txt">
-		</form>
+			<p>
+				<form action="web" method="GET">
+					<input type="text" name="url"/>
+					<input type="submit" value="Submit URL"/>
+				</form>
+			</p>
 
-	    <textarea id="inputText" placeholder="Upload a PDF, paste your own text, or click the Sample button to load the sample text"></textarea><br>    
-	    
-	    <button id="fill" type="submit">Sample</button>
-	    <button id="clear" type="submit">Clear</button>     
-	    <button id="startSpritz" type="submit">Spritz!</button>
-	</p>
-	<p><small>&copy; 2014 <a href="mailto:mr.akashj@gmail.com">Akash Jain</a></small></p>
-	</center>
-	</div>
-	</div>
-	</div>
+			<p>
+					<div id="spritzer"></div>
+				</p>
+				
+				<p>
+					<form action="{{url_for('upload_file')}}">
+						<input id="uploadPDF" type="submit" value="Upload PDF/txt">
+				</form>
+
+					<textarea id="inputText" placeholder="Upload a PDF, paste your own text, or click the Sample button to load the sample text"></textarea><br>    
+					
+					<button id="fill" type="submit">Sample</button>
+					<button id="clear" type="submit">Clear</button>     
+					<button id="startSpritz" type="submit">Spritz!</button>
+			</p><br>
+
+			<small>&copy; 2014 <a href="mailto:mr.akashj@gmail.com">Akash Jain</a></small>			
+    </div>
+			
+  <!-- close container -->
+	</div>	
 
 </body>
 
