@@ -108,6 +108,10 @@ def sign_s3():
 def index():
 	return render_template('spritz.html')
 
+@application.route('/about')
+def about():
+	return render_template('about.html')
+
 @application.route('/spritzy')
 @application.route('/spritzy/<filename>')
 def spritz(filename=None):

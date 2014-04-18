@@ -26,16 +26,16 @@
 
 
 		<script type="text/javascript">
-		formString = "{{text}}"
-		$(document).ready(function() {
-			$("#inputText").text(jDecode(formString));
-			if (formString != "")
-			{
-				$('#bigtitle').attr('href', '{{url_for('index')}}');
-			}
-		});
-		function jDecode(str) {
-				return $("<div/>").html(str).text();
+			formString = "{{text}}"
+			$(document).ready(function() {
+				$("#inputText").text(jDecode(formString));
+				if (formString != "")
+				{
+					$('#bigtitle').attr('href', '{{url_for('index')}}');
+				}
+			});
+			function jDecode(str) {
+					return $("<div/>").html(str).text();
 		}
 	</script>
 
@@ -57,7 +57,7 @@
 		<div class="header">
 				<ul class="nav nav-pills pull-right">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">About</a></li>
+					<li><a href="about">About</a></li>
 					<li><a href="#">Contact</a></li>
 				</ul>
 				<h3 class="text-muted">&nbsp;</h3>
@@ -93,8 +93,6 @@
 				<div class="btn-group btn-group-lg">
 					<button id="startSpritz" type="submit" class="btn btn-success">Spritz!</button>
 				</div>	
-				
-
 			</p>
 		</div>
 	<!-- close container -->
