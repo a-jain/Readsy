@@ -1,3 +1,4 @@
+// spritz
 (function() {
 	var spritzController = null;
 
@@ -55,6 +56,64 @@
 		init();
 	});
 
-	
 })();
+
+//// redirects
+// About button
+$(document).ready(function() {
+	navbarlinks();
+});
+
+function navbarlinks()
+{
+	$("#navbar1").click(function()
+	{
+	    if (!$("#jumbotron").is(":visible"))
+	    {
+	    	$("#aboutme").hide("fast", "swing", showjumbo());
+	    	$("#contactme").hide("fast", "swing", showjumbo());
+		    $("#list1").prop("class", "active");
+		    $("#list2").prop("class", "inactive");
+		    $("#list3").prop("class", "inactive");
+		    navbarlinks();
+	    }
+	});
+
+	$("#navbar2").click(function()
+	{
+	    if (!$("#aboutme").is(":visible"))
+	    {
+	    	$("#jumbotron").hide("fast", "swing", showabout());
+	    	$("#contactme").hide("fast", "swing", showabout());
+		    $("#list1").prop("class", "inactive");
+		    $("#list2").prop("class", "active");
+		    $("#list3").prop("class", "inactive");
+		    navbarlinks();
+	    }
+	});
+
+	$("#navbar3").click(function()
+	{
+	    if (!$("#contactme").is(":visible"))
+	    {
+	    	$("#jumbotron").hide("fast", "swing", showcontact());
+	    	$("#aboutme").hide("fast", "swing", showcontact());
+		    $("#list1").prop("class", "inactive");
+		    $("#list2").prop("class", "inactive");
+		    $("#list3").prop("class", "active");
+		    navbarlinks();
+	    }
+	});
+}
+
+function showjumbo() {
+	$("#jumbotron").fadeIn("fast");
+}
+function showabout() {
+	$("#aboutme").fadeIn("fast");
+}
+function showcontact() {
+	$("#contactme").fadeIn("fast");
+}
+
 

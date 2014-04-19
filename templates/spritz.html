@@ -53,17 +53,17 @@
 
 <body>
 
-	<div class="container">
+	<div class="container" id="content1">
 		<div class="header">
 				<ul class="nav nav-pills pull-right">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="about">About</a></li>
-					<li><a href="#">Contact</a></li>
+					<li id="list1" class="active"><a id="navbar1" href="#">Home</a></li>
+					<li id="list2" class="inactive"><a id="navbar2" href="#">About</a></li>
+					<li id="list3" class="inactive"><a id="navbar3" href="#">Contact</a></li>
 				</ul>
 				<h3 class="text-muted">&nbsp;</h3>
 		</div>
 
-		<div class="jumbotron">
+		<div class="jumbotron" id="jumbotron">
       <h1><a id="bigtitle">Readsy</a></h1>
 
 			<p>
@@ -95,8 +95,26 @@
 				</div>	
 			</p>
 		</div>
+
+		<div style="display:none" id="aboutme">
+			<div class="jumbotron" id="jumbotron">
+	      <h1><a id="bigtitle">Akash Jain</a></h1>
+	      <p>
+	      	I am a sophomore at Princeton University majoring in Computer Science.
+	      </p>
+			</div>
+		</div>
+
+		<div style="display:none" id="contactme">
+			<div class="jumbotron" id="jumbotron">
+	      <h1><a id="bigtitle">Get In Touch!</a></h1>
+	      <p>
+	      	Email me <a href="mailto:mr.akashj@gmail.com">here</a>
+	      </p>
+			</div>
+		</div>
 	<!-- close container -->
-	</div>	
+	</div>
 
   <div class="footer">
 		<center><p style="margin-bottom: 0px;">&copy; 2014 <a href="mailto:mr.akashj@gmail.com">Akash Jain</a></p></center>
