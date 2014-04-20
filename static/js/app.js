@@ -39,7 +39,7 @@
 	};
 
 	if (document.documentElement.clientWidth <= 450)
-		customOptions["redicleWidth"] = 320;
+		customOptions["redicleWidth"] = 300;
 
 	var init = function() {
 		
