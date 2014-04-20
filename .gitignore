@@ -23,6 +23,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+tmp/*.pdf
 
 # Installer logs
 pip-log.txt
