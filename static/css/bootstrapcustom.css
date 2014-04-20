@@ -20,7 +20,7 @@ body {
     position: relative
 }
 
-textarea, #inputText {
+#inputText {
   font-family: 'Share Tech Mono', Arial;
   max-width: 438px;
   margin-left: auto;
@@ -44,14 +44,20 @@ textarea, #inputText {
   text-decoration: none;
 }
 
+/*.container {
+  padding-right: 0px;
+  padding-left: 0px;
+}*/
+
 /******** MY STUFF ************/
 
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
+.jumbotron,
 .footer {
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 /* Custom page header */
@@ -77,6 +83,8 @@ textarea, #inputText {
 @media (min-width: 768px) {
   .container {
     max-width: 730px;
+    padding-right: 20px;
+    padding-left: 20px;
   }
 }
 .container-narrow > hr {
@@ -96,6 +104,8 @@ textarea, #inputText {
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
   .header,
+  .jumbotron,
+  .container,
   .footer {
     padding-right: 0;
     padding-left: 0;
