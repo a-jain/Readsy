@@ -104,9 +104,9 @@ def sign_s3():
 
 #######################################################
 
-@application.route('/')
-@application.route('/about')
 @application.route('/contact')
+@application.route('/about')
+@application.route('/')
 def index():
 	return render_template('spritz.html')
 
