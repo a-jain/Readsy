@@ -22,7 +22,7 @@ application.debug = True
 application.secret_key = '\x99\x02~p\x90\xa3\xce~\xe0\xe6Q\xe3\x8c\xac\xe9\x94\x84B\xe7\x9d=\xdf\xbb&'
 
 UPLOAD_FOLDER = 'tmp/'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'md'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 application.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
@@ -49,21 +49,21 @@ def convert_pdf_to_txt(path):
 	return str
 
 def allowed_file(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 #######################################################
 
 @application.errorhandler(400)
 def PDF_not_found(error):
-    return 'Invalid file for parsing', 400
+	return 'Invalid file for parsing', 400
 
 @application.errorhandler(404)
 def page_not_found(error):
-    return 'This page does not exist', 404
+	return 'This page does not exist', 404
 
 @application.errorhandler(500)
 def special_exception_handler(error):
-    return 'File doesn\'t exist any more :(', 500
+	return 'File doesn\'t exist any more :(', 500
 	
 @application.route('/spritz/login_success')
 def spritz_login():
@@ -71,27 +71,58 @@ def spritz_login():
 
 @application.route('/sign_s3/')
 def sign_s3():
-    AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    S3_BUCKET = os.environ.get('S3_BUCKET')
+	AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
+	AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+	S3_BUCKET = os.environ.get('S3_BUCKET')
 
-    object_name = request.args.get('s3_object_name')
-    mime_type = request.args.get('s3_object_type')
+	object_name = request.args.get('s3_object_name')
+	mime_type = request.args.get('s3_object_type')
 
-    expires = int(time.time()+10)
-    amz_headers = "x-amz-acl:public-read"
+	expires = int(time.time()+10)
+	amz_headers = "x-amz-acl:public-read"
 
-    put_request = "PUT\n\n%s\n%d\n%s\n/%s/%s" % (mime_type, expires, amz_headers, S3_BUCKET, object_name)
+	put_request = "PUT\n\n%s\n%d\n%s\n/%s/%s" % (mime_type, expires, amz_headers, S3_BUCKET, object_name)
 
-    signature = base64.encodestring(hmac.new(AWS_SECRET_KEY, put_request, sha1).digest())
-    signature = urllib.quote_plus(signature.strip())
+	signature = base64.encodestring(hmac.new(AWS_SECRET_KEY, put_request, sha1).digest())
+	signature = urllib.quote_plus(signature.strip())
 
-    url = 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, object_name)
+	url = 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, object_name)
 
-    return json.dumps({
-        'signed_request': '%s?AWSAccessKeyId=%s&Expires=%d&Signature=%s' % (url, AWS_ACCESS_KEY, expires, signature),
-         'url': url
-      })
+	return json.dumps({
+		'signed_request': '%s?AWSAccessKeyId=%s&Expires=%d&Signature=%s' % (url, AWS_ACCESS_KEY, expires, signature),
+		 'url': url
+	  })
+
+#######################################################
+
+def PDFhelper(url):
+	try:
+		s = convert_pdf_to_txt(url)
+		s = re.sub(r'\s+', ' ', s)
+		s = s.replace('!', '')
+		s = HTMLParser.HTMLParser().unescape(s)
+		return s
+
+	except IOError as e:
+		abort(400)
+		return
+
+	except PDFSyntaxError as e:
+		abort(400)
+		return
+
+def TXThelper(url):
+	try:
+		fp = open(url, 'r')
+		s = fp.read(application.config['MAX_CONTENT_LENGTH'])
+		s = s.encode('unicode-escape').decode()
+		s = re.sub(r'\s+', ' ', s)
+		# print s
+		return s
+
+	except IOError as e:
+		abort(400)
+		return
 
 #######################################################
 
@@ -107,41 +138,20 @@ def spritz(filename=None):
 	if not filename:
 		return redirect(url_for('index'))
 
-	url = "http://spritzy.s3-website-us-east-1.amazonaws.com/" + filename
+	# url = "http://spritzy.s3-website-us-east-1.amazonaws.com/" + filename
 	url = safe_join(application.config['UPLOAD_FOLDER'], filename)
 	# print url
 	if not os.path.isfile(url):
 		abort(500)
 		return
 
-	if filename.split('.')[-1] == "txt" or filename.split('.')[-1] == "md":
-		try:
-			fp = open(url, 'r')
-			s = fp.read(application.config['MAX_CONTENT_LENGTH'])
-			s = s.encode('unicode-escape').decode()
-			s = re.sub(r'\s+', ' ', s)
-			# print s
-			return render_template('spritz.html', text=s) 
+	if filename.split('.')[-1].lower() == "txt":
+		s = TXThelper(url)
+		return render_template('spritz.html', text=s) 
 
-		except IOError as e:
-			abort(400)
-			return
-
-	elif filename.split('.')[-1] == "pdf":
-		try:
-			s = convert_pdf_to_txt(url)
-			s = re.sub(r'\s+', ' ', s)
-			s = s.replace('!', '')
-			s = HTMLParser.HTMLParser().unescape(s)
-			return render_template('spritz.html', text=s) 
-
-		except IOError as e:
-			abort(400)
-			return
-
-		except PDFSyntaxError as e:
-			abort(400)
-			return
+	elif filename.split('.')[-1].lower() == "pdf":
+		s = PDFhelper(url)
+		return render_template('spritz.html', text=s) 
 
 	return redirect(url_for('index'))
 	# print s
@@ -162,7 +172,7 @@ def upload_file():
 @application.route('/uploads/<filename>')
 def uploaded_file(filename):
 	if not filename:
-		return redirect(url_for('uploaded_file', filename=filename))
+		return redirect(url_for('uploaded_file', filename=filename.lower()))
 
 	return send_from_directory(application.config['UPLOAD_FOLDER'], filename)
 
@@ -179,15 +189,35 @@ def url_handle():
 	if "readsy.co" in url:
 		return render_template('spritz.html', text="Parse a different website!")
 
+	ext = url.split('.')[-1].lower()
+	if ext in ALLOWED_EXTENSIONS:
+		r = requests.get(url, stream=True)
+		if r.status_code == 200:
+			filename = url.split('.')[-1]
+			fullname = filename + r"." + ext
+			path = safe_join(application.config['UPLOAD_FOLDER'], fullname)
+			with open(path, 'wb') as f:
+				for chunk in r.iter_content():
+					f.write(chunk)
+			if ext == "pdf":
+				s = PDFhelper(path)
+				return render_template('spritz.html', text=s) 
+
+			elif ext == "txt":
+				s = TXThelper(path)
+				return render_template('spritz.html', text=s)
+
+		else:
+			abort(400)
+			return
+
 	r = requests.get(url)
 	contentType = r.headers['content-type']
-
 	if "text" not in contentType:
 		return render_template('spritz.html', text="Not a valid URL for parsing")
 
 	READABILITY_TOKEN = 'd58d28ee3b6259ece0a6f7b3ad985aa171fe8ac5'
 	parser_client = ParserClient(READABILITY_TOKEN)
-
 	parser_response = parser_client.get_article_content(url)
 	contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
 
