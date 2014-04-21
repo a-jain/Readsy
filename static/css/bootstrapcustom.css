@@ -21,6 +21,10 @@ body {
     z-index: 999;
 }
 
+h1 {
+  padding-bottom: 5px;
+}
+
 #inputText {
   font-family: 'Share Tech Mono', Arial;
   max-width: 438px;
@@ -114,7 +118,7 @@ body {
   }
   /* Space out the masthead */
   .header {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
