@@ -11,14 +11,7 @@ from cStringIO import StringIO
 from readability import ParserClient
 from urlparse import urlparse
 from bs4 import BeautifulSoup
-# from boto.s3.connection import S3Connection
-# from boto.s3.key import Key
 
-# conn = S3Connection('____________________', '________________________________________')
-# bucket = conn.get_bucket('bucketname')
-# key = bucket.get_key("picture.jpg")
-# fp = open ("picture.jpg", "w")
-# key.get_file (fp)
 import re, sys, os, base64, hmac, urllib, time
 import HTMLParser
 reload(sys)
@@ -27,8 +20,6 @@ sys.setdefaultencoding("utf-8")
 application = Flask(__name__)
 application.debug = True
 application.secret_key = '\x99\x02~p\x90\xa3\xce~\xe0\xe6Q\xe3\x8c\xac\xe9\x94\x84B\xe7\x9d=\xdf\xbb&'
-
-# conn = S3Connection()
 
 UPLOAD_FOLDER = 'tmp/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'md'])
