@@ -18,6 +18,7 @@ body {
     max-height: 200px;
     background-color: #e5e5e5;
     position: relative
+    z-index: 999;
 }
 
 #inputText {
@@ -118,7 +119,8 @@ body {
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
-    padding-top: 0px;
-    margin-bottom: 0px;
+    padding-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
   }
 }
