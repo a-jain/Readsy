@@ -13,7 +13,7 @@ from urlparse import urlparse
 from bs4 import BeautifulSoup
 
 import re, sys, os, base64, hmac, urllib, time
-import HTMLParser
+import HTMLParser, requests
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -176,15 +176,22 @@ def url_handle():
 	if '://' not in url:
 		url = "http://" + url
 
-	READABILITY_TOKEN = 'd58d28ee3b6259ece0a6f7b3ad985aa171fe8ac5'
-	parser_client = ParserClient(READABILITY_TOKEN)
+	r = requests.get(url)
+	contentType = r.headers['content-type']
 
-	parser_response = parser_client.get_article_content(url)
-	contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
+	if "text" not in contentType:
+		s = "Not a valid URL for parsing"
 
-	soup = BeautifulSoup(contentStr)
-	s = soup.get_text()
-	s = re.sub(r'\s+', ' ', s)
+	else:
+		READABILITY_TOKEN = 'd58d28ee3b6259ece0a6f7b3ad985aa171fe8ac5'
+		parser_client = ParserClient(READABILITY_TOKEN)
+
+		parser_response = parser_client.get_article_content(url)
+		contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
+
+		soup = BeautifulSoup(contentStr)
+		s = soup.get_text()
+		s = re.sub(r'\s+', ' ', s)
 
 	return render_template('spritz.html', text=s)
 
