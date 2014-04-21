@@ -155,7 +155,7 @@ def spritz(filename=None):
 	return redirect(url_for('index'))
 	# print s
 
-@application.route('/upload')
+# @application.route('/upload')
 @application.route('/upload', methods=['GET', 'POST'])
 def upload_file():
 	if request.method == 'POST':
@@ -165,7 +165,7 @@ def upload_file():
 			file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 			return redirect(url_for('spritz', filename=filename))
 			# return redirect(url_for('uploaded_file', filename=filename))
-	return render_template('upload_form.html')
+	return redirect(url_for('index'))
 
 
 @application.route('/uploads/<filename>')
@@ -189,7 +189,7 @@ def url_handle():
 	parser_client = ParserClient(READABILITY_TOKEN)
 
 	parser_response = parser_client.get_article_content(url)
-	contentStr = parser_response.content['title'] + parser_response.content['content']
+	contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
 
 	soup = BeautifulSoup(contentStr)
 	s = soup.get_text()
