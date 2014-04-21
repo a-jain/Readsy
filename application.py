@@ -165,7 +165,7 @@ def upload_file():
 			file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 			return redirect(url_for('spritz', filename=filename))
 			# return redirect(url_for('uploaded_file', filename=filename))
-	return redirect(url_for('index'))
+	return redirect(url_for('spritz', filename="hi.txt"))
 
 
 @application.route('/uploads/<filename>')

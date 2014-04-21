@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<meta charset="utf-8">
@@ -65,8 +65,12 @@
       <h1><a id="bigtitle">Readsy</a></h1>
 
 			<p>
-				<form action="web" method="GET">
-					<input type="text" name="url"/>
+				<form action="web" method="GET" class="form-inline" role="form">
+					<div class="form-group">
+					  <label class="sr-only" for="urlentry">Enter URL</label>
+					  <input type="text" class="form-control" name="url" id="urlentry" placeholder="Enter URL here"/>
+					</div>
+					<!-- <input type="text" class="form-control" name="url" placeholder="Enter URL here"/> -->
 					<input type="submit" class="btn btn-primary btn-sm" value="Submit URL"/>
 				</form>
 			</p>
