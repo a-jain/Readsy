@@ -70,7 +70,7 @@
 					  <label class="sr-only" for="urlentry">Enter URL</label>
 					  <input type="text" class="form-control" name="url" id="urlentry" placeholder="Enter URL here"/>
 					</div>
-					<!-- <input type="text" class="form-control" name="url" placeholder="Enter URL here"/> -->
+					
 					<input type="submit" class="btn btn-primary btn-sm" value="Submit URL"/>
 				</form>
 			</p>
@@ -123,22 +123,28 @@
 		<div style="display:none" id="aboutme">
 			<div class="jumbotron" id="jumbotron">
 	      <h1><a id="bigtitle">Akash Jain</a></h1>
-	      <p>
-	      	I am a sophomore at Princeton University majoring in Computer Science.
-	      </p>
+	      
+          <div class="alert alert-success">
+		      <p class="text-left"><small>
+		      Bookmarklet is here: <a class="btn btn-info btn-xs" href='javascript:void((function(){var a=location.href.replace(/^http%5C:%5C/%5C/(.*)$/,"$1");location.href="http://www.readsy.co/web?url="+escape(a);})());' onclick="alert('Drag this button onto your toolbar to add the Readsy bookmarklet');return false">Readsy</a>. Drag it onto your favorites bar and click it whenever you're reading a tedious article!
+		      </small></p>
+          </div>
+          <p class="text-left"><small>
+	      	<a href="http://akashjain.co.uk">I</a> am a sophomore at Princeton University majoring in Computer Science.<br>
+	      </small></p>
 
-	      <p>
-	      Bookmarklet is here: <a class="btn btn-info btn-xs" href='javascript:void((function(){var a=location.href.replace(/^http%5C:%5C/%5C/(.*)$/,"$1");location.href="http://www.readsy.co/web?url="+escape(a);})());' onclick="alert('Drag this button onto your toolbar to add the Readsy bookmarklet');return false">Readsy</a>. Drag it onto your favourites bar!
-	      </p>
+	      <p class="text-left"><small>
+	      	This is a little experiment to make it easier to read. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery.
+	      </small></p>
 			</div>
 		</div>
 
 		<div style="display:none" id="contactme">
 			<div class="jumbotron" id="jumbotron">
 	      <h1><a id="bigtitle">Get In Touch!</a></h1>
-	      <p>
+	      <p><small>
 	      	Email me <a href="mailto:mr.akashj@gmail.com">here</a>
-	      </p>
+	      </small></p>
 			</div>
 		</div>
 	<!-- close container -->
