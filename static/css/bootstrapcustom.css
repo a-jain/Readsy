@@ -1,21 +1,23 @@
-@import url('http://fonts.googleapis.com/css?family=Share+Tech+Mono');
+/*@import url('http://fonts.googleapis.com/css?family=Share+Tech+Mono');*/
+@import url(http://fonts.googleapis.com/css?family=PT+Mono);
 
 /* Space out content a bit */
 body {
   padding-top: 20px;
   padding-bottom: 20px;
-  font-family: 'Share Tech Mono';
+  font-family: 'PT Mono', '';
   background-color: #F0F0F0;
 }
 
 /******** MY STUFF ************/
 
 h1 {
+  font-size:40pt;
   padding-bottom: 5px;
 }
 
 #inputText {
-  font-family: 'Share Tech Mono', Arial;
+  /*font-family: 'Share Tech Mono', Arial;*/
   max-width: 436px;
   margin-left: auto;
   margin-right: auto;
