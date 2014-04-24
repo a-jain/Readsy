@@ -26,14 +26,12 @@
 	<script type="text/javascript">
 		formString = "{{text}}"
 		$(document).ready(function() {
-			
 			if (formString != "")
 			{
 				$("#inputText").focus();
 		    	$("#inputText").val(jDecode(formString)); 
 		    	$("#urlentry").val(getFirstQuery()) 
 		    	$('#bigtitle').attr('href', '{{url_for('index')}}');
-
 			}
 			if ("{{error}}" != "")
 			{
@@ -41,7 +39,7 @@
 			}
 		});
 		function jDecode(str) {
-				return $("<div/>").html(str).text();
+			return $("<div/>").html(str).text();
 		}
 
 		function getFirstQuery()
@@ -59,12 +57,10 @@
 
 		ga('create', 'UA-50152323-1', 'readsy.co');
 		ga('send', 'pageview');
-
 	</script>
 </head>
 
 <body>
-
 	<div class="container" id="content1">
 		<div class="header">
 				<ul class="nav nav-pills pull-right">
@@ -76,7 +72,7 @@
 		</div>
 
 		<div class="jumbotron" id="jumbotron">
-      <h1><a id="bigtitle">Readsy</a></h1>
+      		<h1><a id="bigtitle">Readsy</a></h1>
 
 			<p>
 				<form action="web" method="GET" class="form-inline" role="form">
@@ -136,36 +132,36 @@
 
 		<div style="display:none" id="aboutme">
 			<div class="jumbotron" id="jumbotron">
-	      <h1><a id="bigtitle">Akash Jain</a></h1>
+	      	<h1><a id="bigtitle">Akash Jain</a></h1>
 	      
-          <div class="alert alert-success">
+          	<div class="alert alert-success">
 		      <p class="text-left"><small>
 		      Bookmarklet is here: <a class="btn btn-info btn-xs" href='javascript:void((function(){var a=location.href.replace(/^http%5C:%5C/%5C/(.*)$/,"$1");location.href="http://www.readsy.co/web?url="+escape(a);})());' onclick="alert('Drag this button onto your toolbar to add the Readsy bookmarklet');return false">Readsy</a>. Drag it onto your favorites bar and click it whenever you're reading a tedious article!
 		      </small></p>
-          </div>
-          <p class="text-left"><small>
-	      	<a href="http://akashjain.co.uk">I</a> am a sophomore at Princeton University majoring in Computer Science.<br>
-	      </small></p>
+          	</div>
+          	<p class="text-left"><small>
+	      		<a href="http://akashjain.co.uk">I</a> am a sophomore at Princeton University majoring in Computer Science.<br>
+	      	</small></p>
 
-	      <p class="text-left"><small>
-	      	This is a little experiment to make it easier to read longform content. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, Requests, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery.
-	      </small></p>
+	      	<p class="text-left"><small>
+	      		This is a little experiment to make it easier to read longform content. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, Requests, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery.
+	      	</small></p>
 			</div>
 		</div>
 
 		<div style="display:none" id="contactme">
 			<div class="jumbotron" id="jumbotron">
-	      <h1><a id="bigtitle">Get In Touch!</a></h1>
-	      <p><small>
-	      	Email me <a href="mailto:mr.akashj@gmail.com">here</a>
-	      </small></p>
+	      	<h1><a id="bigtitle">Get In Touch!</a></h1>
+	      	<p><small>
+	      		Email me <a href="mailto:mr.akashj@gmail.com">here</a>
+	      	</small></p>
 			</div>
 		</div>
 	<!-- close container -->
 	</div>
 
   <div class="footer">
-		<center><p style="margin-bottom: 0px;">&copy; 2014 <a href="mailto:mr.akashj@gmail.com">Akash Jain</a></p></center>
+		<center><p>&copy; 2014 <a href="mailto:mr.akashj@gmail.com">Akash Jain</a></p></center>
   </div>
 
 </body>
