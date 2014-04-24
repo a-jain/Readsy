@@ -16,12 +16,9 @@
     
     function fillTextClick() {
     	var testText = "Just as she said this, she noticed that one of the trees had a door leading right into it. 'That's very curious!' she thought. 'But everything's curious today. I think I may as well go in at once.' And in she went.";    		
+    	$("#inputText").focus();
     	var text = $("#inputText").val(); 
     	$("#inputText").val(text + (text != "" ? "\n" : "") + testText);  
-    	$("#inputText").animate({
-		    scrollTop:$("#inputText")[0].scrollHeight
-		},1000)
-    	$("#inputText").focus();
     }
 
 	function onStartSpritzClick(event) {

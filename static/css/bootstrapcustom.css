@@ -16,10 +16,12 @@ h1 {
 
 #inputText {
   font-family: 'Share Tech Mono', Arial;
-  max-width: 438px;
+  max-width: 436px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 10px;
+  overflow-y: scroll;
+  z-index: -1;
 }
 
 #bigtitle {

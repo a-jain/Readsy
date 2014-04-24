@@ -26,14 +26,14 @@
 	<script type="text/javascript">
 		formString = "{{text}}"
 		$(document).ready(function() {
-			$("#inputText").text(jDecode(formString));
+			
 			if (formString != "")
 			{
-				$('#bigtitle').attr('href', '{{url_for('index')}}');
-				$("#inputText").animate({
-				    scrollTop:$("#inputText")[0].scrollHeight - $("#inputText").height()
-				},1000)
 				$("#inputText").focus();
+		    	$("#inputText").val(jDecode(formString)); 
+		    	$("#urlentry").val(getFirstQuery()) 
+		    	$('#bigtitle').attr('href', '{{url_for('index')}}');
+
 			}
 			if ("{{error}}" != "")
 			{
@@ -42,6 +42,12 @@
 		});
 		function jDecode(str) {
 				return $("<div/>").html(str).text();
+		}
+
+		function getFirstQuery()
+		{
+			var qs = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+			return qs[0].split('=')[1];
 		}
 	</script>
 
@@ -115,7 +121,7 @@
 				</div>
 				<!-- modal code finish -->
 
-				<textarea class="form-control" rows="6" id="inputText" placeholder="Upload a PDF, paste your own text, or click the Sample button to load the sample text. You may be asked to create an account with Spritzy - it takes about 10 seconds to do!"></textarea><br>   
+				<textarea class="form-control" rows="7" id="inputText" placeholder="Upload a PDF, paste your own text, or click the Sample button to load the sample text. You may be asked to create an account with Spritzy - it takes about 10 seconds to do!"></textarea><br>   
 				
 				<div class="btn-group btn-group-lg">
 					<button id="fill" type="submit" class="btn btn-primary">Sample</button> 
