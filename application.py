@@ -26,6 +26,10 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 application.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
+ERROR_400 = 'Invalid file for parsing'
+ERROR_404 = 'This page does not exist'
+ERROR_500 = 'File doesn\'t exist any more'
+
 ####################################################### 
 
 def convert_pdf_to_txt(path):
@@ -55,15 +59,15 @@ def allowed_file(filename):
 
 @application.errorhandler(400)
 def PDF_not_found(error):
-	return 'Invalid file for parsing', 400
+	return render_template('spritz.html', text=ERROR_400, error=400)
 
 @application.errorhandler(404)
 def page_not_found(error):
-	return 'This page does not exist', 404
+	return render_template('spritz.html', text=ERROR_404, error=404)
 
 @application.errorhandler(500)
 def special_exception_handler(error):
-	return 'File doesn\'t exist any more :(', 500
+	return render_template('spritz.html', text=ERROR_500, error=500)
 	
 @application.route('/spritz/login_success')
 def spritz_login():
@@ -228,4 +232,4 @@ def url_handle():
 	return render_template('spritz.html', text=s)
 
 if __name__ == '__main__':
-	application.run(debug=True)
+	application.run(debug=False)
