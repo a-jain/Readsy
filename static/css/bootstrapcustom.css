@@ -36,6 +36,13 @@ h1 {
   max-width: 438px;
 }
 
+@media screen and (max-width: 480px) {
+  #urlentry {
+    min-width: 340px;
+  }
+
+}
+
 /******** MY STUFF ************/
 
 
@@ -89,9 +96,7 @@ h1 {
   font-family: 'Arial';
 }
 
-#urlentry {
-  min-width: 100px;
-}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
