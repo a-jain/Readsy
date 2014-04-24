@@ -34,7 +34,7 @@
 	var customOptions = {
 			"redicleWidth" : 	434,	// Specify Redicle width
 			"redicleHeight" : 	150,	// Specify Redicle height
-			"defaultSpeed" :    500,
+			"defaultSpeed" :    300,
 			"controlTitles" : {
             "pause" :         "Pause",
             "play" :          "Play",
@@ -44,7 +44,7 @@
 	};
 
 	if (document.documentElement.clientWidth <= 480)
-		customOptions["redicleWidth"] = 300;
+		customOptions["redicleWidth"] = 302.;
 
 	var init = function() {
 		
