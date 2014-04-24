@@ -30,9 +30,10 @@
 			{
 				$("#inputText").focus();
 		    	$("#inputText").val(jDecode(formString)); 
-		    	$("#urlentry").val(getFirstQuery()) 
+		    	$("#urlentry").val("{{filename}}") 
 		    	$('#bigtitle').attr('href', '{{url_for('index')}}');
 			}
+			
 			if ("{{error}}" != "")
 			{
 				$("#inputText").blur();
@@ -40,12 +41,6 @@
 		});
 		function jDecode(str) {
 			return $("<div/>").html(str).text();
-		}
-
-		function getFirstQuery()
-		{
-			var qs = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-			return qs[0].split('=')[1];
 		}
 	</script>
 

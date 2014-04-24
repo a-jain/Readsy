@@ -151,11 +151,11 @@ def spritz(filename=None):
 
 	if filename.split('.')[-1].lower() == "txt":
 		s = TXThelper(url)
-		return render_template('spritz.html', text=s) 
+		return render_template('spritz.html', text=s, filename=filename) 
 
 	elif filename.split('.')[-1].lower() == "pdf":
 		s = PDFhelper(url)
-		return render_template('spritz.html', text=s) 
+		return render_template('spritz.html', text=s, filename=filename) 
 
 	return redirect(url_for('index'))
 	# print s
@@ -205,11 +205,11 @@ def url_handle():
 					f.write(chunk)
 			if ext == "pdf":
 				s = PDFhelper(path)
-				return render_template('spritz.html', text=s) 
+				return render_template('spritz.html', text=s, filename=url) 
 
 			elif ext == "txt":
 				s = TXThelper(path)
-				return render_template('spritz.html', text=s)
+				return render_template('spritz.html', text=s, filename=url)
 
 		else:
 			abort(400)

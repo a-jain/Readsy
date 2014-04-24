@@ -1,0 +1,2 @@
+http://editor.froala.com/#editor-example
+http://labs.voronianski.com/jquery.avgrund.js/
