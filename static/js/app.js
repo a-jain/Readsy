@@ -19,7 +19,7 @@
     	var text = $("#inputText").val(); 
     	$("#inputText").val(text + (text != "" ? "\n" : "") + testText);  
     	$("#inputText").animate({
-		    scrollTop:$("#inputText")[0].scrollHeight - $("#inputText").height()
+		    scrollTop:$("#inputText")[0].scrollHeight
 		},1000)
     	$("#inputText").focus();
     }
