@@ -205,11 +205,11 @@ def url_handle():
 					f.write(chunk)
 			if ext == "pdf":
 				s = PDFhelper(path)
-				return render_template('spritz.html', text=s, filename=url) 
+				return render_template('spritz.html', text=s, filename=url.split('//')[1]) 
 
 			elif ext == "txt":
 				s = TXThelper(path)
-				return render_template('spritz.html', text=s, filename=url)
+				return render_template('spritz.html', text=s, filename=url.split('//')[1])
 
 		else:
 			abort(400)
@@ -218,7 +218,7 @@ def url_handle():
 	r = requests.get(url)
 	contentType = r.headers['content-type']
 	if "text" not in contentType:
-		return render_template('spritz.html', text="Not a valid URL for parsing")
+		return render_template('spritz.html', text="Not a valid URL for parsing", filename=url.split('//')[1])
 
 	READABILITY_TOKEN = 'd58d28ee3b6259ece0a6f7b3ad985aa171fe8ac5'
 	parser_client = ParserClient(READABILITY_TOKEN)
@@ -229,7 +229,8 @@ def url_handle():
 	s = soup.get_text()
 	s = re.sub(r'\s+', ' ', s)
 
-	return render_template('spritz.html', text=s)
+	print url
+	return render_template('spritz.html', text=s, filename=url.split('//')[1])
 
 if __name__ == '__main__':
 	application.run(debug=False)
