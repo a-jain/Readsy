@@ -25,6 +25,7 @@ UPLOAD_FOLDER = 'tmp/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 application.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+READABILITY_TOKEN = 'd58d28ee3b6259ece0a6f7b3ad985aa171fe8ac5'
 
 ERROR_400 = 'Invalid file for parsing'
 ERROR_404 = 'This page does not exist'
@@ -170,15 +171,8 @@ def upload_file():
 			file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 			return redirect(url_for('spritz', filename=filename))
 			# return redirect(url_for('uploaded_file', filename=filename))
+	abort(400)
 	return redirect(url_for('spritz', filename="hi.txt"))
-
-
-@application.route('/uploads/<filename>')
-def uploaded_file(filename):
-	if not filename:
-		return redirect(url_for('uploaded_file', filename=filename.lower()))
-
-	return send_from_directory(application.config['UPLOAD_FOLDER'], filename)
 
 @application.route('/web')
 def url_handle():
@@ -220,7 +214,6 @@ def url_handle():
 	if "text" not in contentType:
 		return render_template('spritz.html', text="Not a valid URL for parsing", filename=url.split('//')[1])
 
-	READABILITY_TOKEN = 'd58d28ee3b6259ece0a6f7b3ad985aa171fe8ac5'
 	parser_client = ParserClient(READABILITY_TOKEN)
 	parser_response = parser_client.get_article_content(url)
 	contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
@@ -229,7 +222,6 @@ def url_handle():
 	s = soup.get_text()
 	s = re.sub(r'\s+', ' ', s)
 
-	print url
 	return render_template('spritz.html', text=s, filename=url.split('//')[1])
 
 if __name__ == '__main__':
