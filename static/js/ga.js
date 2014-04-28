@@ -4,4 +4,5 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   ga('create', 'UA-50152323-1', 'readsy.co');
+  ga('require', 'displayfeatures');
   ga('send', 'pageview');
