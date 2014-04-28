@@ -12,6 +12,7 @@
 	
     function clearTextClick() {
         $("#inputText").val("");
+        $("#progressbar").hide("fast", "linear");
     }
     
     function fillTextClick() {
