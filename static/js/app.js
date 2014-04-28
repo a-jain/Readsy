@@ -25,7 +25,7 @@
 		var text = $('#inputText').val();
 		var locale = "en_us;";
 		
-		$("#progressbar").show();	
+		$("#progressbar").fadeIn("fast");
 		
 		// Send to SpritzEngine to translate
 		SpritzClient.spritzify(text, locale, onSpritzifySuccess, onSpritzifyError);
