@@ -108,11 +108,7 @@ def PDFhelper(url):
 		s = HTMLParser.HTMLParser().unescape(s)
 		return s
 
-	except IOError as e:
-		abort(400)
-		return
-
-	except PDFSyntaxError as e:
+	except:
 		abort(400)
 		return
 
