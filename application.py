@@ -121,7 +121,7 @@ def TXThelper(url):
 		# print s
 		return s
 
-	except IOError as e:
+	except:
 		abort(400)
 		return
 

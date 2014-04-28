@@ -28,7 +28,13 @@
 		// Send to SpritzEngine to translate
 		SpritzClient.spritzify(text, locale, onSpritzifySuccess, onSpritzifyError);
 	};
-	
+
+
+	// Display "Completed X of XXX"
+	function  showProgress(completed, total) {
+	     $("#wordNumber").text(completed);
+	     $("#wordTotal").text(total);
+	};
 	
 	// Customized options
 	var customOptions = {
@@ -54,6 +60,7 @@
 		 
  		// Construct a SpritzController passing the customization options
  		spritzController = new SPRITZ.spritzinc.SpritzerController(customOptions);
+ 		spritzController.setProgressReporter(showProgress);
  		
  		// Attach the controller's container to this page's "spritzer" container
  		spritzController.attach($("#spritzer"));
