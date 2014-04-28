@@ -70,11 +70,11 @@
       		<h1><a id="bigtitle">Readsy</a></h1>
 
       		<p class="text-mid" id="instructions"><small>
-	      		Enter a URL, upload a file, or paste in some text, and then hit <span class="label label-success">Readsy</span>!
+	      		Enter a URL, upload a file, or paste in some text, and then hit <span class="label label-success">Readsy!</span>
 	      	</small></p>
 
-	      	<p id="wordNumber">1</p>
-	      	<p id="wordTotal">2</p>
+	      	<!-- <p id="wordNumber">1</p>
+	      	<p id="wordTotal">2</p> -->
 
 			<p>
 				<form action="web" method="GET" class="form-inline" role="form">
@@ -88,7 +88,8 @@
 			</p>
 
 			<p>
-				<div id="spritzer"></div>
+				<div id="spritzer"></div></br>
+				
 			</p>
 				
 			<p>
@@ -131,6 +132,10 @@
 					<button id="startSpritz" type="submit" class="btn btn-success">Readsy!</button>
 				</div>	
 			</p>
+
+			<p id="progressbar" style="visibility:hidden;"><small>
+				Completed <span id="wordNumber">0</span> words out of <span id="wordTotal">0</span>.
+			</small></p>
 		</div>
 
 		<div style="display:none" id="aboutme">
