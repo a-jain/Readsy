@@ -26,6 +26,17 @@ h1 {
   z-index: -1;
 }
 
+#filelimit {
+  color:#d9534f;
+}
+
+#instructions {
+  max-width: 436px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size:12pt;
+}
+
 #bigtitle {
   color: inherit;
   text-decoration: none;

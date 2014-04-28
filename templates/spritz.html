@@ -69,6 +69,10 @@
 		<div class="jumbotron" id="jumbotron">
       		<h1><a id="bigtitle">Readsy</a></h1>
 
+      		<p class="text-mid" id="instructions"><small>
+	      		Enter a URL, upload a file, or paste in some text, and then hit <span class="label label-success">Readsy</span>!
+	      	</small></p>
+
 			<p>
 				<form action="web" method="GET" class="form-inline" role="form">
 					<div class="form-group">
@@ -98,6 +102,7 @@
 				        <h4 class="modal-title" id="myModalLabel">Upload File to Readsy</h4>
 				      </div>
 				      <div class="modal-body">
+				      	<p id="filelimit"><small><strong>5MB limit</strong></small></p>
 				        <form action="..{{url_for('upload_file')}}" method="post" enctype="multipart/form-data">
 						  	<input type="file" name="file" id="files2"/>
 						    <!-- <button type="submit">Upload</button>						 -->
@@ -112,7 +117,7 @@
 				</div>
 				<!-- modal code finish -->
 
-				<textarea class="form-control" rows="6" id="inputText" placeholder="Upload a PDF, paste your own text, or click the Sample button to load the sample text. You may be asked to create an account with Spritzy - it takes about 10 seconds to do!"></textarea><br>   
+				<textarea class="form-control" rows="6" id="inputText" placeholder="Enter your own text, or click the Sample button to load the sample text. You may be asked to create an account with Spritzy (they power the flashing word box) - it takes about 10 seconds to do!"></textarea><br>   
 				
 				<div class="btn-group btn-group-lg">
 					<button id="fill" type="submit" class="btn btn-primary">Sample</button> 
@@ -120,7 +125,7 @@
 				</div>
 
 				<div class="btn-group btn-group-lg">
-					<button id="startSpritz" type="submit" class="btn btn-success">Spritz!</button>
+					<button id="startSpritz" type="submit" class="btn btn-success">Readsy!</button>
 				</div>	
 			</p>
 		</div>
@@ -128,12 +133,17 @@
 		<div style="display:none" id="aboutme">
 			<div class="jumbotron" id="jumbotron">
 	      	<h1><a id="bigtitle">Akash Jain</a></h1>
-	      
-          	<div class="alert alert-success">
+
+			<div class="alert alert-success">
 		      <p class="text-left"><small>
 		      Bookmarklet is here: <a class="btn btn-info btn-xs" href='javascript:void((function(){var a=location.href.replace(/^http%5C:%5C/%5C/(.*)$/,"$1");location.href="http://www.readsy.co/web?url="+escape(a);})());' onclick="alert('Drag this button onto your toolbar to add the Readsy bookmarklet');return false">Readsy</a>. Drag it onto your favorites bar and click it whenever you're reading a tedious article!
 		      </small></p>
           	</div>
+
+          	<p class="text-left">
+	      		Readsy is a tool to help you skim large amounts of text by focusing your eyes on one word at a time without having to move them. 
+	      	</p></br>
+
           	<p class="text-left"><small>
 	      		<a href="http://akashjain.co.uk">I</a> am a sophomore at Princeton University majoring in Computer Science.<br>
 	      	</small></p>
@@ -148,7 +158,11 @@
 			<div class="jumbotron" id="jumbotron">
 	      	<h1><a id="bigtitle">Get In Touch!</a></h1>
 	      	<p><small>
-	      		Email me <a href="mailto:mr.akashj@gmail.com">here</a>
+	      		<a href="http://www.akashjain.co.uk">Here</a> is my website </br>
+
+	      		Email me <a href="mailto:mr.akashj@gmail.com">here</a> </br>
+
+	      		Or, more informally, get in touch <a href="https://www.facebook.com/mr.akashj">here</a>
 	      	</small></p>
 			</div>
 		</div>

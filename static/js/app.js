@@ -33,7 +33,7 @@
 	// Customized options
 	var customOptions = {
 			"redicleWidth" : 	434,	// Specify Redicle width
-			"redicleHeight" : 	150,	// Specify Redicle height
+			"redicleHeight" : 	135,	// Specify Redicle height
 			"defaultSpeed" :    300,
 			"controlTitles" : {
             "pause" :         "Pause",
