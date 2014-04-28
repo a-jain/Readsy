@@ -24,11 +24,8 @@
 	function onStartSpritzClick(event) {
 		var text = $('#inputText').val();
 		var locale = "en_us;";
-
-		$(document).ready(function() {
-			$("#progressbar").show();
-		});
 		
+		$("#progressbar").show();	
 		
 		// Send to SpritzEngine to translate
 		SpritzClient.spritzify(text, locale, onSpritzifySuccess, onSpritzifyError);
