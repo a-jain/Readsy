@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template, flash, url_for, request, redirect, abort
 from flask import send_from_directory, safe_join, json
 from werkzeug.utils import secure_filename
@@ -103,9 +104,12 @@ def sign_s3():
 def PDFhelper(url):
 	try:
 		s = convert_pdf_to_txt(url)
-		s = re.sub(r'\s+', ' ', s)
+		# s = re.sub(r'\s+', ' ', s)
 		s = s.replace('!', '')
+		
 		s = HTMLParser.HTMLParser().unescape(s)
+		print s
+		s = clean(s)
 		return s
 
 	except:
@@ -124,6 +128,19 @@ def TXThelper(url):
 	except:
 		abort(400)
 		return
+
+def clean(s):
+	PAT_INLINEFOOTNOTE = '\([0-9]{1,3}\)'
+	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
+	PAT_REFERENCES = r'REFERENCES\s.*'
+	PAT_EXTRASPACE = r'\s+'
+
+	s = re.sub(PAT_REFERENCES, '', s)
+	s = re.sub(PAT_RANDOMHYPHEN, '', s)
+	s = re.sub(PAT_INLINEFOOTNOTE, '', s)
+	s = re.sub(PAT_EXTRASPACE, ' ', s)
+
+	return s
 
 #######################################################
 
@@ -221,4 +238,4 @@ def url_handle():
 	return render_template('spritz.html', text=s, filename=url.split('//')[1])
 
 if __name__ == '__main__':
-	application.run(debug=False)
+	application.run(debug=True)
