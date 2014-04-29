@@ -28,7 +28,7 @@ application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 application.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 READABILITY_TOKEN = 'd58d28ee3b6259ece0a6f7b3ad985aa171fe8ac5'
 
-ERROR_400 = 'Invalid file for parsing'
+ERROR_400 = 'Invalid file/URL for parsing'
 ERROR_404 = 'This page does not exist'
 ERROR_500 = 'File doesn\'t exist any more'
 
@@ -232,7 +232,7 @@ def url_handle():
 	except:
 		abort(400)
 		return
-		
+
 	contentType = r.headers['content-type']
 	if "text" not in contentType:
 		return render_template('spritz.html', text="Not a valid URL for parsing", filename=url.split('//')[1])
