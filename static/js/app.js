@@ -44,6 +44,7 @@
 			"redicleWidth" : 	434,	// Specify Redicle width
 			"redicleHeight" : 	135,	// Specify Redicle height
 			"defaultSpeed" :    300,
+			"speedItems" :      [250, 300, 350, 400, 450, 500, 550, 600, 950],
 			"controlTitles" : {
             "pause" :         "Pause",
             "play" :          "Play",

@@ -1,2 +1,4 @@
 http://editor.froala.com/#editor-example
 http://labs.voronianski.com/jquery.avgrund.js/
+
+Take locale info from readability and parse it accordingly

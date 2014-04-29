@@ -53,7 +53,7 @@
 		dropOptions = {
 		    // Required. Called when a user selects an item in the Chooser.
 		    success: function(files) {
-		    	console.log(files[0].link);
+		    	// console.log(files[0].link);
 		        // alert("Here's the file link: " + files[0].link)
 		        if (files[0].bytes > 5 * 1024 * 1024)
 		        {
@@ -62,8 +62,13 @@
 		        else {
 		        	// var a = location.href.replace(/^http%5C:%5C/%5C/(.*)$/,files[0].bytes);
 		        	location.href="http://www.readsy.co/web?url="+escape(files[0].link);
+					$("#uploadfilebutton").removeAttr("disabled");
 		        }
 		    },
+
+		    cancel: function() {
+		    	$("#uploadfilebutton").removeAttr("disabled");
+    		},
 
 		    linkType: "direct",
 
@@ -75,12 +80,13 @@
 		var dropButton = Dropbox.createChooseButton(dropOptions);
 		
 		console.log(dropButton);
-		// document.getElementById("modalbody").appendChild(dropButton);
-		// $("<p>bitch</p>").insertAfter("#modalbody");
-		// $("#modalbody").wrapInner(dropButton);
-		// $("#modalbody").append(dropButton);
-		$(dropButton).insertAfter("#filelimit")
+		$(dropButton).insertAfter("#filelimit");
+		$(dropButton).click(disableButton);
 	});
+
+	function disableButton() {
+		$("#uploadfilebutton").prop("disabled", "disabled");
+	}
 	</script>
 
 	<script type="text/javascript">
@@ -158,7 +164,7 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        <button class="btn btn-primary" type="submit">Upload</button>
+				        <button class="btn btn-primary" type="submit" id="uploadfilebutton">Upload</button>
 				      </div>
 				      	</form>
 				    </div>
@@ -185,7 +191,7 @@
 
 			<div class="alert alert-success">
 		      <p class="text-left"><small>
-		      Bookmarklet is here: <a class="btn btn-info btn-xs" href='javascript:void((function(){var a=location.href.replace(/^http%5C:%5C/%5C/(.*)$/,"$1");location.href="http://www.readsy.co/web?url="+escape(a);})());' onclick="alert('Drag this button onto your toolbar to add the Readsy bookmarklet');return false">Readsy</a>. Drag it onto your favorites bar and click it whenever you're reading a tedious article!
+		      Bookmarklet is here: <a class="btn btn-info btn-xs" href='javascript:void((function(){var a=location.href.replace(/^http%5C:%5C/%5C/(.*)$/,"$1");location.href="http://www.readsy.co/web?url="+escape(a);})());' onclick="alert('Drag this button onto your toolbar to add the Readsy bookmarklet');return false">Readsy</a>. Drag it onto your bookmarks bar and click it from the webpage of a particularly tedious article!
 		      </small></p>
           	</div>
 
@@ -197,9 +203,9 @@
 	      		<a href="http://akashjain.co.uk">Akash Jain</a> is a sophomore at Princeton University majoring in Computer Science.<br>
 	      	</small></p>
 
-	      	<p class="text-left"><small>
+	      	<p class="text-left"><small><small>
 	      		This is a little experiment to make it easier to read longform content. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, Requests, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery.
-	      	</small></p>
+	      	</small></small></p>
 			</div>
 		</div>
 
