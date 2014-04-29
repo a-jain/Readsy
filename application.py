@@ -105,7 +105,7 @@ def PDFhelper(url):
 	try:
 		s = convert_pdf_to_txt(url)
 		# s = re.sub(r'\s+', ' ', s)
-		s = s.replace('!', '')
+		# s = s.replace('!', '')
 		
 		s = HTMLParser.HTMLParser().unescape(s)
 		print s

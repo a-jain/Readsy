@@ -24,8 +24,13 @@
 	<script type="text/javascript" src="../static/js/app.js"></script>
 
 	<link rel="stylesheet" href="../static/css/bootstrapcustom.css">
+	<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="3kwrstpe4ylxu6z">	</script>
 
 	<script type="text/javascript">
+		function jDecode(str) {
+			return $("<div/>").html(str).text();
+		}
+
 		formString = "{{text}}"
 		$(document).ready(function() {
 			if (formString != "")
@@ -41,44 +46,41 @@
 				$("#inputText").blur();
 			}
 		});
-		function jDecode(str) {
-			return $("<div/>").html(str).text();
-		}
-	</script>
-
-	<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="3kwrstpe4ylxu6z">
-		var dropButton = Dropbox.createChooseButton(options);
-		document.getElementById("modalbody").appendChild(dropButton);
-
+			
+		
+		$(document).ready(function() {
 		// check bytes not too high
-		var options = {
+		dropOptions = {
 		    // Required. Called when a user selects an item in the Chooser.
 		    success: function(files) {
 		    	console.log(files[0].link);
 		        // alert("Here's the file link: " + files[0].link)
+		        if (files[0].bytes > 5 * 1024 * 1024)
+		        {
+		        	alert("Please choose another file");
+		        }
+		        else {
+		        	// var a = location.href.replace(/^http%5C:%5C/%5C/(.*)$/,files[0].bytes);
+		        	location.href="http://www.readsy.co/web?url="+escape(files[0].link);
+		        }
 		    },
 
-		    // Optional. Called when the user closes the dialog without selecting a file
-		    // and does not include any parameters.
-		    cancel: function() {
-		    	console.log("return")
-		    },
+		    linkType: "direct",
 
-		    // Optional. "preview" (default) is a preview link to the document for sharing,
-		    // "direct" is an expiring link to download the contents of the file. For more
-		    // information about link types, see Link types below.
-		    linkType: "direct", // or "direct"
+		    multiselect: false,
 
-		    // Optional. A value of false (default) limits selection to a single file, while
-		    // true enables multiple file selection.
-		    multiselect: false, // or true
-
-		    // Optional. This is a list of file extensions. If specified, the user will
-		    // only be able to select files with these extensions. You may also specify
-		    // file types, such as "video" or "images" in the list. For more information,
-		    // see File types below. By default, all extensions are allowed.
 		    extensions: ['.pdf', '.txt']
 		};
+
+		var dropButton = Dropbox.createChooseButton(dropOptions);
+		
+		console.log(dropButton);
+		// document.getElementById("modalbody").appendChild(dropButton);
+		// $("<p>bitch</p>").insertAfter("#modalbody");
+		// $("#modalbody").wrapInner(dropButton);
+		// $("#modalbody").append(dropButton);
+		$(dropButton).insertAfter("#filelimit")
+	});
 	</script>
 
 	<script type="text/javascript">
@@ -148,8 +150,10 @@
 				      </div>
 				      <div class="modal-body" id="modalbody">
 				      	<p id="filelimit"><small><strong>5MB limit.</strong><small><small> Only .pdf and .txt please. Files deleted hourly.</small></small></small></p>
+
+				      	<p style="padding-top:20px;">Or, upload it yourself:</p>
 				        <form action="..{{url_for('upload_file')}}" method="post" enctype="multipart/form-data">
-						  	<input type="file" name="file" id="files2"/>
+						  	<center><input type="file" name="file" id="files2"/></center>
 						    <!-- <button type="submit">Upload</button>						 -->
 				      </div>
 				      <div class="modal-footer">
