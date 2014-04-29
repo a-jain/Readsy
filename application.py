@@ -227,8 +227,12 @@ def url_handle():
 		else:
 			abort(400)
 			return
-
-	r = requests.get(url)
+	try:
+		r = requests.get(url)
+	except:
+		abort(400)
+		return
+		
 	contentType = r.headers['content-type']
 	if "text" not in contentType:
 		return render_template('spritz.html', text="Not a valid URL for parsing", filename=url.split('//')[1])
