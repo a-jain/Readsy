@@ -130,14 +130,20 @@ def TXThelper(url):
 		return
 
 def clean(s):
-	PAT_INLINEFOOTNOTE = '\([0-9]{1,3}\)'
+	PAT_INLINEFOOTNOTE = '\([0-9]{1,3}([,–][0-9]{1,3}){0,1}\)'
+	PAT_FIGURE = r'\.\s+[fF]ig\. \d{1,3}\.'
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
 	PAT_REFERENCES = r'REFERENCES\s.*'
 	PAT_EXTRASPACE = r'\s+'
+	PAT_WEIRDFI = 'ﬁ'
+	PAT_WEIRDNINO = ' ˜n'
 
 	s = re.sub(PAT_REFERENCES, '', s)
+	s = re.sub(PAT_WEIRDFI, 'fi', s)
+	s = re.sub(PAT_WEIRDNINO, 'ñ', s)
 	s = re.sub(PAT_RANDOMHYPHEN, '', s)
 	s = re.sub(PAT_INLINEFOOTNOTE, '', s)
+	s = re.sub(PAT_FIGURE, '', s)
 	s = re.sub(PAT_EXTRASPACE, ' ', s)
 
 	return s
