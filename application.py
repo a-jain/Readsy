@@ -218,11 +218,11 @@ def url_handle():
 					f.write(chunk)
 			if ext == "pdf":
 				s = PDFhelper(path)
-				return render_template('spritz.html', text=s, filename=url.split('//')[1]) 
+				return render_template('spritz.html', text=s, filename=fullname) 
 
 			elif ext == "txt":
 				s = TXThelper(path)
-				return render_template('spritz.html', text=s, filename=url.split('//')[1])
+				return render_template('spritz.html', text=s, filename=fullname)
 
 		else:
 			abort(400)
