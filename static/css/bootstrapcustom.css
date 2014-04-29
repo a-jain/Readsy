@@ -56,6 +56,9 @@ h1 {
   display:none;
 }
 
+.btn, .btn-group {
+  margin-left: 4px;
+}
 
 @media screen and (max-width: 480px) {
   #urlentry {
