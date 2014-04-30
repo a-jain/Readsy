@@ -239,6 +239,8 @@ def url_handle():
 
 	parser_client = ParserClient(READABILITY_TOKEN)
 	parser_response = parser_client.get_article_content(url)
+	print parser_response.content['title']
+	print parser_response.content['content']
 	contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
 
 	soup = BeautifulSoup(contentStr)

@@ -2,3 +2,4 @@ http://editor.froala.com/#editor-example
 http://labs.voronianski.com/jquery.avgrund.js/
 
 Take locale info from readability and parse it accordingly
+on hover of bits of text in introduction line, highlight/focus them accordingly
