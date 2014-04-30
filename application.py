@@ -145,8 +145,8 @@ def clean(s):
 	s = re.sub(PAT_RANDOMHYPHEN, '', s)
 	s = re.sub(PAT_INLINEFOOTNOTE, '', s)
 	s = re.sub(PAT_FIGURE, '', s)
-	s = re.sub(PAT_FOOTNOTECONS, '', s)
 	s = re.sub(PAT_EXTRASPACE, ' ', s)
+	s = re.sub(PAT_FOOTNOTECONS, '', s)
 
 	return s
 
