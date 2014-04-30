@@ -134,8 +134,7 @@ def clean(s):
 	PAT_FIGURE = r'\.\s+[fF]ig\. \d{1,3}\.'
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
 	PAT_REFERENCES = r'REFERENCES\s.*'
-	PAT_EXTRASPACE = r' +'
-	PAT_NEWLINE = r'\n+'
+	PAT_EXTRASPACE = r'\n+'
 	PAT_WEIRDFI = 'ﬁ'
 	PAT_WEIRDNINO = ' ˜n'
 
@@ -145,8 +144,7 @@ def clean(s):
 	s = re.sub(PAT_RANDOMHYPHEN, '', s)
 	s = re.sub(PAT_INLINEFOOTNOTE, '', s)
 	s = re.sub(PAT_FIGURE, '', s)
-	# s = re.sub(PAT_EXTRASPACE, ' ', s)
-	s = re.sub(PAT_NEWLINE, '\n', s)
+	s = re.sub(PAT_EXTRASPACE, r'\n', s)
 
 	return s
 
