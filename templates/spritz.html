@@ -62,12 +62,12 @@
 		        else {
 		        	// var a = location.href.replace(/^http%5C:%5C/%5C/(.*)$/,files[0].bytes);
 		        	location.href="http://www.readsy.co/web?url="+escape(files[0].link);
-					$("#uploadfilebutton").removeAttr("disabled");
+					$("#uploadfilebutton").removeAttr("data-loading-text");
 		        }
 		    },
 
 		    cancel: function() {
-		    	$("#uploadfilebutton").removeAttr("disabled");
+		    	$("#uploadfilebutton").removeAttr("data-loading-text");
     		},
 
 		    linkType: "direct",
@@ -79,13 +79,14 @@
 
 		var dropButton = Dropbox.createChooseButton(dropOptions);
 		
-		console.log(dropButton);
+		// console.log(dropButton);
 		$(dropButton).insertAfter("#filelimit");
 		$(dropButton).click(disableButton);
 	});
 
 	function disableButton() {
-		$("#uploadfilebutton").prop("disabled", "disabled");
+		// console.log("test");
+		$("#uploadfilebutton").button('loading');
 	}
 	</script>
 
@@ -164,7 +165,7 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        <button class="btn btn-primary" type="submit" id="uploadfilebutton">Upload</button>
+				        <button class="btn btn-primary" type="submit" id="uploadfilebutton" data-loading-text="Upload">Upload</button>
 				      </div>
 				      	</form>
 				    </div>
