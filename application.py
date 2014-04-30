@@ -121,7 +121,7 @@ def TXThelper(url):
 		fp = open(url, 'r')
 		s = fp.read(application.config['MAX_CONTENT_LENGTH'])
 		s = s.encode('unicode-escape').decode()
-		s = re.sub(r' +', ' ', s)
+		s = re.sub(r'\s+', ' ', s)
 		# print s
 		return s
 
@@ -134,7 +134,7 @@ def clean(s):
 	PAT_FIGURE = r'\.\s+[fF]ig\. \d{1,3}\.'
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
 	PAT_REFERENCES = r'REFERENCES\s.*'
-	PAT_EXTRASPACE = r'\n+'
+	PAT_EXTRASPACE = r'\s+'
 	PAT_WEIRDFI = 'ﬁ'
 	PAT_WEIRDNINO = ' ˜n'
 
@@ -144,7 +144,7 @@ def clean(s):
 	s = re.sub(PAT_RANDOMHYPHEN, '', s)
 	s = re.sub(PAT_INLINEFOOTNOTE, '', s)
 	s = re.sub(PAT_FIGURE, '', s)
-	s = re.sub(PAT_EXTRASPACE, r'\n', s)
+	s = re.sub(PAT_EXTRASPACE, ' ', s)
 
 	return s
 
