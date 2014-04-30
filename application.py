@@ -137,6 +137,7 @@ def clean(s):
 	PAT_EXTRASPACE = r'\s+'
 	PAT_WEIRDFI = 'ﬁ'
 	PAT_WEIRDNINO = ' ˜n'
+	PAT_FOOTNOTECONS = r'(\d\d.\d\d.\d\d.\d\d)+'
 
 	s = re.sub(PAT_REFERENCES, '', s)
 	s = re.sub(PAT_WEIRDFI, 'fi', s)
@@ -144,6 +145,7 @@ def clean(s):
 	s = re.sub(PAT_RANDOMHYPHEN, '', s)
 	s = re.sub(PAT_INLINEFOOTNOTE, '', s)
 	s = re.sub(PAT_FIGURE, '', s)
+	s = re.sub(PAT_FOOTNOTECONS, '', s)
 	s = re.sub(PAT_EXTRASPACE, ' ', s)
 
 	return s
