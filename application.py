@@ -130,7 +130,7 @@ def TXThelper(url):
 		return
 
 def clean(s):
-	PAT_INLINEFOOTNOTE = '\([0-9]{1,3}([,–][0-9]{1,3}){0,1}\)'
+	PAT_INLINEFOOTNOTE = '[\(\[][0-9]{1,3}([,–][0-9]{1,3}){0,1}[\)\]]'
 	PAT_FIGURE = r'\.\s+[fF]ig\. \d{1,3}\.'
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
 	PAT_REFERENCES = r'REFERENCES\s.*'
