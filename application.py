@@ -104,12 +104,10 @@ def sign_s3():
 def PDFhelper(url):
 	try:
 		s = convert_pdf_to_txt(url)
-		# s = re.sub(r'\s+', ' ', s)
-		# s = s.replace('!', '')
-		
+		s = re.sub(r'\s+', ' ', s)
 		s = HTMLParser.HTMLParser().unescape(s)
-		print s
 		s = clean(s)
+		
 		return s
 
 	except:
@@ -135,20 +133,33 @@ def clean(s):
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
 	PAT_REFERENCES = r'REFERENCES\s.*'
 	PAT_EXTRASPACE = r'\s+'
-	PAT_WEIRDFI = 'ﬁ'
-	PAT_WEIRDNINO = ' ˜n'
+	PAT_WEIRDFI = 'ﬁ ?'
+	PAT_WEIRDFL = 'ﬂ ?'
+	PAT_WEIRDNINO = ' ?˜n'
 	PAT_FOOTNOTECONS = r'\d\d?.\d\d?.\d\d?.\d\d?'
-	PAT_WEIRDPUNC = r' [.,/:;➤]'
+	PAT_WEIRDPUNC = r' [.,\/:;)]'
+	PAT_WEIRDPUNC2 = r'[(] '
+	PAT_RANDOMDOT = r'[a-v]\.[a-z]'
+	PAT_TABLE = r'(?<!\w)\w\w? \w\w? [\w:]\w?\.? \w[\w.]? '
+	PAT_URL = r'(((ht|f)tps?\:\/\/)|~/|/)?([a-zA-Z]{1}([\w\-]+\.)+([\w]{2,5})(:[\d]{1,5})?)/?(\w+\.[\w]{3,4})?((\?\w+=\w+)?(&\w+=\w+)*)?'
+	PAT_SINGLELETTERS = r' \w \w \w '
+
 
 	s = re.sub(PAT_REFERENCES, '', s)
 	s = re.sub(PAT_WEIRDFI, 'fi', s)
+	s = re.sub(PAT_WEIRDFL, 'fl', s)
 	s = re.sub(PAT_WEIRDNINO, 'ñ', s)
 	s = re.sub(PAT_RANDOMHYPHEN, '', s)
 	s = re.sub(PAT_INLINEFOOTNOTE, '', s)
 	s = re.sub(PAT_FIGURE, '', s)
-	s = re.sub(PAT_WEIRDPUNC, '', s)
 	s = re.sub(PAT_EXTRASPACE, ' ', s)
+	s = re.sub(PAT_RANDOMDOT, '', s)
+	s = re.sub(PAT_WEIRDPUNC2, '', s)
+	s = re.sub(PAT_WEIRDPUNC, '', s)
 	s = re.sub(PAT_FOOTNOTECONS, '', s)
+	s = re.sub(PAT_TABLE, '', s)
+	s = re.sub(PAT_URL, '', s)
+	s = re.sub(PAT_SINGLELETTERS, '', s)
 
 	return s
 
@@ -245,9 +256,9 @@ def url_handle():
 	parser_response = parser_client.get_article_content(url)
 	contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
 
-	soup = BeautifulSoup(contentStr)
+	# soup = BeautifulSoup(contentStr)
+	soup = BeautifulSoup.BeautifulSoup(contentStr.decode('utf-8','ignore'))
 	s = soup.get_text()
-	s = re.sub(r'\s+', ' ', s)
 
 	return render_template('spritz.html', text=s, filename=url.split('//')[1])
 
