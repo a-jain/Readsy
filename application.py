@@ -129,8 +129,8 @@ def TXThelper(url):
 
 def clean(s):
 	PAT_INLINEFOOTNOTE = r'[\(\[][0-9]{1,3}([,–][0-9]{1,3}){0,2}[\)\]]'
-	PAT_INLINEFOOTNOTE2 = r'(?<=[."”] )[0-9]{1,3}([,\- ][0-9]{1,3}){1,3} (?=[A-Z])'
-	PAT_FIGURE = r'\s?[\(\[]?[fF]ig\. \d{1,3}[\)\]]?\.'
+	PAT_INLINEFOOTNOTE2 = r'[0-9]{1,3}([,\- –][0-9]{1,3}){1,3} '
+	PAT_FIGURE = r'\s?[\(\[]?[fF]ig\.? \d{1,3}[\)\]]?'
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
 	PAT_REFERENCES = r'REFERENCES\s.*'
 	PAT_EXTRASPACE = r'\s+'
@@ -142,10 +142,10 @@ def clean(s):
 	PAT_WEIRDPUNC2 = r'[(] '
 	PAT_RANDOMDOT = r'[a-v]\.[a-z]'
 	PAT_TABLE = r'(?<!\w)\w\w? \w\w? [\w:]\w?\.? \w[\w.]? '
-	PAT_URL = r'(((ht|f)tps?\:\/\/)|~/|/)?([a-zA-Z]{1}([\w\-]+\.)+([\w]{2,5})(:[\d]{1,5})?)/?(\w+\.[\w]{3,4})?((\?\w+=\w+)?(&\w+=\w+)*)?'
+	PAT_URL = r'(((ht|f)tps?\:\/\/)|~/|/)?([a-zA-Z]{1}([\w\-]+\.)+([\w]{2,5})(:[\d]{1,5})?)/?(\w+\.[\w]{3,4})?((\?\w+=\w+)?(&\w+=\w+)*)'
 	PAT_SINGLELETTERS = r' \w \w \w '
 	PAT_COPYRIGHT = r'[cC]opyright.*?[aA]ll rights reserved\.'
-	PAT_RANDONUM = r'(?<=[a-z]{3})[1-9]( [1-9])?(?= )'
+	PAT_RANDONUM = r'(?<=[a-z]{3})[1-9]{1,3}( [1-9]{1,3})?(?= )'
 
 
 	s = re.sub(PAT_REFERENCES, '', s)
