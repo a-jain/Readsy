@@ -13,7 +13,7 @@ from readability import ParserClient
 from urlparse import urlparse
 from bs4 import BeautifulSoup
 
-import re, sys, os, base64, hmac, urllib, time
+import re, regex, sys, os, base64, hmac, urllib, time
 import HTMLParser, requests
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -104,8 +104,11 @@ def sign_s3():
 def PDFhelper(url):
 	try:
 		s = convert_pdf_to_txt(url)
-		s = re.sub(r'\s+', ' ', s)
 		s = HTMLParser.HTMLParser().unescape(s)
+		
+		s = re.sub(r'\s+', ' ', s)
+		# s = re.sub(r'(?<!\d)[0-9]{1,3}([,\- –][0-9]{1,3}){1,3}(?=[\.,])', '', s)
+		# print s
 		s = clean(s)
 		
 		return s
@@ -128,8 +131,9 @@ def TXThelper(url):
 		return
 
 def clean(s):
-	PAT_INLINEFOOTNOTE = r'[\(\[][0-9]{1,3}([,–][0-9]{1,3}){0,2}[\)\]]'
-	PAT_INLINEFOOTNOTE2 = r'(?<!\d)[0-9]{1,3}([,\- –][0-9]{1,3}){1,3}(?=[\.,])'
+	PAT_INLINEFOOTNOTE = r'[\(\[\.,]\d{1,3}([,–]\d{1,3}){0,2}[\)\]]?'
+	# r'(?<!\d)[0-9]{1,3}[,\- \–][0-9]{1,3}(?=[\.,])'
+	PAT_MOREFOOTNOTES = r'(?<!\d)[0-9]{1,3}[,\- \–][0-9]{1,3}(?=[\.,])'
 	PAT_FIGURE = r'\s?[\(\[]?[fF]ig\.? \d{1,3}[\)\]]?'
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
 	PAT_REFERENCES = r'REFERENCES\s.*'
@@ -142,20 +146,24 @@ def clean(s):
 	PAT_WEIRDPUNC2 = r'[(] '
 	PAT_RANDOMDOT = r'[a-v]\.[a-z]'
 	PAT_TABLE = r'(?<!\w)\w\w? \w\w? [\w:]\w?\.? \w[\w.]? '
-	PAT_URL = r'(((ht|f)tps?\:\/\/)|~/|/)?([a-zA-Z]{1}([\w\-]+\.)+([\w]{2,5})(:[\d]{1,5})?)/?(\w+\.[\w]{3,4})?((\?\w+=\w+)?(&\w+=\w+)*)'
+	PAT_URL = r'(((ht|f)tps?\:\/\/)|~/|/)?([a-zA-Z]([\w\-]+\.)+([\w]{2,5})(:[\d]{1,5})?)/?(\w+\.[\w]{3,4})?((\?\w+=\w+)?(&\w+=\w+)*)'
 	PAT_SINGLELETTERS = r' . . . '
-	PAT_COPYRIGHT = r'[cC]opyright.*?[aA]ll rights reserved\.'
-	PAT_RANDONUM = r'(?<=[a-z]{3})[0-9]{1,3}( [0-9]{1,3})?(?=[\. ,])'
+	PAT_COPYRIGHT = r'(([cC]opyright)|©).*?[aA]ll rights reserved\.?'
+	PAT_RANDONUM = r'(?<=[a-z]{3})\d{1,3}( [0-9]{1,3})?(?=[\. ,])'
+	PAT_PAGEREF = r'\d\d? of \d\d? '
 
 
 	s = re.sub(PAT_REFERENCES, '', s)
+	# s = re.sub(PAT_MOREFOOTNOTES, '', s)
 	s = re.sub(PAT_COPYRIGHT, '', s)
 	s = re.sub(PAT_WEIRDFI, 'fi', s)
 	s = re.sub(PAT_WEIRDFL, 'fl', s)
 	s = re.sub(PAT_WEIRDNINO, 'ñ', s)
 	s = re.sub(PAT_RANDOMHYPHEN, '', s)
+	# s = re.sub(PAT_MOREFOOTNOTES, '', s)
 	s = re.sub(PAT_INLINEFOOTNOTE, '', s)
 	s = re.sub(PAT_FIGURE, '', s)
+	s = re.sub(PAT_PAGEREF, '', s)
 	s = re.sub(PAT_RANDOMDOT, '', s)
 	s = re.sub(PAT_FOOTNOTECONS, '', s)
 	s = re.sub(PAT_TABLE, '', s)
@@ -165,7 +173,7 @@ def clean(s):
 	s = re.sub(PAT_WEIRDPUNC, '', s)
 	s = re.sub(PAT_EXTRASPACE, ' ', s)
 	s = re.sub(PAT_SINGLELETTERS, '', s)
-	s = re.sub(PAT_INLINEFOOTNOTE2, '', s)	
+	s = regex.sub(PAT_MOREFOOTNOTES, '', s)
 
 	return s
 
