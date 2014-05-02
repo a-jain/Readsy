@@ -263,8 +263,7 @@ def url_handle():
 	parser_response = parser_client.get_article_content(url)
 	contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
 
-	# soup = BeautifulSoup(contentStr)
-	soup = BeautifulSoup.BeautifulSoup(contentStr.decode('utf-8','ignore'))
+	soup = BeautifulSoup(contentStr)
 	s = soup.get_text()
 
 	return render_template('spritz.html', text=s, filename=url.split('//')[1])
