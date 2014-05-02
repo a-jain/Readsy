@@ -107,8 +107,6 @@ def PDFhelper(url):
 		s = HTMLParser.HTMLParser().unescape(s)
 		
 		s = re.sub(r'\s+', ' ', s)
-		# s = re.sub(r'(?<!\d)[0-9]{1,3}([,\- –][0-9]{1,3}){1,3}(?=[\.,])', '', s)
-		# print s
 		s = clean(s)
 		
 		return s
@@ -123,7 +121,6 @@ def TXThelper(url):
 		s = fp.read(application.config['MAX_CONTENT_LENGTH'])
 		s = s.encode('unicode-escape').decode()
 		s = re.sub(r'\s+', ' ', s)
-		# print s
 		return s
 
 	except:
@@ -132,7 +129,6 @@ def TXThelper(url):
 
 def clean(s):
 	PAT_INLINEFOOTNOTE = r'[\(\[\.,]\d{1,3}([,–]\d{1,3}){0,2}[\)\]]?'
-	# r'(?<!\d)[0-9]{1,3}[,\- \–][0-9]{1,3}(?=[\.,])'
 	PAT_MOREFOOTNOTES = r'(?<!\d)[0-9]{1,3}[,\- \–][0-9]{1,3}(?=[\.,])'
 	PAT_FIGURE = r'\s?[\(\[]?[fF]ig\.? \d{1,3}[\)\]]?'
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
@@ -152,15 +148,12 @@ def clean(s):
 	PAT_RANDONUM = r'(?<=[a-z]{3})\d{1,3}( [0-9]{1,3})?(?=[\. ,])'
 	PAT_PAGEREF = r'\d\d? of \d\d? '
 
-
 	s = re.sub(PAT_REFERENCES, '', s)
-	# s = re.sub(PAT_MOREFOOTNOTES, '', s)
 	s = re.sub(PAT_COPYRIGHT, '', s)
 	s = re.sub(PAT_WEIRDFI, 'fi', s)
 	s = re.sub(PAT_WEIRDFL, 'fl', s)
 	s = re.sub(PAT_WEIRDNINO, 'ñ', s)
 	s = re.sub(PAT_RANDOMHYPHEN, '', s)
-	# s = re.sub(PAT_MOREFOOTNOTES, '', s)
 	s = re.sub(PAT_INLINEFOOTNOTE, '', s)
 	s = re.sub(PAT_FIGURE, '', s)
 	s = re.sub(PAT_PAGEREF, '', s)
