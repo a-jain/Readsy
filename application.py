@@ -265,6 +265,7 @@ def url_handle():
 
 	soup = BeautifulSoup(contentStr)
 	s = soup.get_text()
+	s = re.sub(r'\s+', ' ', s)
 
 	return render_template('spritz.html', text=s, filename=url.split('//')[1])
 
