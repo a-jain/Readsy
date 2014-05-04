@@ -62,7 +62,7 @@
 		titleText = "{{titleText}}"
 
 		$(document).ready(function() {
-			$('#editor').tooltip();
+			// $('#editor').tooltip();
 			if (formString != "")
 			{
 				$("#startSpritz").focus();
@@ -234,11 +234,10 @@
 		</div>
 
 
-		<div style="display:none; padding-bottom:20px;" id="editor">
-			<h2 id="editortitle" data-toggle="tooltip" data-placement="top" data-trigger="hover" title="When you go back to the main page, this text will automatically fill into the textbox for you to Readsy!"></h1>
+		<div style="display:none; padding-bottom:20px;" id="editor" data-toggle="tooltip" data-placement="top" data-trigger="click" title="When you go back to the main page, this text will automatically fill into the textbox for you to Readsy!" data-selector="#editortitlediv">
+			<h2 id="editortitle"></h2>
 
 			<p id="editorpara" class="firstPara"></p>
-
 
           	<!-- <p id="editorpara" style="line-height:150%;">You can literally click in this space and edit the text you're reading. Try it!</p> -->
 		</div>
