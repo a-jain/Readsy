@@ -16,6 +16,9 @@
 	</script>
 
 	<link rel="stylesheet" href="../static/css/bootstrap.min.css">
+	<link href="../static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="../static/css/froala_editor.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="../static/css/bootstrapcustom.css">
 
 	<script src="../static/js/jquery-1.11.0.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -23,28 +26,51 @@
 	<script type="text/javascript" src="//sdk.spritzinc.com/js/1.0/js/spritz.min.js"></script>
 	<script type="text/javascript" src="../static/js/app.js"></script>
 
-	<link rel="stylesheet" href="../static/css/bootstrapcustom.css">
+	
 	<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="3kwrstpe4ylxu6z">	</script>
+
+	
 
 	<script type="text/javascript">
 		function jDecode(str) {
-			return $("<div/>").html(str).text();
+			return $("<div/>").html(str.trim()).text();
+		}
+
+		function updateEditor() {
+			var content = jDecode(formString);
+			var contentsplit = content.split('\n\n')
+
+			for (var i = 0; i < contentsplit.length; i++)
+			{
+				contentsplit[i] = contentsplit[i].trim();
+				if (!contentsplit[i].slice(-1).match(/[\!\.\?]/) && contentsplit[i] !== "")
+				{
+					contentsplit[i] += "\.";
+				}
+				$("#editor").append("<p id=\"editorpara\">" + contentsplit[i] + "\n\n</p>" );
+			}
 		}
 
 		formString = "{{text}}"
+		// console.log(formString)
 		$(document).ready(function() {
 			if (formString != "")
 			{
 				$("#startSpritz").focus();
-		    	$("#inputText").val(jDecode(formString)); 
+		    	$("#inputText").val(jDecode(formString).replace(/\s+/g, ' ')); 
 		    	$("#urlentry").val("{{filename}}") 
 		    	$('#bigtitle').attr('href', '{{url_for('index')}}');
+		    	// console.log(formString)
+		    	updateEditor();
+		    	// $('#editorpara').text(jDecode(formString));
 			}
 			
 			if ("{{error}}" != "")
 			{
 				$("#inputText").blur();
 			}
+			else if ("{{titleText}}" != "")
+					document.title += " - {{filename}}"
 		});
 			
 		
@@ -107,8 +133,9 @@
 		<div class="header">
 				<ul class="nav nav-pills pull-right">
 					<li id="list1" class="active"><a id="navbar1" href="#">Home</a></li>
-					<li id="list2" class="inactive"><a id="navbar2" href="#about">About</a></li>
-					<li id="list3" class="inactive"><a id="navbar3" href="#contact">Contact</a></li>
+					<li id="list2" class="inactive"><a id="navbar2" href="#editor">Editor</a></li>
+					<li id="list3" class="inactive"><a id="navbar3" href="#about">About</a></li>
+					<li id="list4" class="inactive"><a id="navbar4" href="#contact">Contact</a></li>
 				</ul>
 				<h3 class="text-muted">&nbsp;</h3>
 		</div>
@@ -186,6 +213,13 @@
 			</p>
 		</div>
 
+
+		<div style="display:none; padding-bottom:20px;" id="editor">
+			<h2 id="editortitle">{{titleText}}</h1>
+
+          	<!-- <p id="editorpara" style="line-height:150%;">You can literally click in this space and edit the text you're reading. Try it!</p> -->
+		</div>
+
 		<div style="display:none" id="aboutme">
 			<div class="jumbotron" id="jumbotron">
 	      	<h1><a id="bigtitle">About Me</a></h1>
@@ -222,12 +256,20 @@
 	      	</small></p>
 			</div>
 		</div>
+
 	<!-- close container -->
 	</div>
 
   <div class="footer">
 		<center><p>&copy; 2014 <a href="mailto:mr.akashj@gmail.com">Akash Jain</a></p></center>
   </div>
+
+  <script src="../static/js/froala_editor.min.js"></script>
+  <script>
+      $(function(){
+          $('#editor').editable({autosave: true, plainPaste: true, paragraphy: false, enableScript: true, inlineMode: true});
+      });
+  </script>
 
 </body>
 

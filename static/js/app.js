@@ -89,37 +89,65 @@ function navbarlinks()
 	{
 	    if (!$("#jumbotron").is(":visible"))
 	    {
+	    	$("#editor").hide("fast", "linear", showjumbo());
 	    	$("#aboutme").hide("fast", "linear", showjumbo());
 	    	$("#contactme").hide("fast", "linear", showjumbo());
+	    	console.log($("#editortitle").text());
+	    	if (!$("#editortitle").text().slice(-1).match(/[\!\.\?]/) && $("#editortitle").text() !== "")
+	    		$("#editortitle").append("\.");
+	    	var temp = $("#editor").editable("getText")[0].trim();
+	    	temp = temp.replace(/\s+/g, ' ');
+	    	temp = temp.replace(/([a-z])([\.\!\?])(?=[a-zA-Z])/g, '$1$2 ');
+	    	$("#inputText").val(temp);
 		    $("#list1").prop("class", "active");
 		    $("#list2").prop("class", "inactive");
 		    $("#list3").prop("class", "inactive");
+		    $("#list4").prop("class", "inactive");
 		    navbarlinks();
 	    }
 	});
 
 	$("#navbar2").click(function()
 	{
-	    if (!$("#aboutme").is(":visible"))
+	    if (!$("#editor").is(":visible"))
 	    {
-	    	$("#jumbotron").hide("fast", "linear", showabout());
-	    	$("#contactme").hide("fast", "linear", showabout());
+	    	$("#jumbotron").hide("fast", "linear", showeditor());
+	    	$("#aboutme").hide("fast", "linear", showeditor());
+	    	$("#contactme").hide("fast", "linear", showeditor());
 		    $("#list1").prop("class", "inactive");
 		    $("#list2").prop("class", "active");
 		    $("#list3").prop("class", "inactive");
+		    $("#list4").prop("class", "inactive");
 		    navbarlinks();
 	    }
 	});
 
 	$("#navbar3").click(function()
 	{
-	    if (!$("#contactme").is(":visible"))
+	    if (!$("#aboutme").is(":visible"))
 	    {
-	    	$("#jumbotron").hide("fast", "linear", showcontact());
-	    	$("#aboutme").hide("fast", "linear", showcontact());
+	    	$("#jumbotron").hide("fast", "linear", showabout());
+	    	$("#editor").hide("fast", "linear", showabout());
+	    	$("#contactme").hide("fast", "linear", showabout());
 		    $("#list1").prop("class", "inactive");
 		    $("#list2").prop("class", "inactive");
 		    $("#list3").prop("class", "active");
+		    $("#list4").prop("class", "inactive");
+		    navbarlinks();
+	    }
+	});
+
+	$("#navbar4").click(function()
+	{
+	    if (!$("#contactme").is(":visible"))
+	    {
+	    	$("#jumbotron").hide("fast", "linear", showcontact());
+	    	$("#editor").hide("fast", "linear", showcontact());
+	    	$("#aboutme").hide("fast", "linear", showcontact());
+		    $("#list1").prop("class", "inactive");
+		    $("#list2").prop("class", "inactive");
+		    $("#list3").prop("class", "inactive");
+		    $("#list4").prop("class", "active");
 		    navbarlinks();
 	    }
 	});
@@ -127,6 +155,9 @@ function navbarlinks()
 
 function showjumbo() {
 	$("#jumbotron").fadeIn("fast");
+}
+function showeditor() {
+	$("#editor").fadeIn("fast");
 }
 function showabout() {
 	$("#aboutme").fadeIn("fast");

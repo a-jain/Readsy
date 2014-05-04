@@ -18,6 +18,10 @@ h1 {
   font-family: 'PT Mono', '';
 }
 
+h2 {
+  padding-top: 10px;
+}
+
 #inputText {
   /*font-family: 'Share Tech Mono', Arial;*/
   max-width: 436px;

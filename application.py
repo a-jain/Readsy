@@ -105,8 +105,10 @@ def PDFhelper(url):
 	try:
 		s = convert_pdf_to_txt(url)
 		s = HTMLParser.HTMLParser().unescape(s)
+		s = re.sub(r'(?<=[a-z]\.)\n+', r'\\n\\n', s)
+		s = re.sub(r'  +', r' ', s)
 		
-		s = re.sub(r'\s+', ' ', s)
+		# s = re.sub(r'\s+', ' ', s)
 		s = clean(s)
 		
 		return s
@@ -128,12 +130,12 @@ def TXThelper(url):
 		return
 
 def clean(s):
-	PAT_INLINEFOOTNOTE = r'[\(\[\.,]\d{1,3}([,–]\d{1,3}){0,2}[\)\]]?'
-	PAT_MOREFOOTNOTES = r'(?<!\d)[0-9]{1,3}[,\- \–][0-9]{1,3}(?=[\.,])'
+	PAT_INLINEFOOTNOTE = r'[\(\[\.,]\d{1,3}(?:[,–]\d{1,3}){0,2}[\)\]]?'
+	PAT_MOREFOOTNOTES = r'(?<!\d)[0-9]{1,3}(?:[,\- \–][0-9]{1,3}){1,3}(?=[\.,])'
 	PAT_FIGURE = r'\s?[\(\[]?[fF]ig\.? \d{1,3}[\)\]]?'
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
 	PAT_REFERENCES = r'REFERENCES\s.*'
-	PAT_EXTRASPACE = r'\s+'
+	PAT_EXTRASPACE = r'  +'
 	PAT_WEIRDFI = r'ﬁ ?'
 	PAT_WEIRDFL = r'ﬂ ?'
 	PAT_WEIRDNINO = r' ?˜n'
@@ -155,6 +157,7 @@ def clean(s):
 	s = re.sub(PAT_WEIRDNINO, 'ñ', s)
 	s = re.sub(PAT_RANDOMHYPHEN, '', s)
 	s = re.sub(PAT_INLINEFOOTNOTE, '', s)
+	s = re.sub(PAT_MOREFOOTNOTES, '', s)
 	s = re.sub(PAT_FIGURE, '', s)
 	s = re.sub(PAT_PAGEREF, '', s)
 	s = re.sub(PAT_RANDOMDOT, '', s)
@@ -166,7 +169,7 @@ def clean(s):
 	s = re.sub(PAT_WEIRDPUNC, '', s)
 	s = re.sub(PAT_EXTRASPACE, ' ', s)
 	s = re.sub(PAT_SINGLELETTERS, '', s)
-	s = regex.sub(PAT_MOREFOOTNOTES, '', s)
+	
 
 	return s
 
@@ -193,11 +196,11 @@ def spritz(filename=None):
 
 	if filename.split('.')[-1].lower() == "txt":
 		s = TXThelper(url)
-		return render_template('spritz.html', text=s, filename=filename) 
+		return render_template('spritz.html', text=s, filename=filename, titleText=filename) 
 
 	elif filename.split('.')[-1].lower() == "pdf":
 		s = PDFhelper(url)
-		return render_template('spritz.html', text=s, filename=filename) 
+		return render_template('spritz.html', text=s, filename=filename, titleText=filename) 
 
 	return redirect(url_for('index'))
 	# print s
@@ -240,11 +243,11 @@ def url_handle():
 					f.write(chunk)
 			if ext == "pdf":
 				s = PDFhelper(path)
-				return render_template('spritz.html', text=s, filename=fullname) 
+				return render_template('spritz.html', text=s, filename=fullname, titleText=fullname) 
 
 			elif ext == "txt":
 				s = TXThelper(path)
-				return render_template('spritz.html', text=s, filename=fullname)
+				return render_template('spritz.html', text=s, filename=fullname, titleText=fullname)
 
 		else:
 			abort(400)
@@ -261,13 +264,13 @@ def url_handle():
 
 	parser_client = ParserClient(READABILITY_TOKEN)
 	parser_response = parser_client.get_article_content(url)
-	contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
+	# contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
 
-	soup = BeautifulSoup(contentStr)
+	soup = BeautifulSoup(parser_response.content['content'])
 	s = soup.get_text()
-	s = re.sub(r'\s+', ' ', s)
+	s = re.sub(r'\n+', r'\\n\\n', s)
 
-	return render_template('spritz.html', text=s, filename=url.split('//')[1])
+	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'])
 
 if __name__ == '__main__':
 	application.run(debug=True)
