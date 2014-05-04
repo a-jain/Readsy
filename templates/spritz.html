@@ -52,8 +52,10 @@
 		}
 
 		formString = "{{text}}"
+		titleText = "{{titleText}}"
 		// console.log(formString)
 		$(document).ready(function() {
+			$('#inputText').tooltip();
 			if (formString != "")
 			{
 				$("#startSpritz").focus();
@@ -69,8 +71,18 @@
 			{
 				$("#inputText").blur();
 			}
-			else if ("{{titleText}}" != "")
-					document.title += " - {{filename}}"
+			else if (titleText != "")
+			{
+				document.title += " - {{filename}}"
+				document.getElementById('editortitle').innerHTML = titleText;
+				$("firstPara").remove();
+			}
+			
+			else if (titleText == "") {
+				titleText = "Click anywhere on this Editor page to change the text!"
+				document.getElementById('editortitle').innerHTML = titleText;
+				document.getElementById('editorpara').innerHTML = "You can literally click in this space and edit the text you're reading. Then go back to the home page and your text will appear in the box, ready to Readsy. Try it!";
+			}
 		});
 			
 		
@@ -200,7 +212,7 @@
 				</div>
 				<!-- modal code finish -->
 
-				<textarea class="form-control" rows="6" id="inputText" placeholder="Enter your own text, or click the Sample button to load the sample text. You may be asked to create an account with Spritz (they power the flashing word box) - it takes about 10 seconds to do!"></textarea><br>   
+				<textarea class="form-control" rows="6" id="inputText" placeholder="Enter your own text, or click the Sample button to load the sample text. You may be asked to create an account with Spritz (they power the flashing word box) - it takes about 10 seconds to do!" data-toggle="tooltip" data-placement="right" title="Click on Editor at the top for easier editing!"></textarea><br>   
 				
 				<div class="btn-group btn-group-lg">
 					<button id="fill" type="submit" class="btn btn-primary">Sample</button> 
@@ -215,7 +227,10 @@
 
 
 		<div style="display:none; padding-bottom:20px;" id="editor">
-			<h2 id="editortitle">{{titleText}}</h1>
+			<h2 id="editortitle">titleText</h1>
+
+			<p id="editorpara" class="firstPara"></p>
+
 
           	<!-- <p id="editorpara" style="line-height:150%;">You can literally click in this space and edit the text you're reading. Try it!</p> -->
 		</div>
