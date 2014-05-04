@@ -22,6 +22,8 @@ h2 {
   padding-top: 10px;
 }
 
+.fa { font-family: FontAwesome }
+
 #inputText {
   /*font-family: 'Share Tech Mono', Arial;*/
   max-width: 436px;

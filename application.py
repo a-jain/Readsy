@@ -15,6 +15,7 @@ from bs4 import BeautifulSoup
 
 import re, regex, sys, os, base64, hmac, urllib, time
 import HTMLParser, requests
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -106,11 +107,11 @@ def PDFhelper(url):
 		s = convert_pdf_to_txt(url)
 		s = HTMLParser.HTMLParser().unescape(s)
 		s = re.sub(r'(?<=[a-z]\.)\n+', r'\\n\\n', s)
-		s = re.sub(r'  +', r' ', s)
+		# s = re.sub(r'  +', r' ', s)
 		
-		# s = re.sub(r'\s+', ' ', s)
+		s = re.sub(r'\s+', ' ', s)
 		s = clean(s)
-		
+		# print s
 		return s
 
 	except:
@@ -273,4 +274,4 @@ def url_handle():
 	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'])
 
 if __name__ == '__main__':
-	application.run(debug=True)
+	application.run(debug=False)

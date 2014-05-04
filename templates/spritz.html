@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=0.9, user-scalable=yes">
 	<meta name="robots" content="NOODP">
-	<meta name="Description" content="Readsy is an easy way to read large amounts of text in a rapidly comprehensible way.">
+	<meta name="description" content="Readsy is an easy way to read large amounts of text in a rapidly comprehensible way.">
 	<title>Readsy</title>
 	
 	<script type="text/javascript">
@@ -56,6 +56,7 @@
 		// console.log(formString)
 		$(document).ready(function() {
 			$('#inputText').tooltip();
+			$('#editor').tooltip();
 			if (formString != "")
 			{
 				$("#startSpritz").focus();
@@ -79,9 +80,10 @@
 			}
 			
 			else if (titleText == "") {
-				titleText = "Click anywhere on this Editor page to change the text!"
+				titleText = "Click anywhere on this Editor page to change the text!";
+				var startText = "You can literally click in this space and edit the text you're reading. Then go back to the home page and your text will appear in the box, ready to Readsy. Try it! (Start by highlighting and deleting this text)";
 				document.getElementById('editortitle').innerHTML = titleText;
-				document.getElementById('editorpara').innerHTML = "You can literally click in this space and edit the text you're reading. Then go back to the home page and your text will appear in the box, ready to Readsy. Try it!";
+				document.getElementById('editorpara').innerHTML = startText;
 			}
 		});
 			
@@ -226,7 +228,7 @@
 		</div>
 
 
-		<div style="display:none; padding-bottom:20px;" id="editor">
+		<div style="display:none; padding-bottom:20px;" id="editor" data-toggle="tooltip" data-placement="left" data-trigger="hover" title="When you go back to the main page, this text will automatically fill into the textbox for you to Readsy">
 			<h2 id="editortitle">titleText</h1>
 
 			<p id="editorpara" class="firstPara"></p>
@@ -254,7 +256,7 @@
 	      	</small></p>
 
 	      	<p class="text-left"><small><small>
-	      		This is a little experiment to make it easier to read longform content. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, Requests, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery.
+	      		This is a little experiment to make it easier to read longform content. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, Requests, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery and Froala.
 	      	</small></small></p>
 			</div>
 		</div>
