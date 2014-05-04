@@ -54,7 +54,10 @@
 	};
 
 	if (document.documentElement.clientWidth <= 480)
+	{
+		// $("#inputText").attr("data-placement", "top");
 		customOptions["redicleWidth"] = 302;
+	}
 
 	var init = function() {
 		
@@ -78,7 +81,6 @@
 })();
 
 //// redirects
-// About button
 $(document).ready(function() {
 	navbarlinks();
 });
@@ -92,7 +94,7 @@ function navbarlinks()
 	    	$("#editor").hide("fast", "linear", showjumbo());
 	    	$("#aboutme").hide("fast", "linear", showjumbo());
 	    	$("#contactme").hide("fast", "linear", showjumbo());
-	    	console.log($("#editortitle").text());
+	    	// console.log($("#editortitle").text());
 	    	if (!$("#editortitle").text().slice(-1).match(/[\!\.\?]/) && $("#editortitle").text() !== "")
 	    		$("#editortitle").append("\.");
 	    	var temp = $("#editor").editable("getText")[0].trim();

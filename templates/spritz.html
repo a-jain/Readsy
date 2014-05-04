@@ -51,12 +51,19 @@
 			}
 		}
 
+		if (document.documentElement.clientWidth > 480)
+		{
+			$(document).ready(function() {
+				$('#inputText').tooltip();
+				$('#editor').tooltip();
+			});
+		}		
+		
 		formString = "{{text}}"
 		titleText = "{{titleText}}"
-		// console.log(formString)
+
 		$(document).ready(function() {
-			$('#inputText').tooltip();
-			$('#editor').tooltip();
+			
 			if (formString != "")
 			{
 				$("#startSpritz").focus();
@@ -80,7 +87,7 @@
 			}
 			
 			else if (titleText == "") {
-				titleText = "Click anywhere on this Editor page to change the text!";
+				titleText = "Click and highlight the text in this page to change it!";
 				var startText = "You can literally click in this space and edit the text you're reading. Then go back to the home page and your text will appear in the box, ready to Readsy. Try it! (Start by highlighting and deleting this text)";
 				document.getElementById('editortitle').innerHTML = titleText;
 				document.getElementById('editorpara').innerHTML = startText;
@@ -229,7 +236,7 @@
 
 
 		<div style="display:none; padding-bottom:20px;" id="editor" data-toggle="tooltip" data-placement="left" data-trigger="hover" title="When you go back to the main page, this text will automatically fill into the textbox for you to Readsy">
-			<h2 id="editortitle">titleText</h1>
+			<h2 id="editortitle"></h1>
 
 			<p id="editorpara" class="firstPara"></p>
 
