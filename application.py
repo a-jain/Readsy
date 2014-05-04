@@ -44,7 +44,7 @@ def convert_pdf_to_txt(path):
 	fp = file(path, 'rb')
 	interpreter = PDFPageInterpreter(rsrcmgr, device)
 	password = ""
-	maxpages = 0
+	maxpages = 25
 	caching = True
 	pagenos=set()
 	for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
@@ -152,7 +152,7 @@ def clean(s):
 	PAT_PAGEREF = r'\d\d? of \d\d? '
 
 	s = re.sub(PAT_REFERENCES, '', s)
-	s = re.sub(PAT_COPYRIGHT, '', s)
+	s = re.sub(PAT_COPYRIGHT, '', s, flags=re.I)
 	s = re.sub(PAT_WEIRDFI, 'fi', s)
 	s = re.sub(PAT_WEIRDFL, 'fl', s)
 	s = re.sub(PAT_WEIRDNINO, 'ñ', s)
@@ -170,7 +170,6 @@ def clean(s):
 	s = re.sub(PAT_WEIRDPUNC, '', s)
 	s = re.sub(PAT_EXTRASPACE, ' ', s)
 	s = re.sub(PAT_SINGLELETTERS, '', s)
-	
 
 	return s
 
@@ -230,11 +229,14 @@ def url_handle():
 		url = "http://" + url
 
 	if "readsy.co" in url:
-		return render_template('spritz.html', text="Parse a different website!")
+		return render_template('spritz.html', text="Try parsing a different website!")
 
 	ext = url.split('.')[-1].lower()
 	if ext in ALLOWED_EXTENSIONS:
 		r = requests.get(url, stream=True)
+		if int(r.headers['content-length']) > application.config['MAX_CONTENT_LENGTH']:
+			abort(400)
+
 		if r.status_code == 200:
 			filename = url.split('.')[-1]
 			fullname = filename + r"." + ext
@@ -254,14 +256,13 @@ def url_handle():
 			abort(400)
 			return
 	try:
-		r = requests.get(url)
+		r = requests.get(url, stream=True)
 	except:
 		abort(400)
 		return
 
-	contentType = r.headers['content-type']
-	if "text" not in contentType:
-		return render_template('spritz.html', text="Not a valid URL for parsing", filename=url.split('//')[1])
+	if int(r.headers['content-length']) > application.config['MAX_CONTENT_LENGTH'] or "text" not in r.headers['content-type']:
+		abort(400)
 
 	parser_client = ParserClient(READABILITY_TOKEN)
 	parser_response = parser_client.get_article_content(url)

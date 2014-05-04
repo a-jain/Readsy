@@ -16,7 +16,7 @@
 	</script>
 
 	<link rel="stylesheet" href="../static/css/bootstrap.min.css">
-	<link href="../static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	<link href="../static/css/froala_editor.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="../static/css/bootstrapcustom.css">
 
@@ -51,11 +51,10 @@
 			}
 		}
 
-		if (document.documentElement.clientWidth > 480)
+		if (document.documentElement.clientWidth > 600)
 		{
 			$(document).ready(function() {
 				$('#inputText').tooltip();
-				$('#editor').tooltip();
 			});
 		}		
 		
@@ -63,7 +62,7 @@
 		titleText = "{{titleText}}"
 
 		$(document).ready(function() {
-			
+			$('#editor').tooltip();
 			if (formString != "")
 			{
 				$("#startSpritz").focus();
@@ -235,8 +234,8 @@
 		</div>
 
 
-		<div style="display:none; padding-bottom:20px;" id="editor" data-toggle="tooltip" data-placement="left" data-trigger="hover" title="When you go back to the main page, this text will automatically fill into the textbox for you to Readsy">
-			<h2 id="editortitle"></h1>
+		<div style="display:none; padding-bottom:20px;" id="editor">
+			<h2 id="editortitle" data-toggle="tooltip" data-placement="top" data-trigger="hover" title="When you go back to the main page, this text will automatically fill into the textbox for you to Readsy!"></h1>
 
 			<p id="editorpara" class="firstPara"></p>
 
