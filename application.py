@@ -260,8 +260,8 @@ def url_handle():
 	try:
 		r = requests.get(url, stream=True)
 	except:
-		abort(400)
-		return
+		print r
+		abort(404)
 
 	if int(r.headers['content-length']) > application.config['MAX_CONTENT_LENGTH'] or "text" not in r.headers['content-type']:
 		abort(400)
@@ -269,10 +269,12 @@ def url_handle():
 	parser_client = ParserClient(READABILITY_TOKEN)
 	parser_response = parser_client.get_article_content(url)
 	# contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
-
-	soup = BeautifulSoup(parser_response.content['content'])
-	s = soup.get_text()
-	s = re.sub(r'\n+', r'\\n\\n', s)
+	try:
+		soup = BeautifulSoup(parser_response.content['content'])
+		s = soup.get_text()
+		s = re.sub(r'\n+', r'\\n\\n', s)
+	except:
+		abort(400)
 
 	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'])
 
