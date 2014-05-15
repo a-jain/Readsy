@@ -247,9 +247,10 @@ def POSTtexthandler():
 
 	return redirect(url_for('home'))
 
-@application.route('/text/<parseString>')
+@application.route('/text/<path:parseString>')
 def texthandler(parseString=None):
 	s = re.sub(r'\n+', r'\\n\\n', parseString)
+
 	return render_template('spritz.html', text=s, filename="", titleText="Highlighted Text") 
 
 @application.route('/web')
