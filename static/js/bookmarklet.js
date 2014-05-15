@@ -21,3 +21,5 @@ onclick="alert('Drag this link onto your toolbar to add the Readsy bookmarklet')
   	})
   	()
   )
+
+  curl --form "fileupload=@filename.txt" http://127.0.0.1:5000/text
