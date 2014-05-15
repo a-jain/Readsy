@@ -75,7 +75,7 @@ h2 {
 
 #editor {
   text-align: left;
-  max-width: 930px;
+  /*max-width: 930px;*/
 }
 
 .btn, .btn-group {
@@ -137,7 +137,7 @@ h2 {
 /* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 750px;
     padding-right: 20px;
     padding-left: 20px;
   }
@@ -154,8 +154,6 @@ h2 {
 .jumbotron .btn {
   font-family: 'Arial';
 }
-
-
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
