@@ -266,7 +266,11 @@ def url_handle():
 
 	ext = url.split('.')[-1].lower()
 	if ext in ALLOWED_EXTENSIONS:
-		r = requests.get(url, stream=True)
+		try:
+			r = requests.get(url, stream=True)
+		except:
+			abort(400)
+
 		if int(r.headers['content-length']) > application.config['MAX_CONTENT_LENGTH']:
 			abort(400)
 
@@ -291,7 +295,6 @@ def url_handle():
 	try:
 		r = requests.get(url, stream=True)
 	except:
-		print r
 		abort(404)
 
 	if "text" not in r.headers['content-type']:
