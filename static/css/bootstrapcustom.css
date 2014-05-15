@@ -85,6 +85,11 @@ h2 {
 
 }
 
+/*https://kuler.adobe.com/Red-Rose-Sand-color-theme-955060/*/
+.nav-pills > li > a:hover {
+  background-color: #E1E3E1;
+}
+
 /******** MY STUFF ************/
 
 
