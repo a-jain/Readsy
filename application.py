@@ -191,6 +191,7 @@ def cleantext(s):
 @application.route('/contact')
 @application.route('/about')
 @application.route('/home')
+@application.route('/text')
 @application.route('/')
 def index():
 	return render_template('spritz.html')
@@ -235,18 +236,20 @@ def upload_file():
 
 # text only
 @application.route('/text', methods=['GET', 'POST'])
-def texthandler():
-	print "z"
+def POSTtexthandler():
 	if request.method == 'POST':
-		print "y"
-		text = request.files['text']
-		print "t"
-		print request.files
-		print "a"
-		# print text
+		
+		text = request.form['text']
+		
+		print text
+		
 		return render_template('spritz.html', text=text, filename="test1", titleText="test2") 
 
 	return redirect(url_for('home'))
+
+@application.route('/text/<parseString>')
+def texthandler(parseString=None):
+	return render_template('spritz.html', text=parseString, filename="", titleText="Highlighted Text") 
 
 @application.route('/web')
 def url_handle():
