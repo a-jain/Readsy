@@ -179,6 +179,7 @@ def clean(s):
 
 @application.route('/contact')
 @application.route('/about')
+@application.route('/home')
 @application.route('/')
 def index():
 	return render_template('spritz.html')
@@ -217,8 +218,24 @@ def upload_file():
 			file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 			return redirect(url_for('spritz', filename=filename))
 			# return redirect(url_for('uploaded_file', filename=filename))
-	abort(400)
-	return redirect(url_for('spritz', filename="hi.txt"))
+	# abort(400)
+	print "x"
+	return redirect(url_for('index'))
+
+# text only
+@application.route('/text', methods=['GET', 'POST'])
+def texthandler():
+	print "z"
+	if request.method == 'POST':
+		print "y"
+		text = request.files['text']
+		print "t"
+		print request.files
+		print "a"
+		# print text
+		return render_template('spritz.html', text=text, filename="test1", titleText="test2") 
+
+	return redirect(url_for('home'))
 
 @application.route('/web')
 def url_handle():
@@ -263,8 +280,12 @@ def url_handle():
 		print r
 		abort(404)
 
-	if int(r.headers['content-length']) > application.config['MAX_CONTENT_LENGTH'] or "text" not in r.headers['content-type']:
+	if "text" not in r.headers['content-type']:
 		abort(400)
+
+	if 'content-length' in r.headers:
+		if int(r.headers['content-length']) > application.config['MAX_CONTENT_LENGTH']:
+			abort(400)
 
 	parser_client = ParserClient(READABILITY_TOKEN)
 	parser_response = parser_client.get_article_content(url)
@@ -279,4 +300,4 @@ def url_handle():
 	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'])
 
 if __name__ == '__main__':
-	application.run(debug=False)
+	application.run(debug=True)

@@ -1,6 +1,5 @@
 http://labs.voronianski.com/jquery.avgrund.js/
 
-correct hover behaviour of buttons on toolbar
 on hover of bits of text in introduction line, highlight/focus them accordingly
 make readsy button dropdown with different wpms
 make uploading button "loading" instead of disbaled
