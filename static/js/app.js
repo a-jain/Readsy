@@ -80,9 +80,23 @@
 
 })();
 
-//// redirects
+// redirects
 $(document).ready(function() {
 	navbarlinks();
+
+	// hash controller
+	if(window.location.hash) {
+  		var hash = window.location.hash.substring(1);
+ 		if (hash == "editor") {
+  			$( "#navbar2" ).click();
+  		}
+  		if (hash == "about") {
+  			$( "#navbar3" ).click();
+  		}
+  		if (hash == "contact") {
+  			$( "#navbar4" ).click();
+  		}
+    }
 });
 
 function navbarlinks()
