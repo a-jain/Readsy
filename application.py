@@ -149,7 +149,7 @@ def clean(s):
 	PAT_URL = r'(((ht|f)tps?\:\/\/)|~/|/)?([a-zA-Z]([\w\-]+\.)+([\w]{2,5})(:[\d]{1,5})?)/?(\w+\.[\w]{3,4})?((\?\w+=\w+)?(&\w+=\w+)*)'
 	PAT_SINGLELETTERS = r' . . . '
 	PAT_COPYRIGHT = r'(([cC]opyright)|©).*?[aA]ll rights reserved\.?'
-	PAT_RANDONUM = r'(?<=[a-z]{3})\d{1,3}( [0-9]{1,3})?(?=[\. ,])'
+	PAT_RANDONUM = r'(?<=[a-z]{3})\d{1,3}(?: [0-9]{1,3})?(?=[\. ,])'
 	PAT_PAGEREF = r'\d\d? of \d\d? '
 
 	s = re.sub(PAT_REFERENCES, '', s)
@@ -172,6 +172,17 @@ def clean(s):
 	s = re.sub(PAT_WEIRDPUNC, '', s)
 	s = re.sub(PAT_EXTRASPACE, ' ', s)
 	s = re.sub(PAT_SINGLELETTERS, '', s)
+
+	return s
+
+def cleantext(s):
+	PAT_PHOTOGRAPHER = r'Photographer:.*?\n'
+	PAT_CLOSE = r'\n.*?Close\n'
+	PAT_OPEN = r'\n.*?Open\n'
+
+	s = re.sub(PAT_PHOTOGRAPHER, '', s)
+	s = re.sub(PAT_CLOSE, '', s)
+	s = re.sub(PAT_OPEN, '', s)
 
 	return s
 
@@ -293,7 +304,14 @@ def url_handle():
 	try:
 		soup = BeautifulSoup(parser_response.content['content'])
 		s = soup.get_text()
-		s = re.sub(r'\n+', r'\\n\\n', s)
+		# print "###############"
+		# print s
+		s = cleantext(s)
+		s = re.sub(r'(?<=[.!?"”])\n+', r'\\n\\n', s)
+		# print s
+		s = re.sub(r'\n+', r' ', s)
+		# print "###############"
+		print s
 	except:
 		abort(400)
 
