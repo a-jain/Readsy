@@ -71,7 +71,10 @@ h2 {
 #editorpara {
   line-height: 150%;
   font-size: 120%;
-  padding-bottom: 50px;
+}
+
+#editor {
+  text-align: left;
 }
 
 .btn, .btn-group {
@@ -124,7 +127,7 @@ h2 {
   bottom: 0;
   left: 0;
   right: 0;
-  margin-top: 200px;
+  /*margin-top: 200px;*/
   margin-left: auto;
   margin-right: auto;
   max-width: 690px;
