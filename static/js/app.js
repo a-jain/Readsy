@@ -84,6 +84,11 @@
 $(document).ready(function() {
 	navbarlinks();
 
+	if (document.URL.split("/")[3] == "text") {
+		window.history.replaceState("", "Readsy", "/");
+		document.title = "Readsy";
+	}
+
 	// hash controller
 	if(window.location.hash) {
   		var hash = window.location.hash.substring(1);
