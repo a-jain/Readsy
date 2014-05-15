@@ -75,6 +75,7 @@ h2 {
 
 #editor {
   text-align: left;
+  max-width: 930px;
 }
 
 .btn, .btn-group {
