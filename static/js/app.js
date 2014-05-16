@@ -186,3 +186,7 @@ function showabout() {
 function showcontact() {
 	$("#contactme").fadeIn("fast");
 }
+
+$(window).on('hashchange', function() {
+    _gaq.push(['_trackPageview', "/" + window.location.hash.substr(1)]);
+});
