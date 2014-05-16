@@ -20,8 +20,8 @@
 	<link href="../static/css/froala_editor.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="../static/css/bootstrapcustom.css">
 
-	<script src="../static/js/jquery-1.11.0.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript" src="//sdk.spritzinc.com/js/1.0/js/spritz.min.js"></script>
 	<script type="text/javascript" src="../static/js/app.js"></script>
@@ -47,6 +47,11 @@
 				}
 				$("#editor").append("<p id=\"editorpara\">" + contentsplit[i] + "\n\n</p>" );
 			}
+		}
+
+		function disableButton() {
+			// console.log("test");
+			$("#uploadfilebutton").button('loading');
 		}
 
 		if (document.documentElement.clientWidth > 600)
@@ -89,49 +94,43 @@
 				document.getElementById('editortitle').innerHTML = titleText;
 				document.getElementById('editorpara').innerHTML = startText;
 			}
-		});
+		
+			// check bytes not too high
+			dropOptions = {
+			    // Required. Called when a user selects an item in the Chooser.
+			    success: function(files) {
+			    	// console.log(files[0].link);
+			        // alert("Here's the file link: " + files[0].link)
+			        if (files[0].bytes > 5 * 1024 * 1024)
+			        {
+			        	alert("Please choose another file");
+			        }
+			        else {
+			        	// var a = location.href.replace(/^http%5C:%5C/%5C/(.*)$/,files[0].bytes);
+			        	location.href="http://www.readsy.co/web?url="+escape(files[0].link);
+						$("#uploadfilebutton").removeAttr("data-loading-text");
+			        }
+			    },
+
+			    cancel: function() {
+			    	$("#uploadfilebutton").removeAttr("data-loading-text");
+	    		},
+
+			    linkType: "direct",
+
+			    multiselect: false,
+
+			    extensions: ['.pdf', '.txt']
+			};
+
+			var dropButton = Dropbox.createChooseButton(dropOptions);
 			
-		
-		$(document).ready(function() {
-		// check bytes not too high
-		dropOptions = {
-		    // Required. Called when a user selects an item in the Chooser.
-		    success: function(files) {
-		    	// console.log(files[0].link);
-		        // alert("Here's the file link: " + files[0].link)
-		        if (files[0].bytes > 5 * 1024 * 1024)
-		        {
-		        	alert("Please choose another file");
-		        }
-		        else {
-		        	// var a = location.href.replace(/^http%5C:%5C/%5C/(.*)$/,files[0].bytes);
-		        	location.href="http://www.readsy.co/web?url="+escape(files[0].link);
-					$("#uploadfilebutton").removeAttr("data-loading-text");
-		        }
-		    },
+			// console.log(dropButton);
+			$(dropButton).insertAfter("#filelimit");
+			$(dropButton).click(disableButton);
+		});
 
-		    cancel: function() {
-		    	$("#uploadfilebutton").removeAttr("data-loading-text");
-    		},
 
-		    linkType: "direct",
-
-		    multiselect: false,
-
-		    extensions: ['.pdf', '.txt']
-		};
-
-		var dropButton = Dropbox.createChooseButton(dropOptions);
-		
-		// console.log(dropButton);
-		$(dropButton).insertAfter("#filelimit");
-		$(dropButton).click(disableButton);
-	});
-
-	function disableButton() {
-		// console.log("test");
-		$("#uploadfilebutton").button('loading');
-	}
 	</script>
 
 	<script type="text/javascript">
