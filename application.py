@@ -15,6 +15,7 @@ from bs4 import BeautifulSoup
 
 import re, regex, sys, os, base64, hmac, urllib, time
 import HTMLParser, requests
+import urllib2
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -247,9 +248,11 @@ def POSTtexthandler():
 
 	return redirect(url_for('home'))
 
-@application.route('/text/<path:parseString>')
+@application.route('/text/<parseString>')
 def texthandler(parseString=None):
+	# s = re.sub(r'%0A', r'\n', parseString)
 	s = re.sub(r'\n+', r'\\n\\n', parseString)
+	s = urllib2.url2pathname(s)
 
 	return render_template('spritz.html', text=s, filename="", titleText="Highlighted Text") 
 
