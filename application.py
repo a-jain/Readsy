@@ -251,8 +251,10 @@ def POSTtexthandler():
 @application.route('/text/<parseString>')
 def texthandler(parseString=None):
 	# s = re.sub(r'%0A', r'\n', parseString)
-	s = re.sub(r'\n+', r'\\n\\n', parseString)
-	s = urllib2.url2pathname(s)
+	# s = re.sub(r'\n+', r'\\n\\n', parseString)
+	s = urllib2.url2pathname(parseString)
+	s = re.sub(r'\n+', r'\\n\\n', s)
+	print s
 
 	return render_template('spritz.html', text=s, filename="", titleText="Highlighted Text") 
 
