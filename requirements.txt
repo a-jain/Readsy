@@ -12,3 +12,5 @@ readability-api==0.2.4
 beautifulsoup4==4.3.2
 requests==2.2.1
 regex==2014.04.10
+Flask-SQLAlchemy==1.0
+psycopg2==2.5.3

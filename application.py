@@ -12,6 +12,7 @@ from cStringIO import StringIO
 from readability import ParserClient
 from urlparse import urlparse
 from bs4 import BeautifulSoup
+from flask.ext.sqlalchemy import SQLAlchemy
 
 import re, regex, sys, os, base64, hmac, urllib, time
 import HTMLParser, requests
@@ -23,6 +24,9 @@ sys.setdefaultencoding("utf-8")
 application = Flask(__name__)
 application.debug = True
 application.secret_key = '\x99\x02~p\x90\xa3\xce~\xe0\xe6Q\xe3\x8c\xac\xe9\x94\x84B\xe7\x9d=\xdf\xbb&'
+
+application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+db = SQLAlchemy(app)
 
 UPLOAD_FOLDER = 'tmp/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
@@ -180,7 +184,9 @@ def cleantext(s):
 	PAT_PHOTOGRAPHER = r'Photographer:.*?\n'
 	PAT_CLOSE = r'\n.*?Close\n'
 	PAT_OPEN = r'\n.*?Open\n'
+	PAT_COPYRIGHT = r'(([cC]opyright)|©).*?[aA]ll rights reserved\.?'
 
+	s = re.sub(PAT_COPYRIGHT, '', s, flags=re.I)
 	s = re.sub(PAT_PHOTOGRAPHER, '', s)
 	s = re.sub(PAT_CLOSE, '', s)
 	s = re.sub(PAT_OPEN, '', s)
