@@ -85,7 +85,7 @@ $(document).ready(function() {
 	navbarlinks();
 
 	if (document.URL.split("/")[3] == "text") {
-		window.history.replaceState("", "Readsy", "/");
+		// window.history.replaceState("", "Readsy", "/");
 		document.title = "Readsy";
 	}
 
