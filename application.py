@@ -191,7 +191,7 @@ def cleantext(s):
 	s = re.sub(PAT_PHOTOGRAPHER, '', s)
 	s = re.sub(PAT_CLOSE, '', s)
 	s = re.sub(PAT_OPEN, '', s)
-	s = re.sub(PAT_PERIOD, r'\. ', s)
+	s = re.sub(PAT_PERIOD, r'. ', s)
 
 	s = re.sub(r'(?<=[.!?"”])\n+', r' \\n\\n', s)
 	s = re.sub(r'\n+', r' ', s)
