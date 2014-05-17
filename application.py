@@ -185,11 +185,13 @@ def cleantext(s):
 	PAT_CLOSE = r'\n.*?Close\n'
 	PAT_OPEN = r'\n.*?Open\n'
 	PAT_COPYRIGHT = r'(([cC]opyright)|©).*?[aA]ll rights reserved\.?'
+	PAT_PERIOD = r'(?<=[a-z])\.(?=[A-Z])'
 
 	s = re.sub(PAT_COPYRIGHT, '', s, flags=re.I)
 	s = re.sub(PAT_PHOTOGRAPHER, '', s)
 	s = re.sub(PAT_CLOSE, '', s)
 	s = re.sub(PAT_OPEN, '', s)
+	s = re.sub(PAT_PERIOD, r'\. ', s)
 
 	s = re.sub(r'(?<=[.!?"”])\n+', r' \\n\\n', s)
 	s = re.sub(r'\n+', r' ', s)
@@ -328,7 +330,7 @@ def url_handle():
 		s = soup.get_text()
 		s = cleantext(s)
 		print s
-		
+
 	except:
 		abort(400)
 
