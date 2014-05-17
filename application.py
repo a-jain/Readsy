@@ -191,6 +191,9 @@ def cleantext(s):
 	s = re.sub(PAT_CLOSE, '', s)
 	s = re.sub(PAT_OPEN, '', s)
 
+	s = re.sub(r'(?<=[.!?"”])\n+', r' \\n\\n', s)
+	s = re.sub(r'\n+', r' ', s)
+
 	return s
 
 #######################################################
@@ -323,18 +326,13 @@ def url_handle():
 	try:
 		soup = BeautifulSoup(parser_response.content['content'])
 		s = soup.get_text()
-		# print "###############"
-		# print s
 		s = cleantext(s)
-		s = re.sub(r'(?<=[.!?"”])\n+', r'\\n\\n', s)
-		# print s
-		s = re.sub(r'\n+', r' ', s)
-		# print "###############"
 		print s
+		
 	except:
 		abort(400)
 
 	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'])
 
 if __name__ == '__main__':
-	application.run(debug=True)
+	application.run(debug=True, port=5000)
