@@ -188,5 +188,5 @@ function showcontact() {
 }
 
 $(window).on('hashchange', function() {
-    ga('send', 'pageview', { 'page': location.pathname + "/"  + location.hash.substr(1) });
+    ga('send', 'pageview', { 'page': location.pathname + "#"  + location.hash.substr(1) });
 });
