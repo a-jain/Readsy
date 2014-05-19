@@ -106,6 +106,7 @@ $(document).ready(function() {
 
 function navbarlinks()
 {
+	var baseTitle = "Readsy"
 	$("#navbar1").click(function()
 	{
 	    if (!$("#jumbotron").is(":visible"))
@@ -124,6 +125,7 @@ function navbarlinks()
 		    $("#list2").prop("class", "inactive");
 		    $("#list3").prop("class", "inactive");
 		    $("#list4").prop("class", "inactive");
+		    document.title = baseTitle;
 		    navbarlinks();
 	    }
 	});
@@ -139,6 +141,7 @@ function navbarlinks()
 		    $("#list2").prop("class", "active");
 		    $("#list3").prop("class", "inactive");
 		    $("#list4").prop("class", "inactive");
+		    document.title = baseTitle + " - Editor";
 		    navbarlinks();
 	    }
 	});
@@ -154,6 +157,7 @@ function navbarlinks()
 		    $("#list2").prop("class", "inactive");
 		    $("#list3").prop("class", "active");
 		    $("#list4").prop("class", "inactive");
+		    document.title = baseTitle + " - About";
 		    navbarlinks();
 	    }
 	});
@@ -169,6 +173,7 @@ function navbarlinks()
 		    $("#list2").prop("class", "inactive");
 		    $("#list3").prop("class", "inactive");
 		    $("#list4").prop("class", "active");
+		    document.title = baseTitle + " - Contact";
 		    navbarlinks();
 	    }
 	});
