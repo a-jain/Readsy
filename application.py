@@ -35,6 +35,7 @@ application.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 READABILITY_TOKEN = 'd58d28ee3b6259ece0a6f7b3ad985aa171fe8ac5'
 
 ERROR_400 = 'Invalid file/URL for parsing'
+ERROR_401 = 'Ready\'s servers aren\'t authorised to access this file. Please download and upload it directly to us (or use Dropbox)'
 ERROR_404 = 'This page does not exist'
 ERROR_500 = 'File doesn\'t exist any more'
 
@@ -68,6 +69,10 @@ def allowed_file(filename):
 @application.errorhandler(400)
 def PDF_not_found(error):
 	return render_template('spritz.html', text=ERROR_400, error=400)
+
+@application.errorhandler(400)
+def needAuth(error):
+	return render_template('spritz.html', text=ERROR_401, error=400)
 
 @application.errorhandler(404)
 def page_not_found(error):
@@ -275,6 +280,9 @@ def url_handle():
 
 	if not url or url == '':
 		return redirect(url_for('index'))
+
+	if "auth=1" in url.split("&"):
+		abort(401)
 	
 	if '://' not in url:
 		url = "http://" + url
