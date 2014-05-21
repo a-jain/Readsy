@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, flash, url_for, request, redirect, abort
+from flask import Flask, render_template, flash, url_for, after_this_request, request, redirect, abort
 from flask import send_from_directory, safe_join, json
 from werkzeug.utils import secure_filename
 from hashlib import sha1
@@ -19,13 +19,15 @@ import re, regex, sys, os, base64, hmac, urllib, time
 import HTMLParser, requests
 import urllib2
 
+import gzip
+import functools 
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 compress = Compress()
 
 application = Flask(__name__)
-application.debug = True
 application.secret_key = '\x99\x02~p\x90\xa3\xce~\xe0\xe6Q\xe3\x8c\xac\xe9\x94\x84B\xe7\x9d=\xdf\xbb&'
 
 application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
@@ -43,6 +45,41 @@ ERROR_400 = 'Invalid file/URL for parsing'
 ERROR_401 = 'Ready\'s servers aren\'t authorised to access this file. Please download and upload it directly to us (or use Dropbox)'
 ERROR_404 = 'This page does not exist'
 ERROR_500 = 'File doesn\'t exist any more'
+
+####################################################### 
+
+def gzipped(f):
+    @functools.wraps(f)
+    def view_func(*args, **kwargs):
+        @after_this_request
+        def zipper(response):
+            accept_encoding = request.headers.get('Accept-Encoding', '')
+
+            if 'gzip' not in accept_encoding.lower():
+                return response
+
+            response.direct_passthrough = False
+
+            if (response.status_code < 200 or
+                response.status_code >= 300 or
+                'Content-Encoding' in response.headers):
+                return response
+            gzip_buffer = StringIO()
+            gzip_file = gzip.GzipFile(mode='wb', 
+                                      fileobj=gzip_buffer)
+            gzip_file.write(response.data)
+            gzip_file.close()
+
+            response.data = gzip_buffer.getvalue()
+            response.headers['Content-Encoding'] = 'gzip'
+            response.headers['Vary'] = 'Accept-Encoding'
+            response.headers['Content-Length'] = len(response.data)
+
+            return response
+
+        return f(*args, **kwargs)
+
+    return view_func
 
 ####################################################### 
 
@@ -215,11 +252,13 @@ def cleantext(s):
 @application.route('/home')
 @application.route('/text')
 @application.route('/')
+@gzipped
 def index():
 	return render_template('spritz.html')
 
 @application.route('/spritzy')
 @application.route('/spritzy/<filename>')
+@gzipped
 def spritz(filename=None):
 	if not filename:
 		return redirect(url_for('index'))
@@ -244,6 +283,7 @@ def spritz(filename=None):
 
 # @application.route('/upload')
 @application.route('/upload', methods=['GET', 'POST'])
+@gzipped
 def upload_file():
 	if request.method == 'POST':
 		file = request.files['file']
@@ -258,6 +298,7 @@ def upload_file():
 
 # text only
 @application.route('/text', methods=['GET', 'POST'])
+@gzipped
 def POSTtexthandler():
 	if request.method == 'POST':
 		
@@ -270,6 +311,7 @@ def POSTtexthandler():
 	return redirect(url_for('home'))
 
 @application.route('/text/<parseString>')
+@gzipped
 def texthandler(parseString=None):
 	# s = re.sub(r'%0A', r'\n', parseString)
 	# s = re.sub(r'\n+', r'\\n\\n', parseString)
@@ -349,9 +391,5 @@ def url_handle():
 
 	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'])
 
-COMPRESS_DEBUG = True
-compress = Compress()
-
 if __name__ == '__main__':
-	compress.init_app(application)
-	application.run(debug=False, port=5000)
+	application.run(debug=True, port=5000)
