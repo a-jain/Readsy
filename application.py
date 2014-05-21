@@ -112,9 +112,9 @@ def allowed_file(filename):
 def PDF_not_found(error):
 	return render_template('spritz.html', text=ERROR_400, error=400)
 
-@application.errorhandler(400)
+@application.errorhandler(401)
 def needAuth(error):
-	return render_template('spritz.html', text=ERROR_401, error=400)
+	return render_template('spritz.html', text=ERROR_401, error=401)
 
 @application.errorhandler(404)
 def page_not_found(error):
@@ -322,6 +322,7 @@ def texthandler(parseString=None):
 	return render_template('spritz.html', text=s, filename="", titleText="Highlighted Text") 
 
 @application.route('/web')
+@gzipped
 def url_handle():
 	url = request.args.get('url', '')
 
