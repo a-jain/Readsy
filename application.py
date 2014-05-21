@@ -13,6 +13,7 @@ from readability import ParserClient
 from urlparse import urlparse
 from bs4 import BeautifulSoup
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.compress import Compress
 
 import re, regex, sys, os, base64, hmac, urllib, time
 import HTMLParser, requests
@@ -21,12 +22,16 @@ import urllib2
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
+compress = Compress()
+
 application = Flask(__name__)
 application.debug = True
 application.secret_key = '\x99\x02~p\x90\xa3\xce~\xe0\xe6Q\xe3\x8c\xac\xe9\x94\x84B\xe7\x9d=\xdf\xbb&'
 
 application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(application)
+
+application.config['COMPRESS_DEBUG'] = True
 
 UPLOAD_FOLDER = 'tmp/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
@@ -344,5 +349,9 @@ def url_handle():
 
 	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'])
 
+COMPRESS_DEBUG = True
+compress = Compress()
+
 if __name__ == '__main__':
-	application.run(debug=True, port=5000)
+	compress.init_app(application)
+	application.run(debug=False, port=5000)
