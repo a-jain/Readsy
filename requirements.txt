@@ -16,3 +16,4 @@ Flask-SQLAlchemy==1.0
 psycopg2==2.5.3
 Flask-S3==0.1.6
 boto==2.27.0
+Flask-Assets==0.9

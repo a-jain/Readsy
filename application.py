@@ -21,24 +21,31 @@ import urllib2
 import gzip
 import functools 
 from flask_s3 import FlaskS3
+from flask.ext.assets import Environment, Bundle
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-s3 = FlaskS3()
 def start_app():
-    app = Flask(__name__)
-    app.config['S3_BUCKET_NAME'] = 'readsy'
-    app.config['S3_USE_HTTPS'] = False
-    app.config['USE_S3_DEBUG'] = True
-    app.config['AWS_ACCESS_KEY_ID'] = os.environ['AWS_ACCESS_KEY_ID']
-    app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
-    
-    s3.init_app(app)
-    return app
+	app = Flask(__name__)
+	app.config['S3_BUCKET_NAME'] = 'readsy'
+	app.config['S3_USE_HTTPS'] = False
+	app.config['USE_S3_DEBUG'] = True
+	app.config['AWS_ACCESS_KEY_ID'] = os.environ['AWS_ACCESS_KEY_ID']
+	app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
+	s3 = FlaskS3()
+	s3.init_app(app)
+
+	assets = Environment()
+	js = Bundle('js/app.js', 'js/froala_editor.min.js', filters='jsmin', output='gen/packed.js')
+	assets.register('js_all', js)
+	app.config['ASSETS_DEBUG'] = True
+	assets.init_app(app)
+	app.config['FLASK_ASSETS_USE_S3'] = True
+
+	return app
 
 application = start_app()
-application.secret_key = '\x99\x02~p\x90\xa3\xce~\xe0\xe6Q\xe3\x8c\xac\xe9\x94\x84B\xe7\x9d=\xdf\xbb&'
 
 application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(application)
@@ -59,37 +66,37 @@ ERROR_500 = 'File doesn\'t exist any more'
 ####################################################### 
 
 def gzipped(f):
-    @functools.wraps(f)
-    def view_func(*args, **kwargs):
-        @after_this_request
-        def zipper(response):
-            accept_encoding = request.headers.get('Accept-Encoding', '')
+	@functools.wraps(f)
+	def view_func(*args, **kwargs):
+		@after_this_request
+		def zipper(response):
+			accept_encoding = request.headers.get('Accept-Encoding', '')
 
-            if 'gzip' not in accept_encoding.lower():
-                return response
+			if 'gzip' not in accept_encoding.lower():
+				return response
 
-            response.direct_passthrough = False
+			response.direct_passthrough = False
 
-            if (response.status_code < 200 or
-                response.status_code >= 300 or
-                'Content-Encoding' in response.headers):
-                return response
-            gzip_buffer = StringIO()
-            gzip_file = gzip.GzipFile(mode='wb', 
-                                      fileobj=gzip_buffer)
-            gzip_file.write(response.data)
-            gzip_file.close()
+			if (response.status_code < 200 or
+				response.status_code >= 300 or
+				'Content-Encoding' in response.headers):
+				return response
+			gzip_buffer = StringIO()
+			gzip_file = gzip.GzipFile(mode='wb', 
+									  fileobj=gzip_buffer)
+			gzip_file.write(response.data)
+			gzip_file.close()
 
-            response.data = gzip_buffer.getvalue()
-            response.headers['Content-Encoding'] = 'gzip'
-            response.headers['Vary'] = 'Accept-Encoding'
-            response.headers['Content-Length'] = len(response.data)
+			response.data = gzip_buffer.getvalue()
+			response.headers['Content-Encoding'] = 'gzip'
+			response.headers['Vary'] = 'Accept-Encoding'
+			response.headers['Content-Length'] = len(response.data)
 
-            return response
+			return response
 
-        return f(*args, **kwargs)
+		return f(*args, **kwargs)
 
-    return view_func
+	return view_func
 
 ####################################################### 
 
