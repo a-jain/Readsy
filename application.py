@@ -22,6 +22,7 @@ import gzip
 import functools 
 from flask_s3 import FlaskS3
 from flask.ext.assets import Environment, Bundle
+import cssmin
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -37,8 +38,10 @@ def start_app():
 	s3.init_app(app)
 
 	assets = Environment()
-	js = Bundle('js/app.js', 'js/froala_editor.min.js', filters='jsmin', output='gen/packed.js')
+	js = Bundle('js/app.js', 'js/froala_editor.min.js', filters='rjsmin', output='gen/packed.js')
+	css = Bundle('css/bootstrap.min.css', 'css/bootstrapcustom.css', 'css/froala_editor.min.css', filters='cssmin', output='gen/packed.css')
 	assets.register('js_all', js)
+	assets.register('css_all', css)
 	app.config['ASSETS_DEBUG'] = True
 	assets.init_app(app)
 	app.config['FLASK_ASSETS_USE_S3'] = True

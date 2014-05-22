@@ -17,3 +17,4 @@ psycopg2==2.5.3
 Flask-S3==0.1.6
 boto==2.27.0
 Flask-Assets==0.9
+cssmin==0.2.0
