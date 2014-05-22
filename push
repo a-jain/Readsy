@@ -1,9 +1,9 @@
 #!/bin/bash
-if [ git diff --quiet static/js/app.js ] || [ git diff --quiet static/js/froala_editor.min.js ] || [ git diff --quiet static/css/bootstrap.min.css ] || [ git diff --quiet static/css/bootstrapcustom.css ];
-	then
-	python s3upload.py
-	echo "gone to Amazon"
-	fi
+git diff --quiet static/js/app.js || git diff --quiet static/js/froala_editor.min.js || git diff --quiet static/css/bootstrap.min.css || git diff --quiet static/css/bootstrapcustom.css \{
+	
+	python s3upload.py;
+	echo "gone to Amazon";
+\}
 
 git add -A
 git commit -m $1
