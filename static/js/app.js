@@ -33,7 +33,7 @@
 	};
 
 
-	// Display "Completed X of XXX"
+	// Display "Completed X of xxx"
 	function  showProgress(completed, total) {
 	     $("#wordNumber").text(completed);
 	     $("#wordTotal").text(total);
