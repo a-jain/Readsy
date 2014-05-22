@@ -20,11 +20,24 @@ import urllib2
 
 import gzip
 import functools 
+from flask_s3 import FlaskS3
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-application = Flask(__name__)
+s3 = FlaskS3()
+def start_app():
+    app = Flask(__name__)
+    app.config['S3_BUCKET_NAME'] = 'readsy'
+    app.config['S3_USE_HTTPS'] = False
+    app.config['USE_S3_DEBUG'] = True
+    app.config['AWS_ACCESS_KEY_ID'] = os.environ['AWS_ACCESS_KEY_ID']
+    app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
+    
+    s3.init_app(app)
+    return app
+
+application = start_app()
 application.secret_key = '\x99\x02~p\x90\xa3\xce~\xe0\xe6Q\xe3\x8c\xac\xe9\x94\x84B\xe7\x9d=\xdf\xbb&'
 
 application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']

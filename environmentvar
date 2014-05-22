@@ -1,0 +1,13 @@
+/etc/launchd.conf has never existed by default, but it does still work in 10.9.
+
+Run for example sudo nano /etc/launchd.conf.
+Add a line like setenv JAVA_HOME /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home. (I don't know what JAVA_HOME should actually be set to though.)
+Either restart or run launchctl < /etc/launchd.conf; sudo launchctl < /etc/launchd.conf and relaunch processes.
+launchctl export prints variables exported by the user launchd process and sudo launchctl export prints variables exported by the root launchd process.
+
+This method can also be used to set a default path. For example I have added this line to /etc/launchd.conf:
+
+setenv PATH /Users/lauri/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/libexec:/usr/texbin
+
+(I used /Users/lauri/bin instead of ~/bin because ~/bin would be /var/root/bin for programs run as root.)
+

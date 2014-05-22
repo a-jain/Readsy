@@ -14,3 +14,5 @@ requests==2.2.1
 regex==2014.04.10
 Flask-SQLAlchemy==1.0
 psycopg2==2.5.3
+Flask-S3==0.1.6
+boto==2.27.0
