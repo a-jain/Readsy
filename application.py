@@ -30,10 +30,12 @@ sys.setdefaultencoding("utf-8")
 def start_app():
 	app = Flask(__name__)
 	app.config['S3_BUCKET_NAME'] = 'readsy'
+	app.config['S3_CDN_DOMAIN'] = 'dwdhruapbuq08.cloudfront.net'
 	app.config['S3_USE_HTTPS'] = False
-	app.config['USE_S3_DEBUG'] = True
+	app.config['USE_S3_DEBUG'] = False
 	app.config['AWS_ACCESS_KEY_ID'] = os.environ['AWS_ACCESS_KEY_ID']
 	app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
+	
 	s3 = FlaskS3()
 	s3.init_app(app)
 
