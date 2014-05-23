@@ -40,8 +40,8 @@ def start_app():
 	s3.init_app(app)
 
 	assets = Environment()
-	js = Bundle('js/app.js', 'js/froala_editor.min.js', filters='rjsmin', output='gen/packed.js')
-	css = Bundle('css/bootstrap.min.css', 'css/bootstrapcustom.css', 'css/froala_editor.min.css', filters='cssmin', output='gen/packed.css')
+	js = Bundle('js/app.js', 'js/froala_editor.min.js.gz', filters='rjsmin', output='gen/packed.js')
+	css = Bundle('css/bootstrap.min.css.gz', 'css/bootstrapcustom.css', 'css/froala_editor.min.css.gz', filters='cssmin', output='gen/packed.css')
 	assets.register('js_all', js)
 	assets.register('css_all', css)
 	app.config['ASSETS_DEBUG'] = True

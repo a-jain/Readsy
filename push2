@@ -1,5 +1,9 @@
 #!/bin/bash
+gzip static/js/froala_editor.min.js
+gzip static/css/froala_editor.min.css
+gzip static/css/bootstrap.min.css
 python s3upload.py
+echo "Gone to Amazon"
 git add -A
 git commit -m $1
 git push
