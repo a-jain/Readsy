@@ -1,7 +1,7 @@
 #!/bin/bash
-gzip static/js/froala_editor.min.js
-gzip static/css/froala_editor.min.css
-gzip static/css/bootstrap.min.css
+gzip -c static/js/froala_editor.min.js > static/js/froala_editor.min.js.gz
+gzip -c static/css/froala_editor.min.css > static/css/froala_editor.min.css.gz
+gzip -c static/css/bootstrap.min.css > static/css/bootstrap.min.css.gz
 python s3upload.py
 echo "Gone to Amazon"
 git add -A
