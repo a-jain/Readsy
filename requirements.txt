@@ -18,3 +18,4 @@ Flask-S3==0.1.6
 boto==2.27.0
 Flask-Assets==0.9
 cssmin==0.2.0
+closure==20140110

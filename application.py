@@ -35,11 +35,11 @@ def start_app():
 
 	assets = Environment()
 	# make sure jQuery isn't included twice
-	js = Bundle('js/froala_editor.min.js', 'js/jquery.cookie.js', 'js/app.js', filters='rjsmin', output='gen/packed.js')
+	js = Bundle('js/froala_editor.min.js', 'js/jquery.cookie.js', 'js/app.js', filters='closure_js', output='gen/packed.js')
 	css = Bundle('css/bootstrap.min.css', 'css/bootstrapcustom.css', 'css/froala_editor.min.css', filters='cssmin', output='gen/packed.css')
 	assets.register('js_all', js)
 	assets.register('css_all', css)
-	app.config['ASSETS_DEBUG'] = True
+	app.config['ASSETS_DEBUG'] = False
 	assets.init_app(app)
 	# app.config['FLASK_ASSETS_USE_S3'] = True
 
@@ -185,7 +185,6 @@ def PDFhelper(url):
 
 	except:
 		abort(400)
-		return
 
 def TXThelper(url):
 	try:
@@ -197,7 +196,6 @@ def TXThelper(url):
 
 	except:
 		abort(400)
-		return
 
 def clean(s):
 	PAT_INLINEFOOTNOTE = r'[\(\[\.,]\d{1,3}(?:[,–]\d{1,3}){0,2}[\)\]]?'
