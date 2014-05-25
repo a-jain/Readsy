@@ -26,22 +26,22 @@ def start_app():
 	app.config['S3_BUCKET_NAME'] = 'readsy'
 	app.config['S3_CDN_DOMAIN'] = 'dwdhruapbuq08.cloudfront.net'
 	app.config['S3_USE_HTTPS'] = False
-	app.config['USE_S3_DEBUG'] = False
+	app.config['USE_S3_DEBUG'] = True
 	app.config['AWS_ACCESS_KEY_ID'] = os.environ['AWS_ACCESS_KEY_ID']
 	app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
 	
 	s3 = FlaskS3()
 	s3.init_app(app)
 
-	assets = Environment()
-	# make sure jQuery isn't included twice
-	js = Bundle('js/froala_editor.min.js', 'js/jquery.cookie.js', 'js/app.js', filters='closure_js', output='gen/packed.js')
+	assets = Environment()	
+	# use closure_js once i have java 7
+	js = Bundle('js/jquery.cookie.js', 'js/app.js', 'js/froala_editor.min.js', filters='rjsmin', output='gen/packed.js')
 	css = Bundle('css/bootstrap.min.css', 'css/bootstrapcustom.css', 'css/froala_editor.min.css', filters='cssmin', output='gen/packed.css')
 	assets.register('js_all', js)
 	assets.register('css_all', css)
 	app.config['ASSETS_DEBUG'] = False
 	assets.init_app(app)
-	# app.config['FLASK_ASSETS_USE_S3'] = True
+	app.config['FLASK_ASSETS_USE_S3'] = True
 
 	return app
 
