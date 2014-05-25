@@ -13,16 +13,10 @@ from readability import ParserClient
 from urlparse import urlparse
 from bs4 import BeautifulSoup
 from flask.ext.sqlalchemy import SQLAlchemy
-
-import re, regex, sys, os, base64, hmac, urllib, time
-import HTMLParser, requests
-import urllib2
-
-import gzip
-import functools 
 from flask_s3 import FlaskS3
 from flask.ext.assets import Environment, Bundle
-import cssmin
+
+import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -324,11 +318,8 @@ def upload_file():
 @gzipped
 def POSTtexthandler():
 	if request.method == 'POST':
-		
 		text = request.form['text']
-		
 		print text
-		
 		return render_template('spritz.html', text=text, filename="test1", titleText="test2") 
 
 	return redirect(url_for('home'))
