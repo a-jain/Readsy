@@ -32,35 +32,9 @@
 	{% endassets %}
 
 	<script type="text/javascript">
-		function jDecode(str) {
-			return $("<div/>").html(str.trim()).text();
-		}
-
-		function updateEditor() {
-			var content = jDecode(formString);
-			var contentsplit = content.split('\n\n')
-
-			for (var i = 0; i < contentsplit.length; i++)
-			{
-				contentsplit[i] = contentsplit[i].trim();
-				if (!contentsplit[i].slice(-1).match(/[\!\.\?]/) && contentsplit[i] !== "")
-				{
-					contentsplit[i] += "\.";
-				}
-				$("#editor").append("<p id=\"editorpara\">" + contentsplit[i] + "\n\n</p>" );
-			}
-		}
-
 		function disableButton() {
 			// console.log("test");
 			$("#uploadfilebutton").button('loading');
-		}
-
-		if (document.documentElement.clientWidth > 600)
-		{
-			$(document).ready(function() {
-				$('#inputText').tooltip();
-			});
 		}		
 		
 		formString = "{{text}}"
@@ -168,7 +142,7 @@
 	      	</p>
 
 			<p>
-				<form action="/web" method="GET" class="form-inline" role="form">
+				<form action="/web" method="GET" class="form-inline" role="form" id="URLForm">
 					<div class="form-group">
 					  <label class="sr-only" for="urlentry">Enter URL</label>
 					  <input type="text" class="form-control" name="url" id="urlentry" placeholder="Enter URL here"/>
@@ -186,7 +160,7 @@
 				
 			<p>
 				<!-- modal code -->
-				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="modalButton">
 					Upload PDF/txt
 				</button>
 

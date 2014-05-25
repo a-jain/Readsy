@@ -32,9 +32,12 @@
 		SpritzClient.spritzify(text, locale, onSpritzifySuccess, onSpritzifyError);
 	};
 
+	function onSpeedChange(event, speed) {
+		$.cookie('spritz_speed', speed, { expires: 28, path: '/' });
+	}
 
 	// Display "Completed X of XXX"
-	function  showProgress(completed, total) {
+	function showProgress(completed, total) {
 	     $("#wordNumber").text(completed);
 	     $("#wordTotal").text(total);
 	};
@@ -53,14 +56,24 @@
 			
 	};
 
-	if (document.documentElement.clientWidth <= 480)
-	{
-		// $("#inputText").attr("data-placement", "top");
+	if (document.documentElement.clientWidth <= 480) {
 		customOptions["redicleWidth"] = 302;
 	}
 
+	if (document.documentElement.clientWidth > 600) {
+		$(document).ready(function() {
+			$('#inputText').tooltip();
+		});
+	}
+
+	var cookieVal = $.cookie('spritz_speed');
+	if (cookieVal !== undefined) {
+		// cast to int first
+		customOptions['defaultSpeed'] = cookieVal;
+	}
+
 	var init = function() {
-		
+		var container = $("#spritzer");
 		$("#clear").on("click", clearTextClick);
 		$("#fill").on("click", fillTextClick);
 		$("#startSpritz").on("click", onStartSpritzClick);			
@@ -70,7 +83,8 @@
  		spritzController.setProgressReporter(showProgress);
  		
  		// Attach the controller's container to this page's "spritzer" container
- 		spritzController.attach($("#spritzer"));
+ 		spritzController.attach(container);
+ 		container.on("onSpritzSpeedChange", onSpeedChange);
 	};
 	
 	
@@ -195,3 +209,22 @@ function showcontact() {
 $(window).on('hashchange', function() {
     ga('send', 'pageview', { 'page': location.pathname + "#"  + location.hash.substr(1) });
 });
+
+function jDecode(str) {
+	return $("<div/>").html(str.trim()).text();
+}
+
+function updateEditor() {
+	var content = jDecode(formString);
+	var contentsplit = content.split('\n\n')
+
+	for (var i = 0; i < contentsplit.length; i++)
+	{
+		contentsplit[i] = contentsplit[i].trim();
+		if (!contentsplit[i].slice(-1).match(/[\!\.\?]/) && contentsplit[i] !== "")
+		{
+			contentsplit[i] += "\.";
+		}
+		$("#editor").append("<p id=\"editorpara\">" + contentsplit[i] + "\n\n</p>" );
+	}
+}

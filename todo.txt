@@ -1,7 +1,20 @@
-http://labs.voronianski.com/jquery.avgrund.js/
-
 on hover of bits of text in introduction line, highlight/focus them accordingly
 make readsy button dropdown with different wpms
 make uploading button "loading" instead of disbaled
 bookmarklet get highlighted text (get selection)
 dark mode
+go to word x
+
+
+dark mode:
+body { background-color: #616161;} line 11
+#bigtitle { color: #DFDFDF; } line 55
+.header { border-bottom: color #616161;} line 109
+.footer { border-top: color #616161; color: #AFAFAF;} line 122
+#instructions { display: none; } line 48
+#instructions { background-color: #DFDFDF; } line 33
+a { color: #66A3D8; }
+#modalButton .hide()
+#URLForm .hide()
+
+pills - #5F86A8

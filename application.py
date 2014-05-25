@@ -40,13 +40,14 @@ def start_app():
 	s3.init_app(app)
 
 	assets = Environment()
-	js = Bundle('js/app.js', 'js/froala_editor.min.js', filters='rjsmin', output='gen/packed.js')
+	# make sure jQuery isn't included twice
+	js = Bundle('js/froala_editor.min.js', 'js/jquery.cookie.js', 'js/app.js', filters='rjsmin', output='gen/packed.js')
 	css = Bundle('css/bootstrap.min.css', 'css/bootstrapcustom.css', 'css/froala_editor.min.css', filters='cssmin', output='gen/packed.css')
 	assets.register('js_all', js)
 	assets.register('css_all', css)
 	app.config['ASSETS_DEBUG'] = True
 	assets.init_app(app)
-	app.config['FLASK_ASSETS_USE_S3'] = True
+	# app.config['FLASK_ASSETS_USE_S3'] = True
 
 	return app
 
@@ -371,8 +372,8 @@ def url_handle():
 			abort(400)
 
 		if r.status_code == 200:
-			filename = url.split('.')[-1]
-			fullname = filename + r"." + ext
+			fullname = url.split('/')[-1]
+			filename = fullname.split('.')[0]
 			path = safe_join(application.config['UPLOAD_FOLDER'], fullname)
 			with open(path, 'wb') as f:
 				for chunk in r.iter_content():
