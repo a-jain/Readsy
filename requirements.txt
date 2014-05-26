@@ -19,3 +19,8 @@ boto==2.27.0
 Flask-Assets==0.9
 cssmin==0.2.0
 closure==20140110
+WTForms==1.0.5
+WTForms-Components==0.9.2
+WTForms-ParsleyJS==0.1.4
+Flask-WTF==0.9.5
+validators==0.5.0

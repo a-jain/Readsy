@@ -15,6 +15,9 @@ from bs4 import BeautifulSoup
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_s3 import FlaskS3
 from flask.ext.assets import Environment, Bundle
+from flask_wtf import Form
+from wtforms import TextField
+from wtforms.validators import DataRequired
 
 import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin
 
@@ -271,11 +274,6 @@ def cleantext(s):
 def index():
 	return render_template('spritz.html')
 
-@application.route('/test')
-@gzipped
-def test():
-	return render_template('testsite.html')
-
 @application.route('/spritzy')
 @application.route('/spritzy/<filename>')
 @gzipped
@@ -408,6 +406,25 @@ def url_handle():
 		abort(400)
 
 	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'])
+
+###################################################
+
+class MyForm(Form):
+    name = TextField('name', validators=[DataRequired()])
+
+@application.route('/test')
+@gzipped
+def test():
+	return render_template('testsite.html')
+
+@application.route('/test/submit', methods=('GET', 'POST'))
+def submit():
+    form = MyForm()
+    if form.validate_on_submit():
+        return redirect(url_for('home'))
+    return render_template('submit.html', form=form)
+
+###################################################
 
 if __name__ == '__main__':
 	application.run(debug=True, port=5000)

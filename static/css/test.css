@@ -58,26 +58,16 @@ h2 {
   text-decoration: none;
 }
 
-#urlentry {
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 340px;
-  max-width: 438px;
+#welcomeText {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 20px;
 }
 
 #progressbar {
   display:none;
 }
 
-#editorpara {
-  line-height: 150%;
-  font-size: 120%;
-}
-
-#editor {
-  text-align: left;
-  /*max-width: 930px;*/
-}
 
 .btn, .btn-group {
   margin-left: 4px;
