@@ -95,9 +95,9 @@
 
       		<p id="formText">Some details...</p>
 
-      		<form method="POST" action="/test" enctype="multipart/form-data">
-			    {{ form.name.label }} {{ form.name(size=20) }}
-			    <input type="submit" value="Go">
+      		<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form">
+			    {{ form.name.label }} {{ form.name(size=20, class="form-control") }}
+			    <input type="submit" value="Go" class="btn btn-default">
 			</form>
 
 			<p>
