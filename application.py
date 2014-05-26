@@ -16,9 +16,10 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask_s3 import FlaskS3
 from flask.ext.assets import Environment, Bundle
 from flask_wtf import Form
-from wtforms import TextField
+from wtforms import TextField, SelectField
 from wtforms.validators import DataRequired
 from wtformsparsleyjs import IntegerField, StringField
+import pycountry
 
 import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin
 
@@ -411,16 +412,25 @@ def url_handle():
 ###################################################
 
 class MyForm(Form):
-    name = StringField('name', validators=[DataRequired()])
+	cc={}
+	t = list(pycountry.countries)
+	for country in t:
+		cc[country.alpha2]=country.name
+	cc = [(v, k) for k, v in cc.iteritems()]
+	cc.sort()
+	cc = [(v, k) for k, v in cc]
+
+	name = StringField('name', validators=[DataRequired()])
+	country = SelectField('country', choices=cc)
 
 @application.route('/test')
 @application.route('/test', methods=('GET', 'POST'))
 def test():
-    form = MyForm(csrf_enabled=False)
-    if form.validate_on_submit():
-    	pass
-    	return render_template('success.html')
-    return render_template('testsite.html', form=form)
+	form = MyForm(csrf_enabled=False)
+	if form.validate_on_submit():
+		# pass
+		return render_template('success.html')
+	return render_template('testsite.html', form=form)
 
 ###################################################
 

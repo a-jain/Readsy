@@ -25,7 +25,11 @@
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script async type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="//sdk.spritzinc.com/js/1.0/js/spritz.min.js"></script>
-	<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="3kwrstpe4ylxu6z">	</script>
+	<script type="text/javascript" src="http://parsleyjs.org/dist/parsley.min.js"></script>
+	<!-- <script type="text/javascript" src="http://vast-plains-1931.herokuapp.com/static/scripts/parsleyjs/parsley.extend.js"></script> -->
+
+	
+
 
 	<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="/static/js/test.js"></script>
@@ -97,6 +101,7 @@
 
       		<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form">
 			    {{ form.name.label }} {{ form.name(size=20, class="form-control") }}
+			    {{ form.country.label }} {{ form.country(class="form-control") }}
 			    <input type="submit" value="Go" class="btn btn-default">
 			</form>
 

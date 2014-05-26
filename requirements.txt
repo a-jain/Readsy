@@ -24,3 +24,4 @@ WTForms-Components==0.9.2
 WTForms-ParsleyJS==0.1.4
 Flask-WTF==0.9.5
 validators==0.5.0
+pycountry==1.6
