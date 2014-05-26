@@ -99,9 +99,11 @@
 
       		<p id="formText">Some details...</p>
 
-      		<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form">
-			    {{ form.name.label }} {{ form.name(size=20, class="form-control") }}
+      		<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form" id="collectInfo">
 			    {{ form.country.label }} {{ form.country(class="form-control") }}
+			    {{ form.agerange.label }} {{ form.agerange(class="form-control") }}
+			    {{ form.difficulties.label }} {{ form.difficulties() }}
+			    {{ form.nativelang.label }} {{ form.nativelang() }}
 			    <input type="submit" value="Go" class="btn btn-default">
 			</form>
 

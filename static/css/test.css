@@ -77,11 +77,18 @@ h2 {
   margin-left: 4px;
 }
 
+#collectInfo {
+  text-align: left;
+}
+
 @media screen and (max-width: 480px) {
   #urlentry {
     min-width: 300px;
   }
+}
 
+ul {
+    list-style-type: none;
 }
 
 /*https://kuler.adobe.com/Red-Rose-Sand-color-theme-955060/*/

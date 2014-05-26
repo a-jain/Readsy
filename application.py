@@ -16,9 +16,10 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask_s3 import FlaskS3
 from flask.ext.assets import Environment, Bundle
 from flask_wtf import Form
-from wtforms import TextField, SelectField
+from wtforms import TextField, widgets, RadioField
 from wtforms.validators import DataRequired
-from wtformsparsleyjs import IntegerField, StringField
+from wtforms.fields import SelectMultipleField
+from wtformsparsleyjs import StringField, SelectField
 import pycountry
 
 import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin
@@ -420,8 +421,14 @@ class MyForm(Form):
 	cc.sort()
 	cc = [(v, k) for k, v in cc]
 
-	name = StringField('name', validators=[DataRequired()])
-	country = SelectField('country', choices=cc)
+	age = [("u10", "Under 10"), ("11-20", "11-20"), ("21-40", "21-40"), ("41-60", "41-60"), ("61-80", "61-80"), ("o81", "Over 81")]
+	allDifficulties = [("AMD", "Age Related Macular Degeneration"), ("BI", "Brain Injury"), ("D", "Dyslexia"), ("VI", "Vision Issues"), ("O", "Other"), ("N", "None")]
+	nativelang = [("yes", "Yes"), ("no", "No")]
+
+	country = SelectField('Country', choices=cc)
+	agerange = SelectField('Age Range', choices=age)
+	difficulties = SelectMultipleField('Reading Difficulties', choices=allDifficulties, coerce=unicode, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False))
+	nativelang = RadioField('Is English your native language?', choices=nativelang)
 
 @application.route('/test')
 @application.route('/test', methods=('GET', 'POST'))
