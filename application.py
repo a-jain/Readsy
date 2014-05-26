@@ -47,8 +47,8 @@ def start_app():
 
 application = start_app()
 
-application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-db = SQLAlchemy(application)
+# application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# db = SQLAlchemy(application)
 
 application.config['COMPRESS_DEBUG'] = True
 
@@ -270,6 +270,11 @@ def cleantext(s):
 @gzipped
 def index():
 	return render_template('spritz.html')
+
+@application.route('/test')
+@gzipped
+def test():
+	return render_template('testsite.html')
 
 @application.route('/spritzy')
 @application.route('/spritzy/<filename>')
