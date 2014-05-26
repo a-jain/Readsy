@@ -64,10 +64,14 @@ h2 {
   margin-bottom: 20px;
 }
 
+#formText {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
 #progressbar {
   display:none;
 }
-
 
 .btn, .btn-group {
   margin-left: 4px;

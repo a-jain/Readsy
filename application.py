@@ -18,6 +18,7 @@ from flask.ext.assets import Environment, Bundle
 from flask_wtf import Form
 from wtforms import TextField
 from wtforms.validators import DataRequired
+from wtformsparsleyjs import IntegerField, StringField
 
 import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin
 
@@ -410,19 +411,16 @@ def url_handle():
 ###################################################
 
 class MyForm(Form):
-    name = TextField('name', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired()])
 
 @application.route('/test')
-@gzipped
+@application.route('/test', methods=('GET', 'POST'))
 def test():
-	return render_template('testsite.html')
-
-@application.route('/test/submit', methods=('GET', 'POST'))
-def submit():
-    form = MyForm()
+    form = MyForm(csrf_enabled=False)
     if form.validate_on_submit():
-        return redirect(url_for('home'))
-    return render_template('submit.html', form=form)
+    	pass
+    	return render_template('success.html')
+    return render_template('testsite.html', form=form)
 
 ###################################################
 

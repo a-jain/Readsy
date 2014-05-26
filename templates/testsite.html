@@ -62,8 +62,6 @@
 			else if (titleText == "") {
 				titleText = "Click and highlight the text in this page to change it!";
 				var startText = "You can literally click in this space and edit the text you're reading. Then go back to the home page and your text will appear in the box, ready to Readsy. Try it! (Start by highlighting and deleting this text)";
-				document.getElementById('editortitle').innerHTML = titleText;
-				document.getElementById('editorpara').innerHTML = startText;
 			}
 		});
 
@@ -95,61 +93,28 @@
 		<div class="jumbotron" id="jumbotron">
       		<p id="welcomeText">Welcome Text</p>
 
+      		<p id="formText">Some details...</p>
+
+      		<form method="POST" action="/test" enctype="multipart/form-data">
+			    {{ form.name.label }} {{ form.name(size=20) }}
+			    <input type="submit" value="Go">
+			</form>
+
 			<p>
 				<div id="spritzer"></div></br>
 			</p>
-
 			
-				
-			<p>
-				<textarea class="form-control" rows="6" id="inputText" placeholder="Enter your own text, or click the Sample button to load the sample text. You may be asked to create an account with Spritz (they power the flashing word box) - it takes about 10 seconds to do!" data-toggle="tooltip" data-placement="right" title="Click on Editor at the top for easier editing!"></textarea><br>   
-				
-				<div class="btn-group btn-group-lg">
-					<button id="fill" type="submit" class="btn btn-primary">Sample</button> 
-					<button id="clear" type="submit" class="btn btn-primary">Clear</button>     
-				</div>
-
-				<div class="btn-group btn-group-lg">
-					<button id="startSpritz" type="submit" class="btn btn-success">Readsy!</button>
-				</div>	
-			</p>
-		</div>
-
-		<div style="display:none" id="aboutme">
-			<div class="jumbotron" id="jumbotron">
-	      	<h1><a id="bigtitle">About Me</a></h1>
-
-			<div class="alert alert-success">
-		      <p class="text-left"><small>
-		      Bookmarklet is here: <a class="btn btn-info btn-xs" href='javascript:void((function() {var t = "";if(window.getSelection){t = window.getSelection();}else if(document.getSelection){t = document.getSelection();}else if(document.selection){t = document.selection.createRange().text;}if (t == "") {var a=location.href.replace(/^http%5C:%5C/%5C/(.*)$/,"$1");location.href="http://www.readsy.co/web?url="+encodeURIComponent(a);} else {location.href="http://www.readsy.co/text/"+encodeURIComponent(t).replace(/[\/]/g, "%20");}})())' onclick="alert('Drag this button onto your toolbar to add the Readsy bookmarklet');return false">Readsy</a>. Drag it onto your bookmarks bar and click it from the webpage of a particularly tedious article!
-		      </small></p>
-          	</div>
-
-          	<p class="text-left">
-	      		Readsy is a tool to help you skim large amounts of text by focusing your eyes on one word at a time without having to move them. It is powered by Spritz - you can read more about it <a href="http://www.spritzinc.com/the-science/">here</a>.
-	      	</p></br>
-
-          	<p class="text-left"><small>
-	      		<a href="http://akashjain.co.uk">Akash Jain</a> is a sophomore at Princeton University majoring in Computer Science.<br>
-	      	</small></p>
-
-	      	<p class="text-left"><small><small>
-	      		This is a little experiment to make it easier to read longform content. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, Requests, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery and Froala.
-	      	</small></small></p>
+			<textarea class="form-control" rows="6" id="inputText" placeholder="Enter your own text, or click the Sample button to load the sample text. You may be asked to create an account with Spritz (they power the flashing word box) - it takes about 10 seconds to do!" data-toggle="tooltip" data-placement="right" title="Click on Editor at the top for easier editing!"></textarea><br>   
+			
+			<div class="btn-group btn-group-lg">
+				<button id="fill" type="submit" class="btn btn-primary">Sample</button> 
+				<button id="clear" type="submit" class="btn btn-primary">Clear</button>     
 			</div>
-		</div>
 
-		<div style="display:none" id="contactme">
-			<div class="jumbotron" id="jumbotron">
-	      	<h1><a id="bigtitle">Get In Touch!</a></h1>
-	      	<p><small>
-	      		<a href="http://www.akashjain.co.uk">Here</a> is my website </br>
-
-	      		Email me <a href="mailto:mr.akashj@gmail.com?subject=Hello">here</a> </br>
-
-	      		Or, more informally, get in touch <a href="https://www.facebook.com/mr.akashj">here</a>
-	      	</small></p>
-			</div>
+			<div class="btn-group btn-group-lg">
+				<button id="startSpritz" type="submit" class="btn btn-success">Readsy!</button>
+			</div>	
+			
 		</div>
 
 	<!-- close container -->
