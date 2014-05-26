@@ -16,13 +16,12 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask_s3 import FlaskS3
 from flask.ext.assets import Environment, Bundle
 from flask_wtf import Form
-from wtforms import TextField, widgets, RadioField
-from wtforms.validators import DataRequired
+from wtforms import TextField, widgets, RadioField, validators
+# from wtforms.validators import DataRequired
 from wtforms.fields import SelectMultipleField
 from wtformsparsleyjs import StringField, SelectField
-import pycountry
 
-import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin
+import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin, pycountry
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -53,8 +52,8 @@ def start_app():
 
 application = start_app()
 
-# application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-# db = SQLAlchemy(application)
+application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+db = SQLAlchemy(application)
 
 application.config['COMPRESS_DEBUG'] = True
 
@@ -413,7 +412,7 @@ def url_handle():
 ###################################################
 
 class MyForm(Form):
-	cc={}
+	cc = {}
 	t = list(pycountry.countries)
 	for country in t:
 		cc[country.alpha2]=country.name
@@ -424,20 +423,31 @@ class MyForm(Form):
 	age = [("u10", "Under 10"), ("11-20", "11-20"), ("21-40", "21-40"), ("41-60", "41-60"), ("61-80", "61-80"), ("o81", "Over 81")]
 	allDifficulties = [("AMD", "Age Related Macular Degeneration"), ("BI", "Brain Injury"), ("D", "Dyslexia"), ("VI", "Vision Issues"), ("O", "Other"), ("N", "None")]
 	nativelang = [("yes", "Yes"), ("no", "No")]
+	device = [("desktop", "Desktop"), ("laptop", "Laptop"), ("tablet", "Tablet"), ("mobile", "Smartphone")]
 
-	country = SelectField('Country', choices=cc)
-	agerange = SelectField('Age Range', choices=age)
-	difficulties = SelectMultipleField('Reading Difficulties', choices=allDifficulties, coerce=unicode, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False))
-	nativelang = RadioField('Is English your native language?', choices=nativelang)
+	cc.insert(0, (None, ""))
+	age.insert(0, (None, ""))
+
+	country = SelectField('Country', [validators.DataRequired(message='Sorry, this is a required field.')], choices=cc)
+	agerange = SelectField('Age Range', [validators.DataRequired(message='Sorry, this is a required field.')], choices=age)
+	difficulties = SelectMultipleField('Reading Difficulties (select all that apply)', [validators.DataRequired(message='Sorry, this is a required field.')], choices=allDifficulties, coerce=unicode, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False))
+	nativelang = RadioField('Is English your native language?', [validators.DataRequired(message='Sorry, this is a required field.')], choices=nativelang)
+	deviceused = RadioField('What device are you using?', [validators.DataRequired(message='Sorry, this is a required field.')], choices=device)
+
+class TextSelect(Form):
+	texts=[("http://readsy.co/static/txt/ironman.html", "Iron Man"), ("http://readsy.co/static/txt/gulls.html", "Gulls")]
+
+	textChooser = SelectMultipleField('Text to be Spritzed', choices=texts)
 
 @application.route('/test')
 @application.route('/test', methods=('GET', 'POST'))
 def test():
 	form = MyForm(csrf_enabled=False)
+	textSelector = TextSelect(csrf_enabled=False)
 	if form.validate_on_submit():
 		# pass
 		return render_template('success.html')
-	return render_template('testsite.html', form=form)
+	return render_template('testsite.html', form=form, textSelector=textSelector)
 
 ###################################################
 

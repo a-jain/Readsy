@@ -90,28 +90,27 @@
 				<ul class="nav nav-pills pull-right">
 					<li id="list1" class="active"><a id="navbar1" href="#">Test</a></li>
 				</ul>
-				<h3 id="pageTitle">Readsy Test</h3>
+				<h3 id="pageTitle"><a href="/test" style="text-decoration: none;">Readsy Test</a></h3>
 
 		</div>
 
 		<div class="jumbotron" id="jumbotron">
       		<p id="welcomeText">Welcome Text</p>
 
-      		<p id="formText">Some details...</p>
-
       		<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form" id="collectInfo">
 			    {{ form.country.label }} {{ form.country(class="form-control") }}
 			    {{ form.agerange.label }} {{ form.agerange(class="form-control") }}
 			    {{ form.difficulties.label }} {{ form.difficulties() }}
 			    {{ form.nativelang.label }} {{ form.nativelang() }}
+			    {{ form.deviceused.label }} {{ form.deviceused() }}
 			    <input type="submit" value="Go" class="btn btn-default">
 			</form>
 
 			<p>
-				<div id="spritzer"></div></br>
+				<div id="spritzer" data-role="spritzer"></div></br>
 			</p>
-			
-			<textarea class="form-control" rows="6" id="inputText" placeholder="Enter your own text, or click the Sample button to load the sample text. You may be asked to create an account with Spritz (they power the flashing word box) - it takes about 10 seconds to do!" data-toggle="tooltip" data-placement="right" title="Click on Editor at the top for easier editing!"></textarea><br>   
+
+		    {{ textSelector.textChooser.label }} {{ textSelector.textChooser(class="form-control") }}
 			
 			<div class="btn-group btn-group-lg">
 				<button id="fill" type="submit" class="btn btn-primary">Sample</button> 
