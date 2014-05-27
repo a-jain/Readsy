@@ -201,9 +201,18 @@
 					<button id="startSpritz" type="submit" class="btn btn-success">Readsy!</button>
 				</div>	
 
-				<p id="progressbar"><small>
-					<br/>Completed <span id="wordNumber">0</span> words out of <span id="wordTotal">0</span>.
+				<div id="progressbar">
+				<p><small>
+					<br/>Completed <span id="wordNumber">0</span> words out of <span id="wordTotal">0</span>.<br/>
+					<form class="form-inline" role="form" id="seekForm">
+						<div class="form-group">
+						    <label class="sr-only" for="seekWord">Word No. </label>
+						    <input type="text" class="form-control" id="seekNum" placeholder="Go to Word Number...">
+						</div>
+						<button type="button" class="btn btn-default" id="btnSeek">Go!</button>
+					</form>
 				</small></p>
+				</div>
 			</p>
 		</div>
 

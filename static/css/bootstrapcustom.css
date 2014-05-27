@@ -78,11 +78,17 @@ h2 {
   margin-left: 4px;
 }
 
+#seekNum {
+  max-width: 160px;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+}
+
 @media screen and (max-width: 480px) {
   #urlentry {
     min-width: 300px;
   }
-
 }
 
 /*https://kuler.adobe.com/Red-Rose-Sand-color-theme-955060/*/

@@ -14,6 +14,11 @@
         $("#inputText").val("");
         $("#progressbar").hide("fast", "linear");
     }
+
+    function onBtnSeekClick() {
+    	var num = document.forms["seekForm"]["seekNum"].value;
+    	$('#spritzer').data('controller').seek(num, 'absolute');
+	}
     
     function fillTextClick() {
     	var testText = "Just as she said this, she noticed that one of the trees had a door leading right into it. 'That's very curious!' she thought. 'But everything's curious today. I think I may as well go in at once.' And in she went.";    		
@@ -76,7 +81,8 @@
 		var container = $("#spritzer");
 		$("#clear").on("click", clearTextClick);
 		$("#fill").on("click", fillTextClick);
-		$("#startSpritz").on("click", onStartSpritzClick);			
+		$("#startSpritz").on("click", onStartSpritzClick);
+		$("#btnSeek").on("click", onBtnSeekClick);		
 		 
  		// Construct a SpritzController passing the customization options
  		spritzController = new SPRITZ.spritzinc.SpritzerController(customOptions);

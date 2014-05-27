@@ -31,7 +31,7 @@ def start_app():
 	app.config['S3_BUCKET_NAME'] = 'readsy'
 	app.config['S3_CDN_DOMAIN'] = 'dwdhruapbuq08.cloudfront.net'
 	app.config['S3_USE_HTTPS'] = False
-	app.config['USE_S3_DEBUG'] = True
+	app.config['USE_S3_DEBUG'] = True # should be true
 	app.config['AWS_ACCESS_KEY_ID'] = os.environ['AWS_ACCESS_KEY_ID']
 	app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
 	
@@ -46,7 +46,7 @@ def start_app():
 	assets.register('css_all', css)
 	app.config['ASSETS_DEBUG'] = False
 	assets.init_app(app)
-	app.config['FLASK_ASSETS_USE_S3'] = True
+	app.config['FLASK_ASSETS_USE_S3'] = True #should be true
 
 	return app
 
@@ -411,7 +411,7 @@ def url_handle():
 
 ###################################################
 
-class MyForm(Form):
+class NewUser(Form):
 	cc = {}
 	t = list(pycountry.countries)
 	for country in t:
@@ -442,7 +442,7 @@ class TextSelect(Form):
 @application.route('/test')
 @application.route('/test', methods=('GET', 'POST'))
 def test():
-	form = MyForm(csrf_enabled=False)
+	form = NewUser(csrf_enabled=False)
 	textSelector = TextSelect(csrf_enabled=False)
 	if form.validate_on_submit():
 		# pass
