@@ -21,7 +21,7 @@ from wtforms import TextField, widgets, RadioField, validators
 from wtforms.fields import SelectMultipleField
 from wtformsparsleyjs import StringField, SelectField
 
-import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin, pycountry
+import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin, pycountry, stripe
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -52,10 +52,18 @@ def start_app():
 
 application = start_app()
 
-application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-db = SQLAlchemy(application)
+# application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# db = SQLAlchemy(application)
 
 application.config['COMPRESS_DEBUG'] = True
+
+stripe_keys = {
+    'secret_key':      os.environ['STRIPE_SECRET_KEY'],
+    'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY'],
+    'test_secret_key': os.environ['STRIPE_TEST_SECRET_KEY'],
+    'publishable_key': os.environ['STRIPE_TEST_PUBLISHABLE_KEY']
+}
+stripe.api_key = stripe_keys['secret_key']
 
 UPLOAD_FOLDER = 'tmp/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
@@ -436,18 +444,37 @@ class NewUser(Form):
 
 class TextSelect(Form):
 	texts=[("http://readsy.co/static/txt/ironman.html", "Iron Man"), ("http://readsy.co/static/txt/gulls.html", "Gulls")]
-
 	textChooser = SelectMultipleField('Text to be Spritzed', choices=texts)
+
+class UserSurvey(Form):
+	q1_label = "What did the second seagull pickup?"
+	q2_label = "What color did the eye glow?"
+	q3_label = "What did the Iron Man try to pick up, stuck between the rocks?"
+	q4_label = "What was the eye doing when they found it?"
+	q5_label = "How did the legs move?"
+
+	q1_answers = [("a", "a clam"), ("b", "the right hand"), ("c", "a house"), ("d", "bridseed")]
+	q2_answers = [("a", "blue"), ("b", "purple"), ("c", "white"), ("d", "pink")]
+	q3_answers = [("a", "a hummingbird"), ("b", "the left arm"), ("c", "two seagulls"), ("d", "a plane")]
+	q4_answers = [("a", "waving"), ("b", "blinking at them"), ("c", "sleeping"), ("d", "nothing")]
+	q5_answers = [("a", "running"), ("b", "skip"), ("c", "with a limp"), ("d", "Hop, hop, hop, hop")]
+
+	q1 = RadioField(q1_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q1_answers)
+	q2 = RadioField(q2_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q2_answers)
+	q3 = RadioField(q3_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q3_answers)
+	q4 = RadioField(q4_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q4_answers)
+	q5 = RadioField(q5_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q5_answers)
 
 @application.route('/test')
 @application.route('/test', methods=('GET', 'POST'))
 def test():
 	form = NewUser(csrf_enabled=False)
 	textSelector = TextSelect(csrf_enabled=False)
+	userSurvey = UserSurvey(csrf_enabled=False)
 	if form.validate_on_submit():
 		# pass
 		return render_template('success.html')
-	return render_template('testsite.html', form=form, textSelector=textSelector)
+	return render_template('testsite.html', form=form, textSelector=textSelector, userSurvey=userSurvey)
 
 ###################################################
 

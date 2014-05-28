@@ -104,6 +104,8 @@ function onTextSelected(e) {
   	// console.log(url);  
     // $('#selectionTitle').text(name);
     $('#spritzer').data('controller').setUrl(url);
+
+    $('#printButton').prop("href", url);
 }
 
 

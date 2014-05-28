@@ -120,9 +120,20 @@
 				}'>
 			</div></br>
 			</p>
-
-		    {{ textSelector.textChooser.label }} {{ textSelector.textChooser(class="form-control") }}
-
+			<p>
+		    	{{ textSelector.textChooser.label }} {{ textSelector.textChooser(class="form-control") }}
+		    </p>
+		    <p><a href="#" id="printButton">Print!</a></p>
+		    <p>
+		    	<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form" id="userSurvey">
+			    	{{ userSurvey.q1.label }} {{ userSurvey.q1() }}
+			    	{{ userSurvey.q2.label }} {{ userSurvey.q2() }}
+			    	{{ userSurvey.q3.label }} {{ userSurvey.q3() }}
+			    	{{ userSurvey.q4.label }} {{ userSurvey.q4() }}
+			    	{{ userSurvey.q5.label }} {{ userSurvey.q5() }}
+			    	<input type="submit" value="Go" class="btn btn-default">
+				</form>
+		    </p>
 
 			
 		</div>
