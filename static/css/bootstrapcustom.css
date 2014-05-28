@@ -13,6 +13,10 @@ body {
 
 /******** MY STUFF ************/
 
+::selection {
+  background: #FF9F0D; /* Safari */
+}
+
 h1 {
   font-size:40pt;
   padding-bottom: 5px;
