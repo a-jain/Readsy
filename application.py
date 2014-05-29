@@ -20,7 +20,9 @@ from wtforms import TextField, widgets, RadioField, validators
 # from wtforms.validators import DataRequired
 from wtforms.fields import SelectMultipleField
 from wtformsparsleyjs import StringField, SelectField
+from sqlalchemy import create_engine, MetaData
 
+import MySQLdb
 import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin, pycountry, stripe
 
 reload(sys)
@@ -52,8 +54,8 @@ def start_app():
 
 application = start_app()
 
-# application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-# db = SQLAlchemy(application)
+db = MySQLdb.connect(host="akashjain.c5vtmzrmhbcb.us-east-1.rds.amazonaws.com", user="akashjain", passwd="akashjain", db="usertable")
+db.autocommit(True)
 
 application.config['COMPRESS_DEBUG'] = True
 
@@ -113,7 +115,7 @@ def gzipped(f):
 
 	return view_func
 
-####################################################### 
+####################################################### 	
 
 def convert_pdf_to_txt(path):
 	rsrcmgr = PDFResourceManager()
@@ -467,7 +469,26 @@ class TextSelect(Form):
 	texts=[("http://readsy.co/static/txt/ironman.html", "Iron Man"), ("http://readsy.co/static/txt/gulls.html", "Gulls")]
 	textChooser = SelectMultipleField('Text to be Spritzed', choices=texts)
 
-class UserSurvey(Form):
+class UserSurvey1(Form):
+	q1_label = "How tall was the Iron Man?"
+	q2_label = "His eyes were like?"
+	q3_label = "What flew over and landed?"
+	q4_label = "What did they have on the cliff?"
+	q5_label = "What did the seagull pick up first?"
+
+	q1_answers = [("a", "very tall"), ("b", "short"), ("c", "taller than a house"), ("d", "taller than a boulder")]
+	q2_answers = [("a", "headlamps"), ("b", "rocks"), ("c", "cats"), ("d", "flames")]
+	q3_answers = [("a", "a hummingbird"), ("b", "a bat"), ("c", "two seagulls"), ("d", "a plane")]
+	q4_answers = [("a", "a houseboat"), ("b", "two chicks in a nest"), ("c", "a nest"), ("d", "a drum of oil")]
+	q5_answers = [("a", "nothing"), ("b", "a finger"), ("c", "a knife blade"), ("d", "one of the Iron Man's eyes")]
+
+	q1 = RadioField(q1_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q1_answers)
+	q2 = RadioField(q2_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q2_answers)
+	q3 = RadioField(q3_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q3_answers)
+	q4 = RadioField(q4_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q4_answers)
+	q5 = RadioField(q5_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q5_answers)
+
+class UserSurvey2(Form):
 	q1_label = "What did the second seagull pickup?"
 	q2_label = "What color did the eye glow?"
 	q3_label = "What did the Iron Man try to pick up, stuck between the rocks?"
@@ -491,11 +512,24 @@ class UserSurvey(Form):
 def test():
 	form = NewUser(csrf_enabled=False)
 	textSelector = TextSelect(csrf_enabled=False)
-	userSurvey = UserSurvey(csrf_enabled=False)
+	userSurvey1 = UserSurvey1(csrf_enabled=False)
+	userSurvey2 = UserSurvey2(csrf_enabled=False)
+
 	if form.validate_on_submit():
-		# pass
+		cursor = db.cursor()
+
+		sql = "INSERT INTO usertable.userids (country, ageRange, readingIssue, nativeLang, device) VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\');" % (form.country.data, form.agerange.data, form.difficulties.data[0], form.nativelang.data, form.deviceused.data)
+		print sql
+		cursor.execute(sql)
+		userId = int(cursor.lastrowid)
+
+		cursor.execute("INSERT INTO usertable.questionnaire1 (userId, q1, q2, q3, q4, q5) VALUES (%d, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\');" % (userId, userSurvey1.q1.data, userSurvey1.q2.data, userSurvey1.q3.data, userSurvey1.q4.data, userSurvey1.q5.data))
+		cursor.execute("INSERT INTO usertable.questionnaire2 (userId, q1, q2, q3, q4, q5) VALUES (%d, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\');" % (userId, userSurvey2.q1.data, userSurvey2.q2.data, userSurvey2.q3.data, userSurvey2.q4.data, userSurvey2.q5.data))
+
+		cursor.close()
+		
 		return render_template('success.html')
-	return render_template('testsite.html', form=form, textSelector=textSelector, userSurvey=userSurvey)
+	return render_template('testsite.html', form=form, textSelector=textSelector, userSurvey1=userSurvey1, userSurvey2=userSurvey2)
 
 ###################################################
 
