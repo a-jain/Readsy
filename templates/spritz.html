@@ -12,7 +12,7 @@
 	<script type="text/javascript">
 		var SpritzSettings = {
 			clientId: "afb9145630773e008",
-			redirectUri: "http://www.readsy.co/spritz/login_success"
+			redirectUri: "http://" + window.location.host + "/spritz/login_success"
 		};
 	</script>
 
@@ -25,12 +25,18 @@
 
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script async type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="//sdk.spritzinc.com/js/1.0/js/spritz.min.js"></script>
+	<script type="text/javascript" src="//sdk.spritzinc.com/js/1.2/js/spritz.min.js"></script>
 	<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="3kwrstpe4ylxu6z">	</script>
 
 	{% assets "js_all" %}
 		<script type="text/javascript" src="{{ ASSET_URL }}"></script>
 	{% endassets %}
+
+	<style>
+	.spritzer-container {
+		border: none;
+	}
+	</style>
 
 	<script type="text/javascript">
 		function disableButton() {

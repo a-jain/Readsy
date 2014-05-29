@@ -11,3 +11,20 @@ setenv PATH /Users/lauri/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/s
 
 (I used /Users/lauri/bin instead of ~/bin because ~/bin would be /var/root/bin for programs run as root.)
 
+############################################################################################
+
+psql:
+
+$ pg_resetxlog /usr/local/var/postgres
+pg_resetxlog: lock file "/usr/local/var/postgres/postmaster.pid" exists
+Is a server running?  If not, delete the lock file and try again.
+$ rm /usr/local/var/postgres/postmaster.pid
+$ pg_resetxlog /usr/local/var/postgres
+The database server was not shut down cleanly.
+Resetting the transaction log might cause data to be lost.
+If you want to proceed anyway, use -f to force reset.
+$ pg_resetxlog -f /usr/local/var/postgres
+Transaction log reset
+
+$ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+server starting
