@@ -61,9 +61,11 @@ stripe_keys = {
     'secret_key':      os.environ['STRIPE_SECRET_KEY'],
     'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY'],
     'test_secret_key': os.environ['STRIPE_TEST_SECRET_KEY'],
-    'publishable_key': os.environ['STRIPE_TEST_PUBLISHABLE_KEY']
+    'test_publishable_key': os.environ['STRIPE_TEST_PUBLISHABLE_KEY']
 }
 stripe.api_key = stripe_keys['secret_key']
+stripeKey = stripe_keys['publishable_key']
+# print stripe.api_key
 
 UPLOAD_FOLDER = 'tmp/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
@@ -282,7 +284,7 @@ def cleantext(s):
 @application.route('/')
 @gzipped
 def index():
-	return render_template('spritz.html')
+	return render_template('spritz.html', key=stripeKey)
 
 @application.route('/spritzy')
 @application.route('/spritzy/<filename>')
@@ -300,11 +302,11 @@ def spritz(filename=None):
 
 	if filename.split('.')[-1].lower() == "txt":
 		s = TXThelper(url)
-		return render_template('spritz.html', text=s, filename=filename, titleText=filename) 
+		return render_template('spritz.html', text=s, filename=filename, titleText=filename, key=stripeKey) 
 
 	elif filename.split('.')[-1].lower() == "pdf":
 		s = PDFhelper(url)
-		return render_template('spritz.html', text=s, filename=filename, titleText=filename) 
+		return render_template('spritz.html', text=s, filename=filename, titleText=filename, key=stripeKey) 
 
 	return redirect(url_for('index'))
 	# print s
@@ -331,9 +333,9 @@ def POSTtexthandler():
 	if request.method == 'POST':
 		text = request.form['text']
 		print text
-		return render_template('spritz.html', text=text, filename="test1", titleText="test2") 
+		return render_template('spritz.html', text=text, filename="test1", titleText="test2", key=stripeKey) 
 
-	return redirect(url_for('home'))
+	return redirect(url_for('index'))
 
 @application.route('/text/<parseString>')
 @gzipped
@@ -344,7 +346,7 @@ def texthandler(parseString=None):
 	s = re.sub(r'\n+', r'\\n\\n', s)
 	print s
 
-	return render_template('spritz.html', text=s, filename="", titleText="Highlighted Text") 
+	return render_template('spritz.html', text=s, filename="", titleText="Highlighted Text", key=stripeKey) 
 
 @application.route('/web')
 @gzipped
@@ -361,7 +363,7 @@ def url_handle():
 		url = "http://" + url
 
 	if "readsy.co" in url:
-		return render_template('spritz.html', text="Try parsing a different website!")
+		return render_template('spritz.html', text="Try parsing a different website!", key=stripeKey)
 
 	ext = url.split('.')[-1].lower()
 	if ext in ALLOWED_EXTENSIONS:
@@ -382,11 +384,11 @@ def url_handle():
 					f.write(chunk)
 			if ext == "pdf":
 				s = PDFhelper(path)
-				return render_template('spritz.html', text=s, filename=fullname, titleText=fullname) 
+				return render_template('spritz.html', text=s, filename=fullname, titleText=fullname, key=stripeKey) 
 
 			elif ext == "txt":
 				s = TXThelper(path)
-				return render_template('spritz.html', text=s, filename=fullname, titleText=fullname)
+				return render_template('spritz.html', text=s, filename=fullname, titleText=fullname, key=stripeKey)
 
 		else:
 			abort(400)
@@ -415,7 +417,26 @@ def url_handle():
 	except:
 		abort(400)
 
-	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'])
+	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'], key=stripeKey)
+
+@application.route('/charge', methods=['POST'])
+def charge():
+    # Amount in cents
+    amount = 500
+
+    customer = stripe.Customer.create(
+        email='customer@example.com',
+        card=request.form['stripeToken']
+    )
+
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Flask Charge'
+    )
+
+    return render_template('spritz.html', text="Thank you so much for donating! I really appreciate it.", filename="Thanks!", titleText="Thanks!", amount=amount)
 
 ###################################################
 

@@ -29,7 +29,7 @@
 	<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="3kwrstpe4ylxu6z">	</script>
 
 	{% assets "js_all" %}
-    	<script type="text/javascript" src="{{ ASSET_URL }}"></script>
+		<script type="text/javascript" src="{{ ASSET_URL }}"></script>
 	{% endassets %}
 
 	<script type="text/javascript">
@@ -46,12 +46,12 @@
 			if (formString != "")
 			{
 				$("#startSpritz").focus();
-		    	$("#inputText").val(jDecode(formString).replace(/\s+/g, ' ')); 
-		    	$("#urlentry").val("{{filename}}") 
-		    	$('#bigtitle').attr('href', '{{url_for('index')}}');
-		    	// console.log(formString)
-		    	updateEditor();
-		    	// $('#editorpara').text(jDecode(formString));
+				$("#inputText").val(jDecode(formString).replace(/\s+/g, ' ')); 
+				$("#urlentry").val("{{filename}}") 
+				$('#bigtitle').attr('href', '{{url_for('index')}}');
+				// console.log(formString)
+				updateEditor();
+				// $('#editorpara').text(jDecode(formString));
 			}
 			
 			if ("{{error}}" != "")
@@ -74,30 +74,30 @@
 		
 			// check bytes not too high
 			dropOptions = {
-			    // Required. Called when a user selects an item in the Chooser.
-			    success: function(files) {
-			    	// console.log(files[0].link);
-			        // alert("Here's the file link: " + files[0].link)
-			        if (files[0].bytes > 5 * 1024 * 1024)
-			        {
-			        	alert("Please choose another file");
-			        }
-			        else {
-			        	// var a = location.href.replace(/^http%5C:%5C/%5C/(.*)$/,files[0].bytes);
-			        	location.href="http://www.readsy.co/web?url="+escape(files[0].link);
+				// Required. Called when a user selects an item in the Chooser.
+				success: function(files) {
+					// console.log(files[0].link);
+					// alert("Here's the file link: " + files[0].link)
+					if (files[0].bytes > 5 * 1024 * 1024)
+					{
+						alert("Please choose another file");
+					}
+					else {
+						// var a = location.href.replace(/^http%5C:%5C/%5C/(.*)$/,files[0].bytes);
+						location.href="http://www.readsy.co/web?url="+escape(files[0].link);
 						$("#uploadfilebutton").removeAttr("data-loading-text");
-			        }
-			    },
+					}
+				},
 
-			    cancel: function() {
-			    	$("#uploadfilebutton").removeAttr("data-loading-text");
-	    		},
+				cancel: function() {
+					$("#uploadfilebutton").removeAttr("data-loading-text");
+				},
 
-			    linkType: "direct",
+				linkType: "direct",
 
-			    multiselect: false,
+				multiselect: false,
 
-			    extensions: ['.pdf', '.txt']
+				extensions: ['.pdf', '.txt']
 			};
 
 			var dropButton = Dropbox.createChooseButton(dropOptions);
@@ -136,11 +136,11 @@
 		</div>
 
 		<div class="jumbotron" id="jumbotron">
-      		<h1><a id="bigtitle">Readsy</a></h1>
+			<h1><a id="bigtitle">Readsy</a></h1>
 
-      		<p class="text-mid" id="instructions">
-	      		Enter a URL, upload a file or paste some text, and hit <large><span class="label label-success">Readsy!</span></large>
-	      	</p>
+			<p class="text-mid" id="instructions">
+				Enter a URL, upload a file or paste some text, and hit <large><span class="label label-success">Readsy!</span></large>
+			</p>
 
 			<p>
 				<form action="/web" method="GET" class="form-inline" role="form" id="URLForm">
@@ -167,25 +167,25 @@
 
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				        <h4 class="modal-title" id="myModalLabel">Upload File to Readsy</h4>
-				      </div>
-				      <div class="modal-body" id="modalbody">
-				      	<p id="filelimit"><small><strong>5MB limit.</strong><small><small> Only .pdf and .txt please. Files deleted hourly.</small></small></small></p>
+					<div class="modal-content">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Upload File to Readsy</h4>
+					  </div>
+					  <div class="modal-body" id="modalbody">
+						<p id="filelimit"><small><strong>5MB limit.</strong><small><small> Only .pdf and .txt please. Files deleted hourly.</small></small></small></p>
 
-				      	<p style="padding-top:20px;">Or, upload it yourself:</p>
-				        <form action="{{url_for('upload_file')}}" method="post" enctype="multipart/form-data">
-						  	<center><input type="file" name="file" id="files2"/></center>
-						    <!-- <button type="submit">Upload</button>						 -->
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        <button class="btn btn-primary" type="submit" id="uploadfilebutton" data-loading-text="Upload" onclick="disableButton();">Upload</button>
-				      </div>
-				      	</form>
-				    </div>
+						<p style="padding-top:20px;">Or, upload it yourself:</p>
+						<form action="{{url_for('upload_file')}}" method="post" enctype="multipart/form-data">
+							<center><input type="file" name="file" id="files2"/></center>
+							<!-- <button type="submit">Upload</button>						 -->
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button class="btn btn-primary" type="submit" id="uploadfilebutton" data-loading-text="Upload" onclick="disableButton();">Upload</button>
+					  </div>
+						</form>
+					</div>
 				  </div>
 				</div>
 				<!-- modal code finish -->
@@ -206,8 +206,8 @@
 					<br/>Completed <span id="wordNumber">0</span> words out of <span id="wordTotal">0</span>.<br/>
 					<form class="form-inline" role="form" id="seekForm">
 						<div class="form-group">
-						    <label class="sr-only" for="seekWord">Word No. </label>
-						    <input type="text" class="form-control" id="seekNum" placeholder="Go to Word Number...">
+							<label class="sr-only" for="seekWord">Word No. </label>
+							<input type="text" class="form-control" id="seekNum" placeholder="Go to Word Number...">
 						</div>
 						<button type="button" class="btn btn-default" id="btnSeek">Go!</button>
 					</form>
@@ -222,44 +222,61 @@
 
 			<p id="editorpara" class="firstPara"></p>
 
-          	<!-- <p id="editorpara" style="line-height:150%;">You can literally click in this space and edit the text you're reading. Try it!</p> -->
-          	<p id="bottom"></p>
+			<!-- <p id="editorpara" style="line-height:150%;">You can literally click in this space and edit the text you're reading. Try it!</p> -->
+			<p id="bottom"></p>
 		</div>
 
 		<div style="display:none" id="aboutme">
 			<div class="jumbotron" id="jumbotron">
-	      	<h1><a id="bigtitle">About Me</a></h1>
+			<h1><a id="bigtitle">About Me</a></h1>
 
 			<div class="alert alert-success">
-		      <p class="text-left"><small>
-		      Bookmarklet is here: <a class="btn btn-info btn-xs" href='javascript:void((function() {var t = "";if(window.getSelection){t = window.getSelection();}else if(document.getSelection){t = document.getSelection();}else if(document.selection){t = document.selection.createRange().text;}if (t == "") {var a=location.href.replace(/^http%5C:%5C/%5C/(.*)$/,"$1");location.href="http://www.readsy.co/web?url="+encodeURIComponent(a);} else {location.href="http://www.readsy.co/text/"+encodeURIComponent(t).replace(/[\/]/g, "%20");}})())' onclick="alert('Drag this button onto your toolbar to add the Readsy bookmarklet');return false">Readsy</a>. Drag it onto your bookmarks bar and click it from the webpage of a particularly tedious article!
-		      </small></p>
-          	</div>
+			  <p class="text-left"><small>
+			  Bookmarklet is here: <a class="btn btn-info btn-xs" href='javascript:void((function() {var t = "";if(window.getSelection){t = window.getSelection();}else if(document.getSelection){t = document.getSelection();}else if(document.selection){t = document.selection.createRange().text;}if (t == "") {var a=location.href.replace(/^http%5C:%5C/%5C/(.*)$/,"$1");location.href="http://www.readsy.co/web?url="+encodeURIComponent(a);} else {location.href="http://www.readsy.co/text/"+encodeURIComponent(t).replace(/[\/]/g, "%20");}})())' onclick="alert('Drag this button onto your toolbar to add the Readsy bookmarklet');return false">Readsy</a>. Drag it onto your bookmarks bar and click it from the webpage of a particularly tedious article!
+			  </small></p>
+			</div>
 
-          	<p class="text-left">
-	      		Readsy is a tool to help you skim large amounts of text by focusing your eyes on one word at a time without having to move them. It is powered by Spritz - you can read more about it <a href="http://www.spritzinc.com/the-science/">here</a>.
-	      	</p></br>
+			<p class="text-left">
+				Readsy is a tool to help you skim large amounts of text by focusing your eyes on one word at a time without having to move them. It is powered by Spritz - you can read more about it <a href="http://www.spritzinc.com/the-science/">here</a>.
+			</p></br>
 
-          	<p class="text-left"><small>
-	      		<a href="http://akashjain.co.uk">Akash Jain</a> is a sophomore at Princeton University majoring in Computer Science.<br>
-	      	</small></p>
+			<p class="text-left"><small>
+				<a href="http://akashjain.co.uk">Akash Jain</a> is a sophomore at Princeton University majoring in Computer Science.<br>
+			</small></p>
 
-	      	<p class="text-left"><small><small>
-	      		This is a little experiment to make it easier to read longform content. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, Requests, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery and Froala.
-	      	</small></small></p>
+			<p class="text-left"><small>
+				If this site helped you in a meaningful way, please consider donating a little bit to help me with running costs :)
+			</small></p>
+
+			<form action="/charge" method="post" style="display:inline; margin-bottom:10px;" id="donateForm">
+				<article>
+				  <label>
+					<span>Donate $5.00</span>
+				  </label>
+				</article>
+
+				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+						data-key="{{ key }}"
+						data-description="Thank you!"
+						data-amount="500"></script>
+			  </form>
+
+			<p class="text-left" style="margin-top:15px;"><small><small>
+				This is a little experiment to make it easier to read longform content. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, Requests, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery and Froala.
+			</small></small></p>
 			</div>
 		</div>
 
 		<div style="display:none" id="contactme">
 			<div class="jumbotron" id="jumbotron">
-	      	<h1><a id="bigtitle">Get In Touch!</a></h1>
-	      	<p><small>
-	      		<a href="http://www.akashjain.co.uk">Here</a> is my website </br>
+			<h1><a id="bigtitle">Get In Touch!</a></h1>
+			<p><small>
+				<a href="http://www.akashjain.co.uk">Here</a> is my website </br>
 
-	      		Email me <a href="mailto:mr.akashj@gmail.com?subject=Hello">here</a> </br>
+				Email me <a href="mailto:mr.akashj@gmail.com?subject=Hello">here</a> </br>
 
-	      		Or, more informally, get in touch <a href="https://www.facebook.com/mr.akashj">here</a>
-	      	</small></p>
+				Or, more informally, get in touch <a href="https://www.facebook.com/mr.akashj">here</a>
+			</small></p>
 			</div>
 		</div>
 
@@ -267,16 +284,16 @@
 	</div>
 
   <div class="footer" style="margin-top: 100px">
-  	<div class="container" id="footercontent" >
+	<div class="container" id="footercontent" >
 		<center><p>&copy; 2014 <a href="mailto:mr.akashj@gmail.com?subject=Readsy%20Feedback">Akash Jain</a></p></center>
 	</div>
   </div>
 
   <!-- <script src="../static/js/froala_editor.min.js"></script> -->
   <script>
-      $(function(){
-          $('#editor').editable({autosave: true, plainPaste: true, paragraphy: false, enableScript: true, inlineMode: true});
-      });
+	  $(function(){
+		  $('#editor').editable({autosave: true, plainPaste: true, paragraphy: false, enableScript: true, inlineMode: true});
+	  });
   </script>
 
 </body>

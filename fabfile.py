@@ -11,3 +11,6 @@ def push(commitName="default"):
 
 def s3():
 	local("python s3upload.py")
+
+def scale(num):
+	local("heroku ps:scale web=%d" % int(num))
