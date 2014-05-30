@@ -27,3 +27,4 @@ validators==0.5.0
 pycountry==1.6
 stripe==1.15.1
 MySQL-python==1.2.5
+readability-lxml==0.3.0.3

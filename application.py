@@ -399,6 +399,7 @@ def url_handle():
 		else:
 			abort(400)
 			return
+			
 	try:
 		r = requests.get(url, stream=True)
 	except:
