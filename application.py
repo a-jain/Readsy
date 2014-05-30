@@ -318,11 +318,14 @@ def spritz(filename=None):
 @gzipped
 def upload_file():
 	if request.method == 'POST':
-		file = request.files['file']
-		if file and allowed_file(file.filename):
-			filename = secure_filename(file.filename)
-			file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
-			return redirect(url_for('spritz', filename=filename))
+		try:
+			file = request.files['file']
+			if file and allowed_file(file.filename):
+				filename = secure_filename(file.filename)
+				file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
+				return redirect(url_for('spritz', filename=filename))
+		else:
+			abort(400)
 			# return redirect(url_for('uploaded_file', filename=filename))
 	# abort(400)
 	print "x"
@@ -374,8 +377,9 @@ def url_handle():
 		except:
 			abort(400)
 
-		if int(r.headers['content-length']) > application.config['MAX_CONTENT_LENGTH']:
-			abort(400)
+		if 'content-length' in r.headers:
+			if int(r.headers['content-length']) > application.config['MAX_CONTENT_LENGTH']:
+				abort(400)
 
 		if r.status_code == 200:
 			fullname = url.split('/')[-1]

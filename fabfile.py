@@ -14,3 +14,6 @@ def s3():
 
 def scale(num):
 	local("heroku ps:scale web=%d" % int(num))
+
+def newrelic():
+	local("heroku addons:open newrelic")
