@@ -126,21 +126,17 @@
 		    <p><a href="#" id="printButton">Print!</a></p>
 		    <p>
 		    	<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form" id="userSurvey">
-			    	{{ userSurvey1.q1.label }} {{ userSurvey1.q1() }}
-			    	{{ userSurvey1.q2.label }} {{ userSurvey1.q2() }}
-			    	{{ userSurvey1.q3.label }} {{ userSurvey1.q3() }}
-			    	{{ userSurvey1.q4.label }} {{ userSurvey1.q4() }}
-			    	{{ userSurvey1.q5.label }} {{ userSurvey1.q5() }}
-			    	<input type="submit" value="Go" class="btn btn-default">
-				</form>
-		    </p>
-		    <p>
-		    	<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form" id="userSurvey">
-			    	{{ userSurvey2.q1.label }} {{ userSurvey2.q1() }}
-			    	{{ userSurvey2.q2.label }} {{ userSurvey2.q2() }}
-			    	{{ userSurvey2.q3.label }} {{ userSurvey2.q3() }}
-			    	{{ userSurvey2.q4.label }} {{ userSurvey2.q4() }}
-			    	{{ userSurvey2.q5.label }} {{ userSurvey2.q5() }}
+			    	{{ userSurvey1.aq1.label }} {{ userSurvey1.aq1() }}
+			    	{{ userSurvey1.aq2.label }} {{ userSurvey1.aq2() }}
+			    	{{ userSurvey1.aq3.label }} {{ userSurvey1.aq3() }}
+			    	{{ userSurvey1.aq4.label }} {{ userSurvey1.aq4() }}
+			    	{{ userSurvey1.aq5.label }} {{ userSurvey1.aq5() }}
+
+			    	{{ userSurvey1.bq1.label }} {{ userSurvey1.bq1() }}
+			    	{{ userSurvey1.bq2.label }} {{ userSurvey1.bq2() }}
+			    	{{ userSurvey1.bq3.label }} {{ userSurvey1.bq3() }}
+			    	{{ userSurvey1.bq4.label }} {{ userSurvey1.bq4() }}
+			    	{{ userSurvey1.bq5.label }} {{ userSurvey1.bq5() }}
 			    	<input type="submit" value="Go" class="btn btn-default">
 				</form>
 		    </p>

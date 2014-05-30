@@ -56,7 +56,8 @@
 			"controlTitles" : {
             "pause" :         "Pause",
             "play" :          "Play",
-            "back" :          "Previous Sentence"
+            "back" :          "Previous Sentence",
+            "rewind": 		  "Previous Sentence" 	
         }
 			
 	};

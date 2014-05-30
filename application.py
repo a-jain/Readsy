@@ -301,7 +301,6 @@ def spritz(filename=None):
 	# print url
 	if not os.path.isfile(url):
 		abort(500)
-		return
 
 	if filename.split('.')[-1].lower() == "txt":
 		s = TXThelper(url)
@@ -312,7 +311,6 @@ def spritz(filename=None):
 		return render_template('spritz.html', text=s, filename=filename, titleText=filename, key=stripeKey) 
 
 	return redirect(url_for('index'))
-	# print s
 
 # @application.route('/upload')
 @application.route('/upload', methods=['GET', 'POST'])
@@ -327,9 +325,7 @@ def upload_file():
 				return redirect(url_for('spritz', filename=filename))
 		except:
 			abort(400)
-			# return redirect(url_for('uploaded_file', filename=filename))
-	# abort(400)
-	print "x"
+	
 	return redirect(url_for('index'))
 
 # text only
@@ -431,6 +427,10 @@ def charge():
 
 ###################################################
 
+class TextSelect(Form):
+	texts=[("http://readsy.co/static/txt/ironman.html", "Iron Man"), ("http://readsy.co/static/txt/gulls.html", "Gulls")]
+	textChooser = SelectMultipleField('Text to be Spritzed', choices=texts)
+
 class NewUser(Form):
 	cc = {}
 	t = list(pycountry.countries)
@@ -454,47 +454,42 @@ class NewUser(Form):
 	nativelang = RadioField('Is English your native language?', [validators.DataRequired(message='Sorry, this is a required field.')], choices=nativelang)
 	deviceused = RadioField('What device are you using?', [validators.DataRequired(message='Sorry, this is a required field.')], choices=device)
 
-class TextSelect(Form):
-	texts=[("http://readsy.co/static/txt/ironman.html", "Iron Man"), ("http://readsy.co/static/txt/gulls.html", "Gulls")]
-	textChooser = SelectMultipleField('Text to be Spritzed', choices=texts)
-
 class UserSurvey1(Form):
-	q1_label = "How tall was the Iron Man?"
-	q2_label = "His eyes were like?"
-	q3_label = "What flew over and landed?"
-	q4_label = "What did they have on the cliff?"
-	q5_label = "What did the seagull pick up first?"
+	aq1_label = "How tall was the Iron Man?"
+	aq2_label = "His eyes were like?"
+	aq3_label = "What flew over and landed?"
+	aq4_label = "What did they have on the cliff?"
+	aq5_label = "What did the seagull pick up first?"
 
-	q1_answers = [("a", "very tall"), ("b", "short"), ("c", "taller than a house"), ("d", "taller than a boulder")]
-	q2_answers = [("a", "headlamps"), ("b", "rocks"), ("c", "cats"), ("d", "flames")]
-	q3_answers = [("a", "a hummingbird"), ("b", "a bat"), ("c", "two seagulls"), ("d", "a plane")]
-	q4_answers = [("a", "a houseboat"), ("b", "two chicks in a nest"), ("c", "a nest"), ("d", "a drum of oil")]
-	q5_answers = [("a", "nothing"), ("b", "a finger"), ("c", "a knife blade"), ("d", "one of the Iron Man's eyes")]
+	aq1_answers = [("a", "very tall"), ("b", "short"), ("c", "taller than a house"), ("d", "taller than a boulder")]
+	aq2_answers = [("a", "headlamps"), ("b", "rocks"), ("c", "cats"), ("d", "flames")]
+	aq3_answers = [("a", "a hummingbird"), ("b", "a bat"), ("c", "two seagulls"), ("d", "a plane")]
+	aq4_answers = [("a", "a houseboat"), ("b", "two chicks in a nest"), ("c", "a nest"), ("d", "a drum of oil")]
+	aq5_answers = [("a", "nothing"), ("b", "a finger"), ("c", "a knife blade"), ("d", "one of the Iron Man's eyes")]
 
-	q1 = RadioField(q1_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q1_answers)
-	q2 = RadioField(q2_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q2_answers)
-	q3 = RadioField(q3_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q3_answers)
-	q4 = RadioField(q4_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q4_answers)
-	q5 = RadioField(q5_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q5_answers)
+	aq1 = RadioField(aq1_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=aq1_answers)
+	aq2 = RadioField(aq2_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=aq2_answers)
+	aq3 = RadioField(aq3_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=aq3_answers)
+	aq4 = RadioField(aq4_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=aq4_answers)
+	aq5 = RadioField(aq5_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=aq5_answers)
 
-class UserSurvey2(Form):
-	q1_label = "What did the second seagull pickup?"
-	q2_label = "What color did the eye glow?"
-	q3_label = "What did the Iron Man try to pick up, stuck between the rocks?"
-	q4_label = "What was the eye doing when they found it?"
-	q5_label = "How did the legs move?"
+	bq1_label = "What did the second seagull pickup?"
+	bq2_label = "What color did the eye glow?"
+	bq3_label = "What did the Iron Man try to pick up, stuck between the rocks?"
+	bq4_label = "What was the eye doing when they found it?"
+	bq5_label = "How did the legs move?"
 
-	q1_answers = [("a", "a clam"), ("b", "the right hand"), ("c", "a house"), ("d", "bridseed")]
-	q2_answers = [("a", "blue"), ("b", "purple"), ("c", "white"), ("d", "pink")]
-	q3_answers = [("a", "a hummingbird"), ("b", "the left arm"), ("c", "two seagulls"), ("d", "a plane")]
-	q4_answers = [("a", "waving"), ("b", "blinking at them"), ("c", "sleeping"), ("d", "nothing")]
-	q5_answers = [("a", "running"), ("b", "skip"), ("c", "with a limp"), ("d", "Hop, hop, hop, hop")]
+	bq1_answers = [("a", "a clam"), ("b", "the right hand"), ("c", "a house"), ("d", "bridseed")]
+	bq2_answers = [("a", "blue"), ("b", "purple"), ("c", "white"), ("d", "pink")]
+	bq3_answers = [("a", "a hummingbird"), ("b", "the left arm"), ("c", "two seagulls"), ("d", "a plane")]
+	bq4_answers = [("a", "waving"), ("b", "blinking at them"), ("c", "sleeping"), ("d", "nothing")]
+	bq5_answers = [("a", "running"), ("b", "skip"), ("c", "with a limp"), ("d", "Hop, hop, hop, hop")]
 
-	q1 = RadioField(q1_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q1_answers)
-	q2 = RadioField(q2_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q2_answers)
-	q3 = RadioField(q3_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q3_answers)
-	q4 = RadioField(q4_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q4_answers)
-	q5 = RadioField(q5_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=q5_answers)
+	bq1 = RadioField(bq1_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=bq1_answers)
+	bq2 = RadioField(bq2_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=bq2_answers)
+	bq3 = RadioField(bq3_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=bq3_answers)
+	bq4 = RadioField(bq4_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=bq4_answers)
+	bq5 = RadioField(bq5_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=bq5_answers)
 
 @application.route('/test')
 @application.route('/test', methods=('GET', 'POST'))
@@ -502,7 +497,6 @@ def test():
 	form = NewUser(csrf_enabled=False)
 	textSelector = TextSelect(csrf_enabled=False)
 	userSurvey1 = UserSurvey1(csrf_enabled=False)
-	userSurvey2 = UserSurvey2(csrf_enabled=False)
 
 	if form.validate_on_submit():
 		cursor = db.cursor()
@@ -518,7 +512,7 @@ def test():
 		cursor.close()
 		
 		return render_template('success.html')
-	return render_template('testsite.html', form=form, textSelector=textSelector, userSurvey1=userSurvey1, userSurvey2=userSurvey2)
+	return render_template('testsite.html', form=form, textSelector=textSelector, userSurvey1=userSurvey1)
 
 ###################################################
 
