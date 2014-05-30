@@ -9,9 +9,9 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from pdfminer.pdfparser import PDFSyntaxError
 from cStringIO import StringIO
-from readability import ParserClient
+# from readability import ParserClient
 from urlparse import urlparse
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_s3 import FlaskS3
 from flask.ext.assets import Environment, Bundle
@@ -21,6 +21,7 @@ from wtforms import TextField, widgets, RadioField, validators
 from wtforms.fields import SelectMultipleField
 from wtformsparsleyjs import StringField, SelectField
 from sqlalchemy import create_engine, MetaData
+from goose import Goose
 
 import MySQLdb
 import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin, pycountry, stripe
@@ -399,32 +400,15 @@ def url_handle():
 		else:
 			abort(400)
 			return
-			
+
 	try:
-		r = requests.get(url, stream=True)
-	except:
-		abort(404)
-
-	if "text" not in r.headers['content-type']:
-		abort(400)
-
-	if 'content-length' in r.headers:
-		if int(r.headers['content-length']) > application.config['MAX_CONTENT_LENGTH']:
-			abort(400)
-
-	parser_client = ParserClient(READABILITY_TOKEN)
-	parser_response = parser_client.get_article_content(url)
-	# contentStr = parser_response.content['title'] + r"." + parser_response.content['content']
-	try:
-		soup = BeautifulSoup(parser_response.content['content'])
-		s = soup.get_text()
-		s = cleantext(s)
-		print s
-
+		g = Goose()
+		article = g.extract(url=url)
+		s = cleantext(article.cleaned_text)
+		img = article.top_image.src
+		return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=article.title, key=stripeKey)
 	except:
 		abort(400)
-
-	return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=parser_response.content['title'], key=stripeKey)
 
 @application.route('/charge', methods=['POST'])
 def charge():

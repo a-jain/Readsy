@@ -146,6 +146,10 @@ function navbarlinks()
 		    $("#list3").prop("class", "inactive");
 		    $("#list4").prop("class", "inactive");
 		    document.title = baseTitle;
+		    if (titleText != "")
+			{
+				document.title += " - " + fileName;
+			}
 		    navbarlinks();
 	    }
 	});

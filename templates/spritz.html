@@ -28,6 +28,12 @@
 	<script type="text/javascript" src="//sdk.spritzinc.com/js/1.2/js/spritz.min.js"></script>
 	<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="3kwrstpe4ylxu6z">	</script>
 
+	<script>
+		formString = "{{text}}"
+		titleText = "{{titleText}}"
+		fileName = "{{filename}}"
+	</script>
+
 	{% assets "js_all" %}
 		<script type="text/javascript" src="{{ ASSET_URL }}"></script>
 	{% endassets %}
@@ -42,10 +48,7 @@
 		function disableButton() {
 			// console.log("test");
 			$("#uploadfilebutton").button('loading');
-		}		
-		
-		formString = "{{text}}"
-		titleText = "{{titleText}}"
+		}
 
 		$(document).ready(function() {
 			// $('#editor').tooltip();
