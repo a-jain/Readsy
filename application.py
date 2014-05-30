@@ -410,7 +410,7 @@ def url_handle():
 @application.route('/charge', methods=['POST'])
 def charge():
     # Amount in cents
-    amount = 500
+    amount = 300
 
     customer = stripe.Customer.create(
         email='customer@example.com',

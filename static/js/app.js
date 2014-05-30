@@ -106,7 +106,7 @@ $(document).ready(function() {
 	navbarlinks();
 
 	if (document.URL.split("/")[3] == "text") {
-		// window.history.replaceState("", "Readsy", "/");
+		window.history.replaceState("", "Readsy", "/");
 		document.title = "Readsy";
 	}
 
@@ -135,6 +135,7 @@ function navbarlinks()
 	    	$("#editor").hide("fast", "linear", showjumbo());
 	    	$("#aboutme").hide("fast", "linear", showjumbo());
 	    	$("#contactme").hide("fast", "linear", showjumbo());
+	    	
 	    	// console.log($("#editortitle").text());
 	    	if (!$("#editortitle").text().slice(-1).match(/[\!\.\?]/) && $("#editortitle").text() !== "")
 	    		$("#editortitle").append("\.");
@@ -142,6 +143,7 @@ function navbarlinks()
 	    	temp = temp.replace(/\s+/g, ' ');
 	    	temp = temp.replace(/([a-z])([\.\!\?])(?=[a-zA-Z])/g, '$1$2 ');
 	    	$("#inputText").val(temp);
+
 		    $("#list1").prop("class", "active");
 		    $("#list2").prop("class", "inactive");
 		    $("#list3").prop("class", "inactive");
@@ -167,6 +169,7 @@ function navbarlinks()
 		    $("#list3").prop("class", "inactive");
 		    $("#list4").prop("class", "inactive");
 		    document.title = baseTitle + " - Editor";
+		    
 		    navbarlinks();
 	    }
 	});
@@ -225,9 +228,9 @@ function jDecode(str) {
 	return $("<div/>").html(str.trim()).text();
 }
 
-function updateEditor() {
-	var content = jDecode(formString);
-	var contentsplit = content.split('\n\n')
+function updateEditor(stringy) {
+	var content = jDecode(stringy);
+	var contentsplit = content.split('\n\n');
 
 	for (var i = 0; i < contentsplit.length; i++)
 	{

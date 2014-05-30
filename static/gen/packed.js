@@ -16,7 +16,7 @@ function onStartSpritzClick(event){var text=$('#inputText').val();var locale="en
 function showProgress(completed,total){$("#wordNumber").text(completed);$("#wordTotal").text(total);};var customOptions={"redicleWidth":434,"redicleHeight":135,"defaultSpeed":300,"speedItems":[50,100,150,200,250,300,400,500,600,900],"controlTitles":{"pause":"Pause","play":"Play","back":"Previous Sentence","rewind":"Previous Sentence"}};if(document.documentElement.clientWidth<=480){customOptions["redicleWidth"]=302;}
 if(document.documentElement.clientWidth>600){$(document).ready(function(){$('#inputText').tooltip();});}
 var cookieVal=$.cookie('spritz_speed');if(cookieVal!==undefined){customOptions['defaultSpeed']=cookieVal;}
-var init=function(){var container=$("#spritzer");$("#clear").on("click",clearTextClick);$("#fill").on("click",fillTextClick);$("#startSpritz").on("click",onStartSpritzClick);$("#btnSeek").on("click",onBtnSeekClick);spritzController=new SPRITZ.spritzinc.SpritzerController(customOptions);spritzController.setProgressReporter(showProgress);spritzController.attach(container);container.on("onSpritzSpeedChange",onSpeedChange);};$(document).ready(function(){init();});})();$(document).ready(function(){navbarlinks();if(document.URL.split("/")[3]=="text"){document.title="Readsy";}
+var init=function(){var container=$("#spritzer");$("#clear").on("click",clearTextClick);$("#fill").on("click",fillTextClick);$("#startSpritz").on("click",onStartSpritzClick);$("#btnSeek").on("click",onBtnSeekClick);spritzController=new SPRITZ.spritzinc.SpritzerController(customOptions);spritzController.setProgressReporter(showProgress);spritzController.attach(container);container.on("onSpritzSpeedChange",onSpeedChange);};$(document).ready(function(){init();});})();$(document).ready(function(){navbarlinks();if(document.URL.split("/")[3]=="text"){window.history.replaceState("","Readsy","/");document.title="Readsy";}
 if(window.location.hash){var hash=window.location.hash.substring(1);if(hash=="editor"){$("#navbar2").click();}
 if(hash=="about"){$("#navbar3").click();}
 if(hash=="contact"){$("#navbar4").click();}}});function navbarlinks()
@@ -38,8 +38,7 @@ function showeditor(){$("#editor").fadeIn("fast");}
 function showabout(){$("#aboutme").fadeIn("fast");}
 function showcontact(){$("#contactme").fadeIn("fast");}
 $(window).on('hashchange',function(){ga('send','pageview',{'page':location.pathname+"#"+location.hash.substr(1)});});function jDecode(str){return $("<div/>").html(str.trim()).text();}
-function updateEditor(){var content=jDecode(formString);var contentsplit=content.split('\n\n')
-for(var i=0;i<contentsplit.length;i++)
+function updateEditor(stringy){var content=jDecode(stringy);var contentsplit=content.split('\n\n');for(var i=0;i<contentsplit.length;i++)
 {contentsplit[i]=contentsplit[i].trim();if(!contentsplit[i].slice(-1).match(/[\!\.\?]/)&&contentsplit[i]!=="")
 {contentsplit[i]+="\.";}
 $("#editor").append("<p id=\"editorpara\">"+contentsplit[i]+"\n\n</p>");}}

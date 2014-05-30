@@ -59,7 +59,7 @@
 				$("#urlentry").val("{{filename}}") 
 				$('#bigtitle').attr('href', '{{url_for('index')}}');
 				// console.log(formString)
-				updateEditor();
+				updateEditor(formString);
 				// $('#editorpara').text(jDecode(formString));
 			}
 			
@@ -260,14 +260,14 @@
 			<form action="/charge" method="post" style="display:inline; margin-bottom:10px;" id="donateForm">
 				<article>
 				  <label>
-					<span>Donate $5.00</span>
+					<span>Donate $3.00</span>
 				  </label>
 				</article>
 
 				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 						data-key="{{ key }}"
 						data-description="Thank you!"
-						data-amount="500"></script>
+						data-amount="300"></script>
 			  </form>
 
 			<p class="text-left" style="margin-top:15px;"><small><small>
