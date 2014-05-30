@@ -401,7 +401,8 @@ def url_handle():
 		g = Goose()
 		article = g.extract(url=url)
 		s = cleantext(article.cleaned_text)
-		img = article.top_image.src
+		# if article.top_image:
+		# 	img = article.top_image
 		return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=article.title, key=stripeKey)
 	except:
 		abort(400)
