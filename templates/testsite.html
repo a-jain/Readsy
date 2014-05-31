@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="initial-scale=1, maximum-scale=0.9, user-scalable=yes, minimal-ui">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=0.9, user-scalable=yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="robots" content="NOODP">
 	<meta name="description" content="Readsy is an easy way to read large amounts of text in a rapidly comprehensible way.">
@@ -28,49 +28,7 @@
 	<script type="text/javascript" src="http://parsleyjs.org/dist/parsley.min.js"></script>
 	<!-- <script type="text/javascript" src="http://vast-plains-1931.herokuapp.com/static/scripts/parsleyjs/parsley.extend.js"></script> -->
 
-	
-
-
-	<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="/static/js/test.js"></script>
-
-
-	<script type="text/javascript">
-		formString = "{{text}}"
-		titleText = "{{titleText}}"
-
-		$(document).ready(function() {
-			// $('#editor').tooltip();
-			if (formString != "")
-			{
-				$("#startSpritz").focus();
-		    	$("#inputText").val(jDecode(formString).replace(/\s+/g, ' ')); 
-		    	$("#urlentry").val("{{filename}}") 
-		    	$('#bigtitle').attr('href', '{{url_for('index')}}');
-		    	// console.log(formString)
-		    	updateEditor();
-		    	// $('#editorpara').text(jDecode(formString));
-			}
-			
-			if ("{{error}}" != "")
-			{
-				$("#inputText").blur();
-			}
-			else if (titleText != "")
-			{
-				document.title += " - {{filename}}"
-				document.getElementById('editortitle').innerHTML = titleText;
-				$("firstPara").remove();
-			}
-			
-			else if (titleText == "") {
-				titleText = "Click and highlight the text in this page to change it!";
-				var startText = "You can literally click in this space and edit the text you're reading. Then go back to the home page and your text will appear in the box, ready to Readsy. Try it! (Start by highlighting and deleting this text)";
-			}
-		});
-
-
-	</script>
 
 	<script type="text/javascript">
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -94,52 +52,59 @@
 
 		</div>
 
-		<div class="jumbotron" id="jumbotron">
-      		<p id="welcomeText">Welcome Text</p>
+		
+		<div class="jumbotron" id="jumbotron" style="text-align: left;">
+			<div id="page1">
+      			<p id="welcomeText">Welcome Text</p>
+      		</div>
 
+      	<div id="page2">
       		<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form" id="collectInfo">
-			    {{ form.country.label }} {{ form.country(class="form-control") }}
-			    {{ form.agerange.label }} {{ form.agerange(class="form-control") }}
-			    {{ form.difficulties.label }} {{ form.difficulties() }}
-			    {{ form.nativelang.label }} {{ form.nativelang() }}
-			    {{ form.deviceused.label }} {{ form.deviceused() }}
-			    <input type="submit" value="Go" class="btn btn-default">
-			</form>
+			    {{ userSurvey1.country.label }} {{ userSurvey1.country(class="form-control") }}
+			    {{ userSurvey1.agerange.label }} {{ userSurvey1.agerange(class="form-control") }}
+			    {{ userSurvey1.difficulties.label }} {{ userSurvey1.difficulties() }}
+			    {{ userSurvey1.nativelang.label }} {{ userSurvey1.nativelang() }}
+			    {{ userSurvey1.deviceused.label }} {{ userSurvey1.deviceused() }}
+		</div>
 
+		<div id="page3">
+		    	{{ userSurvey1.aq1.label }} {{ userSurvey1.aq1() }}
+		    	{{ userSurvey1.aq2.label }} {{ userSurvey1.aq2() }}
+		    	{{ userSurvey1.aq3.label }} {{ userSurvey1.aq3() }}
+		    	{{ userSurvey1.aq4.label }} {{ userSurvey1.aq4() }}
+		    	{{ userSurvey1.aq5.label }} {{ userSurvey1.aq5() }}
+		</div>
+
+		<div id="page4">
 			<p>
 				<div id="spritzer" data-role="spritzer" data-options='{
-					"redicleWidth" : 	434,	
-					"redicleHeight" : 	135,	
-					"defaultSpeed" :    300,
-					"speedItems" :      [50, 100, 150, 200, 250, 300, 400, 500, 600, 900],
-					"controlTitles" : {
-			            "pause" :         "Pause",
-			            "play" :          "Play",
-			            "back" :          "Previous Sentence"
-			        }
-				}'>
-			</div></br>
+						"redicleWidth" : 	434,	
+						"redicleHeight" : 	135,	
+						"defaultSpeed" :    300,
+						"speedItems" :      [50, 100, 150, 200, 250, 300, 400, 500, 600, 900],
+						"controlTitles" : {
+				            "pause" :         "Pause",
+				            "play" :          "Play",
+				            "back" :          "Previous Sentence"
+				        }
+					}'>
+				</div>
 			</p>
 			<p>
 		    	{{ textSelector.textChooser.label }} {{ textSelector.textChooser(class="form-control") }}
 		    </p>
 		    <p><a href="#" id="printButton">Print!</a></p>
-		    <p>
-		    	<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form" id="userSurvey">
-			    	{{ userSurvey1.aq1.label }} {{ userSurvey1.aq1() }}
-			    	{{ userSurvey1.aq2.label }} {{ userSurvey1.aq2() }}
-			    	{{ userSurvey1.aq3.label }} {{ userSurvey1.aq3() }}
-			    	{{ userSurvey1.aq4.label }} {{ userSurvey1.aq4() }}
-			    	{{ userSurvey1.aq5.label }} {{ userSurvey1.aq5() }}
+	    </div>	
 
-			    	{{ userSurvey1.bq1.label }} {{ userSurvey1.bq1() }}
-			    	{{ userSurvey1.bq2.label }} {{ userSurvey1.bq2() }}
-			    	{{ userSurvey1.bq3.label }} {{ userSurvey1.bq3() }}
-			    	{{ userSurvey1.bq4.label }} {{ userSurvey1.bq4() }}
-			    	{{ userSurvey1.bq5.label }} {{ userSurvey1.bq5() }}
-			    	<input type="submit" value="Go" class="btn btn-default">
-				</form>
-		    </p>
+	    <div id="page5">
+	    		{{ userSurvey1.bq1.label }} {{ userSurvey1.bq1() }}
+		    	{{ userSurvey1.bq2.label }} {{ userSurvey1.bq2() }}
+		    	{{ userSurvey1.bq3.label }} {{ userSurvey1.bq3() }}
+		    	{{ userSurvey1.bq4.label }} {{ userSurvey1.bq4() }}
+		    	{{ userSurvey1.bq5.label }} {{ userSurvey1.bq5() }}
+		    	<input type="submit" value="Go" class="btn btn-default">
+			</form>
+		</div> 
 
 			
 		</div>

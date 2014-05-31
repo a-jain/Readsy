@@ -31,10 +31,6 @@
 		SpritzClient.spritzify(text, locale, onSpritzifySuccess, onSpritzifyError);
 	};
 
-	function onSpeedChange(event, speed) {
-		$.cookie('spritz_speed', speed, { expires: 28, path: '/' });
-	}
-
 	// Display "Completed X of XXX"
 	function showProgress(completed, total) {
 	     $("#wordNumber").text(completed);
@@ -65,12 +61,6 @@
 		});
 	}
 
-	var cookieVal = $.cookie('spritz_speed');
-	if (cookieVal !== undefined) {
-		// cast to int first
-		customOptions['defaultSpeed'] = cookieVal;
-	}
-
 	var init = function() {
 		var container = $("#spritzer");
 		$("#clear").on("click", clearTextClick);
@@ -83,7 +73,6 @@
  		
  		// Attach the controller's container to this page's "spritzer" container
  		spritzController.attach(container);
- 		container.on("onSpritzSpeedChange", onSpeedChange);
 	};
 	
 	
