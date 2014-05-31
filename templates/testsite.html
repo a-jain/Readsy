@@ -57,17 +57,36 @@
 		<div class="jumbotron" id="jumbotron" style="text-align: left;">
 			<div id="page1">
       			<p id="welcomeText">Welcome Text<br>Lorem Ipsum</p>
-      			<p style="font-size: smaller;">Here is the link to the <a href="/static/txt/ironman.txt">Iron Man</a> text</p>
-				<p style="font-size: smaller;">Here is the link to the <a href="/static/txt/gulls.txt">Gull</a> text</p>
+      			<p style="font-size: smaller;">Here is the link to the <a href="/static/txt/ironman.html" target="_blank">Iron Man</a> text</p>
+				<p style="font-size: smaller;">Here is the link to the <a href="/static/txt/gulls.html" target="_blank">Gull</a> text</p>
       		</div>
 
       	<div id="page2">
       		<form method="POST" action="/test" class="form-signin" enctype="multipart/form-data" role="form" id="collectInfo">
 			    {{ userSurvey1.country.label }} {{ userSurvey1.country(class="form-control") }}
+			    {% if userSurvey1.country.errors %}
+			        <ul class="errors">{% for error in userSurvey1.country.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+			    {% endif %}
+
 			    {{ userSurvey1.agerange.label }} {{ userSurvey1.agerange(class="form-control") }}
+			    {% if userSurvey1.agerange.errors %}
+			        <ul class="errors">{% for error in userSurvey1.agerange.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+			    {% endif %}
+
 			    {{ userSurvey1.difficulties.label }} {{ userSurvey1.difficulties() }}
+			    {% if userSurvey1.difficulties.errors %}
+			        <ul class="errors">{% for error in userSurvey1.difficulties.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+			    {% endif %}
+
 			    {{ userSurvey1.nativelang.label }} {{ userSurvey1.nativelang() }}
+			    {% if userSurvey1.nativelang.errors %}
+			        <ul class="errors">{% for error in userSurvey1.nativelang.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+			    {% endif %}
+
 			    {{ userSurvey1.deviceused.label }} {{ userSurvey1.deviceused() }}
+			    {% if userSurvey1.deviceused.errors %}
+			        <ul class="errors">{% for error in userSurvey1.deviceused.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+			    {% endif %}
 		</div>
 
 		<div id="page3">
@@ -104,7 +123,7 @@
 		    	{{ userSurvey1.bq3.label }} {{ userSurvey1.bq3() }}
 		    	{{ userSurvey1.bq4.label }} {{ userSurvey1.bq4() }}
 		    	{{ userSurvey1.bq5.label }} {{ userSurvey1.bq5() }}
-		    	<input type="submit" value="Submit" class="btn btn-success">
+		    	<input type="submit" value="Submit" class="btn btn-success" style="margin-bottom: 20px;">
 			</form>
 		</div> 
 

@@ -464,11 +464,11 @@ class UserSurvey1(Form):
 	aq3_answers = [("a", "a hummingbird"), ("b", "a bat"), ("c", "two seagulls"), ("d", "a plane")]
 	aq4_answers = [("a", "a houseboat"), ("b", "two chicks in a nest"), ("c", "a nest"), ("d", "a drum of oil")]
 	aq5_answers = [("a", "nothing"), ("b", "a finger"), ("c", "a knife blade"), ("d", "one of the Iron Man's eyes")]
-	aq1 = RadioField(aq1_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=aq1_answers)
-	aq2 = RadioField(aq2_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=aq2_answers)
-	aq3 = RadioField(aq3_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=aq3_answers)
-	aq4 = RadioField(aq4_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=aq4_answers)
-	aq5 = RadioField(aq5_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=aq5_answers)
+	aq1 = RadioField(aq1_label, choices=aq1_answers)
+	aq2 = RadioField(aq2_label, choices=aq2_answers)
+	aq3 = RadioField(aq3_label, choices=aq3_answers)
+	aq4 = RadioField(aq4_label, choices=aq4_answers)
+	aq5 = RadioField(aq5_label, choices=aq5_answers)
 
 	bq1_label = "What did the second seagull pickup?"
 	bq2_label = "What color did the eye glow?"
@@ -480,11 +480,11 @@ class UserSurvey1(Form):
 	bq3_answers = [("a", "a hummingbird"), ("b", "the left arm"), ("c", "two seagulls"), ("d", "a plane")]
 	bq4_answers = [("a", "waving"), ("b", "blinking at them"), ("c", "sleeping"), ("d", "nothing")]
 	bq5_answers = [("a", "running"), ("b", "skip"), ("c", "with a limp"), ("d", "Hop, hop, hop, hop")]
-	bq1 = RadioField(bq1_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=bq1_answers)
-	bq2 = RadioField(bq2_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=bq2_answers)
-	bq3 = RadioField(bq3_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=bq3_answers)
-	bq4 = RadioField(bq4_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=bq4_answers)
-	bq5 = RadioField(bq5_label, [validators.DataRequired(message='Sorry, this is a required field.')], choices=bq5_answers)
+	bq1 = RadioField(bq1_label, choices=bq1_answers)
+	bq2 = RadioField(bq2_label, choices=bq2_answers)
+	bq3 = RadioField(bq3_label, choices=bq3_answers)
+	bq4 = RadioField(bq4_label, choices=bq4_answers)
+	bq5 = RadioField(bq5_label, choices=bq5_answers)
 
 @application.route('/test')
 @application.route('/test', methods=('GET', 'POST'))
