@@ -81,7 +81,7 @@ READABILITY_TOKEN = 'd58d28ee3b6259ece0a6f7b3ad985aa171fe8ac5'
 ERROR_400 = 'Invalid file/URL for parsing'
 ERROR_401 = 'Ready\'s servers aren\'t authorised to access this file. Please download and upload it directly to us (or use Dropbox)'
 ERROR_404 = 'This page does not exist'
-ERROR_500 = 'File doesn\'t exist any more'
+ERROR_500 = 'File doesn\'t exist any more. If you just uploaded it, please try again'
 
 ####################################################### 
 

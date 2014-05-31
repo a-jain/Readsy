@@ -14,6 +14,8 @@
 			clientId: "afb9145630773e008",
 			redirectUri: "http://" + window.location.host + "/spritz/login_success"
 		};
+		currentShow = 0;
+		allIds = ["#page1","#page2","#page3","#page4","#page5"];
 	</script>
 
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans|PT+Mono' rel='stylesheet' type='text/css'>
@@ -102,11 +104,12 @@
 		    	{{ userSurvey1.bq3.label }} {{ userSurvey1.bq3() }}
 		    	{{ userSurvey1.bq4.label }} {{ userSurvey1.bq4() }}
 		    	{{ userSurvey1.bq5.label }} {{ userSurvey1.bq5() }}
-		    	<input type="submit" value="Go" class="btn btn-default">
+		    	<input type="submit" value="Submit" class="btn btn-success">
 			</form>
 		</div> 
 
-			
+		<button id="nextPage" href="#" onclick="nextPage()" type="button" class="btn btn-default">Next</button>
+		<button id="nextPage" href="#" onclick="prevPage()" type="button" class="btn btn-default">Back</button>
 		</div>
 
 	<!-- close container -->

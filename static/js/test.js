@@ -55,12 +55,6 @@
 		customOptions["redicleWidth"] = 302;
 	}
 
-	if (document.documentElement.clientWidth > 600) {
-		$(document).ready(function() {
-			$('#inputText').tooltip();
-		});
-	}
-
 	var init = function() {
 		var container = $("#spritzer");
 		$("#clear").on("click", clearTextClick);
@@ -100,4 +94,30 @@ function onTextSelected(e) {
 
 function jDecode(str) {
 	return $("<div/>").html(str.trim()).text();
+}
+
+function hideAllShowOne(showId) {
+	for (var i = 0; i < allIds.length; i++) {
+		$(allIds[i]).hide();
+	}
+	$(showId).show();
+	currentShow = allIds.indexOf(showId);
+}
+
+function nextPage() {
+	if (currentShow == allIds.length-1)
+		return false;
+	else
+		hideAllShowOne(allIds[currentShow+1]);
+
+	return false;
+}
+
+function prevPage() {
+	if (currentShow == 0)
+		return false;
+	else
+		hideAllShowOne(allIds[currentShow-1]);
+
+	return false;
 }

@@ -81,6 +81,14 @@ h2 {
   text-align: left;
 }
 
+/************************************************
+Page details:
+************************************************/
+
+#page2, #page3, #page4, #page5 {
+  display:none;
+}
+
 @media screen and (max-width: 480px) {
   #urlentry {
     min-width: 300px;
