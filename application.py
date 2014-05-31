@@ -23,11 +23,13 @@ from wtformsparsleyjs import StringField, SelectField
 from sqlalchemy import create_engine, MetaData
 from goose import Goose
 
+# import newrelic.agent
 import MySQLdb
 import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin, pycountry, stripe
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
+# newrelic.agent.initialize('/newrelic.ini')
 
 def start_app():
 	app = Flask(__name__)
