@@ -25,7 +25,7 @@
 	<link type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script async type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<!-- <script async type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script> -->
 	<script type="text/javascript" src="//sdk.spritzinc.com/js/1.0/js/spritz.min.js"></script>
 	<script type="text/javascript" src="http://parsleyjs.org/dist/parsley.min.js"></script>
 	<!-- <script type="text/javascript" src="http://vast-plains-1931.herokuapp.com/static/scripts/parsleyjs/parsley.extend.js"></script> -->
@@ -51,13 +51,14 @@
 					<li id="list1" class="active"><a id="navbar1" href="#">Test</a></li>
 				</ul>
 				<h3 id="pageTitle"><a href="/test" style="text-decoration: none;">Readsy Test</a></h3>
-
 		</div>
 
 		
 		<div class="jumbotron" id="jumbotron" style="text-align: left;">
 			<div id="page1">
-      			<p id="welcomeText">Welcome Text</p>
+      			<p id="welcomeText">Welcome Text<br>Lorem Ipsum</p>
+      			<p style="font-size: smaller;">Here is the link to the <a href="/static/txt/ironman.txt">Iron Man</a> text</p>
+				<p style="font-size: smaller;">Here is the link to the <a href="/static/txt/gulls.txt">Gull</a> text</p>
       		</div>
 
       	<div id="page2">
@@ -95,7 +96,6 @@
 			<p>
 		    	{{ textSelector.textChooser.label }} {{ textSelector.textChooser(class="form-control") }}
 		    </p>
-		    <p><a href="#" id="printButton">Print!</a></p>
 	    </div>	
 
 	    <div id="page5">
@@ -109,7 +109,7 @@
 		</div> 
 
 		<button id="nextPage" href="#" onclick="nextPage()" type="button" class="btn btn-default">Next</button>
-		<button id="nextPage" href="#" onclick="prevPage()" type="button" class="btn btn-default">Back</button>
+		<button id="prevPage" href="#" onclick="prevPage()" type="button" class="btn btn-default">Back</button>
 		</div>
 
 	<!-- close container -->

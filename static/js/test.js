@@ -105,19 +105,29 @@ function hideAllShowOne(showId) {
 }
 
 function nextPage() {
-	if (currentShow == allIds.length-1)
-		return false;
-	else
+	if (currentShow < allIds.length-1) {
 		hideAllShowOne(allIds[currentShow+1]);
+		$("#prevPage").show();
+	}
+
+	if (currentShow == allIds.length-1)
+		$("#nextPage").hide();
+	else
+		$("#nextPage").show();
 
 	return false;
 }
 
 function prevPage() {
-	if (currentShow == 0)
-		return false;
-	else
+	if (currentShow > 0) {
 		hideAllShowOne(allIds[currentShow-1]);
+		$("#nextPage").show();
+	}
+
+	if (currentShow == 0)
+		$("#prevPage").hide();
+	else
+		$("#prevPage").show();
 
 	return false;
 }
