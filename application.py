@@ -439,22 +439,53 @@ def test():
 
 	if userSurvey1.validate_on_submit():
 		cursor = db.cursor()
+		cursor.execute("SET net_write_timeout=3600")
 
 		allDifficulties = ', '.join(userSurvey1.difficulties.data)
 
 		# NB temporarily set learning difficulties to just take first selected
 		sql = "INSERT INTO usertable.userids (country, ageRange, readingIssue, nativeLang, device) VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\');" % (userSurvey1.country.data, userSurvey1.agerange.data, allDifficulties, userSurvey1.nativelang.data, userSurvey1.deviceused.data)
 		print sql
-		cursor.execute(sql)
+		try:
+			cursor.execute(sql)
+		except:
+			abort(404)
 		userId = int(cursor.lastrowid)
 
-		cursor.execute("INSERT INTO usertable.questionnaire1 (userId, q1, q2, q3, q4, q5) VALUES (%d, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\');" % (userId, userSurvey1.aq1.data, userSurvey1.aq2.data, userSurvey1.aq3.data, userSurvey1.aq4.data, userSurvey1.aq5.data))
-		cursor.execute("INSERT INTO usertable.questionnaire2 (userId, q1, q2, q3, q4, q5) VALUES (%d, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\');" % (userId, userSurvey1.bq1.data, userSurvey1.bq2.data, userSurvey1.bq3.data, userSurvey1.bq4.data, userSurvey1.bq5.data))
+		try:
+			cursor.execute("INSERT INTO usertable.questionnaire1 (userId, q1, q2, q3, q4, q5) VALUES (%d, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\');" % (userId, userSurvey1.aq1.data, userSurvey1.aq2.data, userSurvey1.aq3.data, userSurvey1.aq4.data, userSurvey1.aq5.data))
+			cursor.execute("INSERT INTO usertable.questionnaire2 (userId, q1, q2, q3, q4, q5) VALUES (%d, \'%s\', \'%s\', \'%s\', \'%s\', \'%s\');" % (userId, userSurvey1.bq1.data, userSurvey1.bq2.data, userSurvey1.bq3.data, userSurvey1.bq4.data, userSurvey1.bq5.data))
+		except:
+			abort(400)
 
 		cursor.close()
 		
 		return render_template('success.html')
 	return render_template('testsite.html', textSelector=textSelector, userSurvey1=userSurvey1)
+
+@application.route('/results')
+def results():
+	allUsers = "SELECT * FROM usertable.userids;"
+	allQ1 = "SELECT * FROM usertable.questionnaire1;"
+	allQ2 = "SELECT * FROM usertable.questionnaire2;"
+
+	cursor = db.cursor()
+
+	cursor.execute(allUsers)
+	allUsersResults = cursor.fetchall()
+	print allUsersResults
+
+	cursor.execute(allQ1)
+	allQ1Results = cursor.fetchall()
+	print allQ1Results
+
+	cursor.execute(allQ2)
+	allQ2Results = cursor.fetchall()
+	print allQ2Results
+
+	cursor.close()
+
+	return render_template('results.html', allUsersResults=json.dumps(allUsersResults), allQ1Results=json.dumps(allQ1Results), allQ2Results=json.dumps(allQ2Results))
 
 ###################################################
 

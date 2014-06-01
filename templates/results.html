@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Readsy - Results</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+<link type="text/css" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css" rel="stylesheet">
+
+<script>
+
+var allUsersResults = JSON.parse('{{allUsersResults|safe}}');
+var allQ1Results = JSON.parse('{{allQ1Results|safe}}');
+var allQ2Results = JSON.parse('{{allQ2Results|safe}}');
+
+$(document).ready(function() {
+    $('#userData').dataTable( {
+        "data": allUsersResults,
+        "columns": [
+            { "title": "User Id" },
+            { "title": "Country" },
+            { "title": "Age Range" },
+            { "title": "Difficulty", "class": "center" },
+            { "title": "English Native Lang?", "class": "center" },
+            { "title": "Device" }
+        ]
+    } ); 
+
+    $('#q1Data').dataTable( {
+        "data": allQ1Results,
+        "columns": [
+            { "title": "User Id" },
+            { "title": "Q1" },
+            { "title": "Q2" },
+            { "title": "Q3" },
+            { "title": "Q4" }
+        ]
+    } ); 
+
+    $('#q2Data').dataTable( {
+        "data": allQ2Results,
+        "columns": [
+            { "title": "User Id" },
+            { "title": "Q1" },
+            { "title": "Q2" },
+            { "title": "Q3" },
+            { "title": "Q4" }
+        ]
+    } );   
+});
+</script>
+
+<style>
+.tableShow {
+	margin-bottom:50px;
+}
+</style>
+</head>
+
+<body>
+<h1>Results</h1>
+
+<p>Here are the results from all surveys taken so far</p>
+
+<div id="userDatadiv" class="tableShow">
+	<table cellpadding="0" cellspacing="0" border="0" class="display" id="userData"></table>
+</div>
+
+<div id="q1Datadiv" class="tableShow">
+	<table cellpadding="0" cellspacing="0" border="0" class="display" id="q1Data"></table>
+</div>
+
+<div id="q2Datadiv" class="tableShow">
+	<table cellpadding="0" cellspacing="0" border="0" class="display" id="q2Data"></table>
+</div>
+
+</body>
+
+</html>
