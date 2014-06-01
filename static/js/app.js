@@ -242,3 +242,32 @@ function updateEditor(stringy) {
 		$("#editor").append("<p id=\"editorpara\">" + contentsplit[i] + "\n\n</p>" );
 	}
 }
+
+window.onload = function () {
+  document.getElementById("files2").onchange = checkFileSize;
+}
+
+function checkFileSize() {
+    //check whether browser fully supports all File API
+    if (window.File && window.FileReader && window.FileList && window.Blob)
+    {
+        //get the file size and file type from file input field
+        var fsize = $('#files2')[0].files[0].size;
+        var ftype = $('#files2')[0].files[0].type;
+
+        console.log(fsize);
+        console.log(ftype);
+        
+        if (fsize > 5*1024*1024) {
+            alert("This file is " + fsize/(1024*1024) + " MB.\nPlease choose a smaller file.");
+            return false;
+        }
+
+        if (!((ftype == "application/pdf" || ftype == "application/x-pdf") || ftype == "text/plain")) {
+        	alert("Please choose a suitable file type");
+        	return false;
+        }
+    }
+
+    return true;
+};
