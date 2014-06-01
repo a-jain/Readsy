@@ -130,7 +130,7 @@ def convert_pdf_to_txt(path):
 	fp = file(path, 'rb')
 	interpreter = PDFPageInterpreter(rsrcmgr, device)
 	password = ""
-	maxpages = 25
+	maxpages = 50
 	caching = True
 	pagenos=set()
 	for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
