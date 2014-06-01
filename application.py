@@ -42,7 +42,7 @@ def start_app():
 	app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
 	
 	s3 = FlaskS3()
-	# s3.init_app(app)
+	s3.init_app(app)
 
 	assets = Environment()	
 	# use closure_js once i have java 7
@@ -52,7 +52,7 @@ def start_app():
 	assets.register('css_all', css)
 	app.config['ASSETS_DEBUG'] = False
 	assets.init_app(app)
-	# app.config['FLASK_ASSETS_USE_S3'] = True #should be true
+	app.config['FLASK_ASSETS_USE_S3'] = True #should be true
 
 	return app
 
