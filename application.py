@@ -473,15 +473,15 @@ def results():
 
 	cursor.execute(allUsers)
 	allUsersResults = cursor.fetchall()
-	print allUsersResults
+	# print allUsersResults
 
 	cursor.execute(allQ1)
 	allQ1Results = cursor.fetchall()
-	print allQ1Results
+	# print allQ1Results
 
 	cursor.execute(allQ2)
 	allQ2Results = cursor.fetchall()
-	print allQ2Results
+	# print allQ2Results
 
 	cursor.close()
 
