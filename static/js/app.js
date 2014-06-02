@@ -255,8 +255,8 @@ function checkFileSize() {
         var fsize = $('#files2')[0].files[0].size;
         var ftype = $('#files2')[0].files[0].type;
 
-        console.log(fsize);
-        console.log(ftype);
+        // console.log(fsize);
+        // console.log(ftype);
         
         if (fsize > 5*1024*1024) {
             alert("This file is " + fsize/(1024*1024) + " MB.\nPlease choose a smaller file.");
