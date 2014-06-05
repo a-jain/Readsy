@@ -134,10 +134,12 @@ def convert_pdf_to_txt(path):
 	maxpages = 50
 	caching = True
 	pagenos=set()
-	print "two"
+	# print "two"
+
 	for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
 		interpreter.process_page(page)
-	print "one"
+	# print "one"
+	
 	try:
 		fp.close()
 		device.close()
@@ -145,6 +147,7 @@ def convert_pdf_to_txt(path):
 		retstr.close()
 	except:
 		str = retstr.getvalue()
+
 	return str
 
 def allowed_file(filename):
