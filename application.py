@@ -126,6 +126,7 @@ def convert_pdf_to_txt(path):
 	retstr = StringIO()
 	codec = 'utf-8'
 	laparams = LAParams()
+
 	device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
 	fp = file(path, 'rb')
 	interpreter = PDFPageInterpreter(rsrcmgr, device)
@@ -133,12 +134,17 @@ def convert_pdf_to_txt(path):
 	maxpages = 50
 	caching = True
 	pagenos=set()
+	print "two"
 	for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
 		interpreter.process_page(page)
-	fp.close()
-	device.close()
-	str = retstr.getvalue()
-	retstr.close()
+	print "one"
+	try:
+		fp.close()
+		device.close()
+		str = retstr.getvalue()
+		retstr.close()
+	except:
+		str = retstr.getvalue()
 	return str
 
 def allowed_file(filename):
@@ -195,6 +201,7 @@ def sign_s3():
 def PDFhelper(url):
 	try:
 		s = convert_pdf_to_txt(url)
+		# print s
 		s = HTMLParser.HTMLParser().unescape(s)
 		s = re.sub(r'(?<=[a-z]\.)\n+', r'\\n\\n', s)
 		# s = re.sub(r'  +', r' ', s)
