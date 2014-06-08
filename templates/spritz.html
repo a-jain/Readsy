@@ -116,8 +116,6 @@
 			$(dropButton).insertAfter("#filelimit");
 			$(dropButton).click(disableButton);
 		});
-
-
 	</script>
 
 	<script type="text/javascript">
@@ -133,6 +131,7 @@
 </head>
 
 <body>
+	
 	<div class="container" id="content1">
 		<div class="header">
 				<ul class="nav nav-pills pull-right">
@@ -211,6 +210,8 @@
 					<button id="startSpritz" type="submit" class="btn btn-success">Readsy!</button>
 				</div>	
 
+
+
 				<div id="progressbar">
 				<p><small>
 					<br/>Completed <span id="wordNumber">0</span> words out of <span id="wordTotal">0</span>.<br/>
@@ -222,6 +223,12 @@
 						<button type="button" class="btn btn-default" id="btnSeek">Go!</button>
 					</form>
 				</small></p>
+				</div>
+
+				<!-- currently hidden -->
+				<div id="specific_buttons" style="display:none">
+					<div id="twitter" data-url="http://readsy.co" data-title="Share on Twitter"></div>
+					<div id="facebook" data-url="http://readsy.co" data-title="Share on Facebook"></div>
 				</div>
 			</p>
 		</div>
@@ -291,6 +298,7 @@
   <div class="footer" style="margin-top: 100px">
 	<div class="container" id="footercontent" >
 		<center><p>&copy; 2014 <a href="mailto:mr.akashj@gmail.com?subject=Readsy%20Feedback">Akash Jain</a></p></center>
+		<div id="share" data-url="http://readsy.co" data-text="Make your sharing widget with Sharrre (jQuery Plugin)" data-title="share"></div>
 	</div>
   </div>
 
@@ -299,6 +307,35 @@
 	  $(function(){
 		  $('#editor').editable({autosave: true, plainPaste: true, paragraphy: false, enableScript: true, inlineMode: true});
 	  });
+
+	$(function() {
+
+		$('#twitter').sharrre({
+	      share: { twitter: true },
+	      url: 'http://readsy.co',
+	      enableHover: false,
+	      enableTracking: true,
+	      template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><span></span>Twitter</div></a>',
+	      
+	      click: function(api, options){
+		    api.simulateClick();
+		    api.openPopup('twitter');
+		  }
+	    });
+
+	    $('#facebook').sharrre({
+	      share: { facebook: true },
+	      url: 'http://readsy.co',
+	      enableHover: false,
+	      enableTracking: true,
+	      template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><span></span>Facebook</div></a>',
+	      click: function(api, options){
+		    api.simulateClick();
+		    api.openPopup('facebook');
+		  }
+	    });
+
+	});
   </script>
 
 </body>
