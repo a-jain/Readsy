@@ -258,18 +258,13 @@
 				If this site helped you in a meaningful way, please consider donating a little bit to help me with running costs :)
 			</small></p>
 
-			<form action="/charge" method="post" style="display:inline; margin-bottom:10px;" id="donateForm">
-				<article>
-				  <label>
-					<span>Donate $3.00</span>
-				  </label>
-				</article>
-
-				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-						data-key="{{ key }}"
-						data-description="Thank you!"
-						data-amount="300"></script>
-			  </form>
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+			<input type="hidden" name="cmd" value="_s-xclick">
+			<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+			">
+			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - Thanks for donating!">
+			<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+			</form>
 
 			<p class="text-left" style="margin-top:15px;"><small><small>
 				This is a little experiment to make it easier to read longform content. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, Requests, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery and Froala.
