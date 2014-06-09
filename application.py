@@ -42,7 +42,7 @@ def start_app():
 	app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
 	
 	s3 = FlaskS3()
-	s3.init_app(app)
+	# s3.init_app(app)
 
 	assets = Environment()	
 	# use closure_js once i have java 7
@@ -52,25 +52,28 @@ def start_app():
 	assets.register('css_all', css)
 	app.config['ASSETS_DEBUG'] = False
 	assets.init_app(app)
-	app.config['FLASK_ASSETS_USE_S3'] = True #should be true
+	# app.config['FLASK_ASSETS_USE_S3'] = True #should be true
 
 	return app
 
 application = start_app()
 
-db = MySQLdb.connect(host="akashjain.c5vtmzrmhbcb.us-east-1.rds.amazonaws.com", user="akashjain", passwd="akashjain", db="usertable")
-db.autocommit(True)
-
+try:
+	db = MySQLdb.connect(host="akashjain.c5vtmzrmhbcb.us-east-1.rds.amazonaws.com", user="akashjain", passwd="akashjain", db="usertable")
+	db.autocommit(True)
+except:
+	pass
+	
 application.config['COMPRESS_DEBUG'] = True
 
-stripe_keys = {
-    'secret_key':      os.environ['STRIPE_SECRET_KEY'],
-    'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY'],
-    'test_secret_key': os.environ['STRIPE_TEST_SECRET_KEY'],
-    'test_publishable_key': os.environ['STRIPE_TEST_PUBLISHABLE_KEY']
-}
-stripe.api_key = stripe_keys['secret_key']
-stripeKey = stripe_keys['publishable_key']
+# stripe_keys = {
+#     'secret_key':      os.environ['STRIPE_SECRET_KEY'],
+#     'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY'],
+#     'test_secret_key': os.environ['STRIPE_TEST_SECRET_KEY'],
+#     'test_publishable_key': os.environ['STRIPE_TEST_PUBLISHABLE_KEY']
+# }
+# stripe.api_key = stripe_keys['secret_key']
+# stripeKey = stripe_keys['publishable_key']
 # print stripe.api_key
 
 UPLOAD_FOLDER = 'tmp/'
@@ -249,6 +252,7 @@ def clean(s):
 	PAT_COPYRIGHT = r'(([cC]opyright)|©).*?[aA]ll rights reserved\.?'
 	PAT_RANDONUM = r'(?<=[a-z]{3})\d{1,3}(?: [0-9]{1,3})?(?=[\. ,])'
 	PAT_PAGEREF = r'\d\d? of \d\d? '
+	PAT_MLA = r' \([12]\d\d\d\)'
 
 	s = re.sub(PAT_REFERENCES, '', s)
 	s = re.sub(PAT_COPYRIGHT, '', s, flags=re.I)
@@ -270,6 +274,7 @@ def clean(s):
 	s = re.sub(PAT_WEIRDPUNC, '', s)
 	s = re.sub(PAT_EXTRASPACE, ' ', s)
 	s = re.sub(PAT_SINGLELETTERS, '', s)
+	s = re.sub(PAT_MLA, '', s)
 
 	return s
 
@@ -300,7 +305,7 @@ def cleantext(s):
 @application.route('/')
 @gzipped
 def index():
-	return render_template('spritz.html', key=stripeKey)
+	return render_template('spritz.html')
 
 @application.route('/spritzy')
 @application.route('/spritzy/<filename>')
@@ -317,11 +322,11 @@ def spritz(filename=None):
 
 	if filename.split('.')[-1].lower() == "txt":
 		s = TXThelper(url)
-		return render_template('spritz.html', text=s, filename=filename, titleText=filename, key=stripeKey) 
+		return render_template('spritz.html', text=s, filename=filename, titleText=filename) 
 
 	elif filename.split('.')[-1].lower() == "pdf":
 		s = PDFhelper(url)
-		return render_template('spritz.html', text=s, filename=filename, titleText=filename, key=stripeKey) 
+		return render_template('spritz.html', text=s, filename=filename, titleText=filename) 
 
 	return redirect(url_for('index'))
 
@@ -348,7 +353,7 @@ def POSTtexthandler():
 	if request.method == 'POST':
 		text = request.form['text']
 		print text
-		return render_template('spritz.html', text=text, filename="test1", titleText="test2", key=stripeKey) 
+		return render_template('spritz.html', text=text, filename="test1", titleText="test2") 
 
 	return redirect(url_for('index'))
 
@@ -361,7 +366,7 @@ def texthandler(parseString=None):
 	s = re.sub(r'\n+', r'\\n\\n', s)
 	print s
 
-	return render_template('spritz.html', text=s, filename="", titleText="Highlighted Text", key=stripeKey) 
+	return render_template('spritz.html', text=s, filename="", titleText="Highlighted Text") 
 
 @application.route('/web')
 @gzipped
@@ -378,7 +383,7 @@ def url_handle():
 		url = "http://" + url
 
 	if "readsy.co" in url:
-		return render_template('spritz.html', text="Try parsing a different website!", key=stripeKey)
+		return render_template('spritz.html', text="Try parsing a different website!")
 
 	ext = url.split('.')[-1].lower()
 	if ext in ALLOWED_EXTENSIONS:
@@ -400,11 +405,11 @@ def url_handle():
 					f.write(chunk)
 			if ext == "pdf":
 				s = PDFhelper(path)
-				return render_template('spritz.html', text=s, filename=fullname, titleText=fullname, key=stripeKey) 
+				return render_template('spritz.html', text=s, filename=fullname, titleText=fullname) 
 
 			elif ext == "txt":
 				s = TXThelper(path)
-				return render_template('spritz.html', text=s, filename=fullname, titleText=fullname, key=stripeKey)
+				return render_template('spritz.html', text=s, filename=fullname, titleText=fullname)
 
 		else:
 			abort(400)
@@ -416,28 +421,28 @@ def url_handle():
 		s = cleantext(article.cleaned_text)
 		# if article.top_image:
 		# 	img = article.top_image
-		return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=article.title, key=stripeKey)
+		return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=article.title)
 	except:
 		abort(400)
 
-@application.route('/charge', methods=['POST'])
-def charge():
-    # Amount in cents
-    amount = 300
+# @application.route('/charge', methods=['POST'])
+# def charge():
+#     # Amount in cents
+#     amount = 300
 
-    customer = stripe.Customer.create(
-        email='customer@example.com',
-        card=request.form['stripeToken']
-    )
+#     customer = stripe.Customer.create(
+        # email='customer@example.com', # wrong
+#         card=request.form['stripeToken']
+#     )
 
-    charge = stripe.Charge.create(
-        customer=customer.id,
-        amount=amount,
-        currency='usd',
-        description='Flask Charge'
-    )
+#     charge = stripe.Charge.create(
+#         customer=customer.id,
+#         amount=amount,
+#         currency='usd',
+#         description='Flask Charge'
+#     )
 
-    return render_template('spritz.html', text="Thank you so much for donating! I really appreciate it.", filename="Thanks!", titleText="Thanks!", amount=amount)
+#     return render_template('spritz.html', text="Thank you so much for donating! I really appreciate it.", filename="Thanks!", titleText="Thanks!", amount=amount)
 
 ###################################################
 

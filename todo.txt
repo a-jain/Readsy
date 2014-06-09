@@ -3,7 +3,6 @@ make readsy button dropdown with different wpms
 make uploading button "loading" instead of disbaled
 bookmarklet get highlighted text (get selection)
 dark mode
-go to word x
 
 
 dark mode:

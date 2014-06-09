@@ -16,12 +16,12 @@ body {
 h1 {
   font-size:40pt;
   padding-bottom: 5px;
-  font-family: 'PT Mono', '';
+  font-family: 'PT Mono', 'serif';
 }
 
 #pageTitle {
   font-size:24pt;
-  font-family: 'PT Mono', '';
+  font-family: 'PT Mono', 'serif';
 }
 
 h2 {

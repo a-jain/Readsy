@@ -51,6 +51,34 @@
 			// validateFile();
 		}
 
+		function darken() {
+			$("body").css("background-color", "#616161");
+			$("a").css("color", "#66A3D8");
+			$("#bigtitle").css("color", "#DFDFDF");
+			$("#wordCounter").css("color", "#DFDFDF");
+			$(".nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus").css("color", "#DFDFDF");
+			$(".header").css("border-bottom-color", "#8A8A8A");
+			$(".footer").css("border-top-color", "#8A8A8A");
+			$(".footer").css("color", "#AFAFAF");
+			
+			//
+			
+			$("#inputText").css("background-color", "#DDD")
+			$("#instructions").hide();
+			$("#modalButton").hide();
+			$("#URLForm").hide();
+
+			// body { background-color: #616161;} line 11
+			// #bigtitle { color: #DFDFDF; } line 55
+			// .header { border-bottom: color #616161;} line 109
+			// .footer { border-top: color #616161; color: #AFAFAF;} line 122
+			// #instructions { display: none; } line 48
+			// #instructions { background-color: #DFDFDF; } line 33
+			// a { color: #66A3D8; }
+			// #modalButton .hide()
+			// #URLForm .hide()
+		}
+
 		$(document).ready(function() {
 			// $('#editor').tooltip();
 			if (formString != "")
@@ -211,7 +239,7 @@
 				</div>	
 
 				<div id="progressbar">
-				<p><small>
+				<p id="wordCounter"><small>
 					<br/>Completed <span id="wordNumber">0</span> words out of <span id="wordTotal">0</span>.<br/>
 					<form class="form-inline" role="form" id="seekForm">
 						<div class="form-group">
@@ -252,11 +280,11 @@
 			</div>
 
 			<p class="text-left">
-				Readsy is a tool to help you skim large amounts of text by focusing your eyes on one word at a time without having to move them. It is powered by Spritz - you can read more about it <a href="http://www.spritzinc.com/the-science/">here</a>.
+				Readsy is a tool to help you skim large amounts of text by focusing your eyes on one word at a time without having to move them. It is powered by Spritz - you can read more about it <a href="http://www.spritzinc.com/the-science/">here</a>. To register for higher speeds, click "Login" on the top right of the Spritz box, and create an account with Spritz.
 			</p></br>
 
 			<p class="text-left"><small>
-				<a href="http://akashjain.co.uk">Akash Jain</a> is a sophomore at Princeton University majoring in Computer Science.<br>
+				<a href="http://akashjain.co.uk">Akash Jain</a> is a sophomore at Princeton University majoring in Computer Science. The code for the site is hosted on GitHub <a href="https://github.com/a-jain/Readsy">here</a><br>
 			</small></p>
 
 			<p class="text-left"><small>
@@ -271,9 +299,6 @@
 			<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 			</form>
 
-			<p class="text-left" style="margin-top:15px;"><small><small>
-				This is a little experiment to make it easier to read longform content. The backend is made using Flask, and uses APIs and modules from Readability, BeautifulSoup, PDFMiner, Requests, and more. The front end uses Bootstrap 3, HTML5/CSS3, JavaScript/jQuery and Froala.
-			</small></small></p>
 			</div>
 		</div>
 

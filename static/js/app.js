@@ -32,6 +32,7 @@
 		var locale = "en_us;";
 		
 		$("#progressbar").fadeIn("fast");
+		// darken()
 		
 		// Send to SpritzEngine to translate
 		SpritzClient.spritzify(text, locale, onSpritzifySuccess, onSpritzifyError);
