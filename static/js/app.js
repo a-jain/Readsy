@@ -32,11 +32,19 @@
 		var locale = "en_us;";
 		
 		$("#progressbar").fadeIn("fast");
-		// darken()
+		darken();
 		
 		// Send to SpritzEngine to translate
 		SpritzClient.spritzify(text, locale, onSpritzifySuccess, onSpritzifyError);
 	};
+
+	function onSpritzPlay(event) {
+		darken();
+	}
+
+	function onSpritzPause(event) {
+		lighten();
+	}
 
 	function onSpeedChange(event, speed) {
 		$.cookie('spritz_speed', speed, { expires: 28, path: '/' });
@@ -93,6 +101,9 @@
  		// Attach the controller's container to this page's "spritzer" container
  		spritzController.attach(container);
  		container.on("onSpritzSpeedChange", onSpeedChange);
+ 		container.on("onSpritzPlay", onSpritzPlay);
+ 		container.on("onSpritzPause", onSpritzPause);
+ 		container.on("onSpritzComplete", onSpritzPause);
 	};
 	
 	
@@ -272,3 +283,31 @@ function checkFileSize() {
 
     return true;
 };
+
+function darken() {
+	$("body").css("background-color", "#616161");
+	$("#bigtitle").css("color", "#DFDFDF");
+	$("#wordCounter").css("color", "#DFDFDF");
+	$(".footer").css("border-top-color", "#8A8A8A");
+	$(".footer").css("color", "#AFAFAF");
+	$("#inputText").css("background-color", "#DDD");
+
+	$("#instructions").css("visibility", "hidden");
+	$("#modalButton").css("visibility", "hidden");
+	$("#URLForm").css("visibility", "hidden");
+	$(".header").css("visibility", "hidden");
+}
+
+function lighten() {
+	$("body").css("background-color", "#F0F0F0");
+	$("#bigtitle").css("color", "#000");
+	$("#wordCounter").css("color", "#000");
+	$(".footer").css("border-top-color", "#e5e5e5");
+	$(".footer").css("color", "#777");
+	$("#inputText").css("background-color", "#fff");
+
+	$("#instructions").css("visibility", "initial");
+	$("#modalButton").css("visibility", "initial");
+	$("#URLForm").css("visibility", "initial");
+	$(".header").css("visibility", "initial");
+}

@@ -63,7 +63,7 @@ try:
 	db.autocommit(True)
 except:
 	pass
-	
+
 application.config['COMPRESS_DEBUG'] = True
 
 # stripe_keys = {
@@ -207,7 +207,7 @@ def sign_s3():
 def PDFhelper(url):
 	try:
 		s = convert_pdf_to_txt(url)
-		# print s
+		print s
 		s = HTMLParser.HTMLParser().unescape(s)
 		s = re.sub(r'(?<=[a-z]\.)\n+', r'\\n\\n', s)
 		# s = re.sub(r'  +', r' ', s)
