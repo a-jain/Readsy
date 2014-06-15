@@ -9,28 +9,23 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from pdfminer.pdfparser import PDFSyntaxError
 from cStringIO import StringIO
-# from readability import ParserClient
 from urlparse import urlparse
-# from bs4 import BeautifulSoup
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_s3 import FlaskS3
 from flask.ext.assets import Environment, Bundle
 from flask_wtf import Form
 from wtforms import TextField, widgets, RadioField, validators
-# from wtforms.validators import DataRequired
 from wtforms.fields import SelectMultipleField
 from wtformsparsleyjs import StringField, SelectField
 from sqlalchemy import create_engine, MetaData
 from goose import Goose
 from form import *
 
-# import newrelic.agent
 import MySQLdb
 import re, regex, sys, os, base64, hmac, urllib, time, HTMLParser, requests, urllib2, gzip, functools, cssmin, stripe
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
-# newrelic.agent.initialize('/newrelic.ini')
 
 def start_app():
 	app = Flask(__name__)
@@ -65,16 +60,6 @@ except:
 	pass
 
 application.config['COMPRESS_DEBUG'] = True
-
-# stripe_keys = {
-#     'secret_key':      os.environ['STRIPE_SECRET_KEY'],
-#     'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY'],
-#     'test_secret_key': os.environ['STRIPE_TEST_SECRET_KEY'],
-#     'test_publishable_key': os.environ['STRIPE_TEST_PUBLISHABLE_KEY']
-# }
-# stripe.api_key = stripe_keys['secret_key']
-# stripeKey = stripe_keys['publishable_key']
-# print stripe.api_key
 
 UPLOAD_FOLDER = 'tmp/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
@@ -424,25 +409,6 @@ def url_handle():
 		return render_template('spritz.html', text=s, filename=url.split('//')[1], titleText=article.title)
 	except:
 		abort(400)
-
-# @application.route('/charge', methods=['POST'])
-# def charge():
-#     # Amount in cents
-#     amount = 300
-
-#     customer = stripe.Customer.create(
-        # email='customer@example.com', # wrong
-#         card=request.form['stripeToken']
-#     )
-
-#     charge = stripe.Charge.create(
-#         customer=customer.id,
-#         amount=amount,
-#         currency='usd',
-#         description='Flask Charge'
-#     )
-
-#     return render_template('spritz.html', text="Thank you so much for donating! I really appreciate it.", filename="Thanks!", titleText="Thanks!", amount=amount)
 
 ###################################################
 
