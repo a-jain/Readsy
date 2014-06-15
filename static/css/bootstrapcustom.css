@@ -140,10 +140,6 @@ h2 {
   max-width: 690px;
 }
 
-.spritzer-container {
-  border: none;
-}
-
 /* Customize container */
 @media (min-width: 768px) {
   .container {
@@ -157,7 +153,7 @@ h2 {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 768px) and (min-width: 480px) {
   .spritzer-btn-pauseplay,
   .spritzer-btn-disabled,
   .spritzer-btn-play {
