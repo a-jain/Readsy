@@ -17,10 +17,10 @@ body {
   background: #FF9F0D; /* Safari */
 }
 
-h1 {
-  font-size:40pt;
+.jumbotron h1 {
+  font-size:55pt;
   padding-bottom: 5px;
-  font-family: 'PT Mono', '';
+  font-family: 'PT Sans', '';
 }
 
 h2 {
@@ -140,6 +140,10 @@ h2 {
   max-width: 690px;
 }
 
+.spritzer-container {
+  border: none;
+}
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {
@@ -150,6 +154,16 @@ h2 {
 }
 .container-narrow > hr {
   margin: 30px 0;
+}
+
+
+@media (max-width: 768px) {
+  .spritzer-btn-pauseplay,
+  .spritzer-btn-disabled,
+  .spritzer-btn-play {
+    margin-left: 10% !important;
+    margin-right: 10% !important;
+  }
 }
 
 /* Main marketing message and sign up button */

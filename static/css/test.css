@@ -16,12 +16,12 @@ body {
 h1 {
   font-size:40pt;
   padding-bottom: 5px;
-  font-family: 'PT Mono', 'serif';
+  font-family: 'PT Sans', 'serif';
 }
 
 #pageTitle {
   font-size:24pt;
-  font-family: 'PT Mono', 'serif';
+  font-family: 'PT Sans', 'serif';
 }
 
 h2 {
@@ -32,7 +32,7 @@ h2 {
 .fa { font-family: FontAwesome }
 
 #inputText {
-  /*font-family: 'Share Tech Mono', Arial;*/
+  /*font-family: 'Share Tech Sans', Arial;*/
   max-width: 436px;
   margin-left: auto;
   margin-right: auto;
