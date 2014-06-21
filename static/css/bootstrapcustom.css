@@ -188,3 +188,23 @@ h2 {
     margin-bottom: 40px;
   }
 }
+
+/*logo bits*/
+#logoImg {
+  max-width: 50%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #3399CC;
+  border-color: #2C95C9;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+color: #fff;
+background-color: #3399CC;
+}
