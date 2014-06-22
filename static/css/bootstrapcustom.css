@@ -14,7 +14,7 @@ body {
 /******** MY STUFF ************/
 
 ::selection {
-  background: #FF9F0D; /* Safari */
+  background: #FF9F0D; /* Safari only */
 }
 
 .jumbotron h1 {
@@ -31,7 +31,6 @@ h2 {
 .fa { font-family: FontAwesome }
 
 #inputText {
-  /*font-family: 'Share Tech Mono', Arial;*/
   max-width: 436px;
   margin-left: auto;
   margin-right: auto;

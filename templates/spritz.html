@@ -23,7 +23,7 @@
 		};
 	</script>
 
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans|PT+Mono' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 	{% assets "css_all" %}
 		<link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
 	{% endassets %}
@@ -50,6 +50,9 @@
 		  border: none;
 		}
 
+		iframe { 
+			vertical-align: top; 
+		}
 
 		/*logo bits*/
 		#logoImg {
@@ -188,6 +191,14 @@
 </head>
 
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=788553447863567&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 	
 	<div class="container" id="content1">
 		<div class="header">
@@ -202,10 +213,10 @@
 
 		<div class="jumbotron" id="jumbotron">
 			<!-- <h1><a id="bigtitle">Readsy</a></h1> -->
-			<img src="{{ url_for('static', filename='img/logo.png') }}" class="img-responsive" alt="Readsy" id="logoImg"></img>
+			<img src="{{ url_for('static', filename='img/logo.png') }}" class="img-responsive" alt="Readsy" id="logoImg">
 
 			<p class="text-mid" id="instructions">
-				Enter a URL, upload a file or paste some text, and hit <large><span class="label label-success">Readsy!</span></large>
+				Enter a URL, upload a file or paste some text, and hit <span class="label label-success">Readsy!</span>
 			</p>
 
 			<p>
@@ -220,10 +231,10 @@
 			</p>
 
 			<p>
-				<div id="spritzer"></div></br>
+				<div id="spritzer"></div><br>
 			</p>
 
-			<p>
+			<p style="margin-bottom: 0px;">
 				<!-- modal code -->
 				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="modalButton">
 					Upload PDF/txt
@@ -237,7 +248,7 @@
 						<h4 class="modal-title" id="myModalLabel">Upload File to Readsy</h4>
 					  </div>
 					  <div class="modal-body" id="modalbody">
-						<p id="filelimit"><small><strong>5MB limit.</strong><small><small> Only .pdf and .txt please. Files deleted hourly.<br>Might take a few seconds, depending on how big the file is. 50 pages max.</small></small></small></p>
+						<p id="filelimit"><small><strong>5MB limit.</strong><small><small> Only .pdf and .txt please. Files deleted hourly.<br>Might take a few seconds, depending on how big the file is. 100 pages max.</small></small></small></p>
 
 						<p style="padding-top:20px;">Or, upload it yourself:</p>
 						<form action="{{url_for('upload_file')}}" method="post" enctype="multipart/form-data">
@@ -267,7 +278,7 @@
 
 				<div id="progressbar">
 				<p id="wordCounter"><small>
-					<br/>Completed <span id="wordNumber">0</span> words out of <span id="wordTotal">0</span>.<br/>
+					<br>Completed <span id="wordNumber">0</span> words out of <span id="wordTotal">0</span>.<br>
 					<form class="form-inline" role="form" id="seekForm">
 						<div class="form-group">
 							<label class="sr-only" for="seekWord">Word No. </label>
@@ -278,12 +289,17 @@
 				</small></p>
 				</div>
 
-				<!-- currently hidden -->
-				<div id="specific_buttons" style="display:none">
-					<div id="twitter" data-url="http://readsy.co" data-title="Share on Twitter"></div>
-					<div id="facebook" data-url="http://readsy.co" data-title="Share on Facebook"></div>
+				<div class="row" style="margin-top: 80px; width: 220px; margin-left: auto; margin-right: auto;">
+				    <div class="col-xs-6">
+				    	<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.readsy.co" style="float: left;">Tweet</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+						</script>
+				    </div>
+				    <div class="col-xs-6">
+				    	<div class="fb-share-button" data-href="http://www.readsy.co" data-type="button_count"></div>
+				    </div>
 				</div>
-			</p>
+			<!-- </p> -->
 		</div>
 
 
@@ -348,7 +364,6 @@
   <div class="footer" style="margin-top: 100px">
 	<div class="container" id="footercontent" >
 		<center><p>&copy; 2014 <a href="mailto:mr.akashj@gmail.com?subject=Readsy%20Feedback">Akash Jain</a></p></center>
-		<div id="share" data-url="http://readsy.co" data-text="Make your sharing widget with Sharrre (jQuery Plugin)" data-title="share"></div>
 	</div>
   </div>
 
@@ -357,35 +372,6 @@
 	  $(function(){
 		  $('#editor').editable({autosave: true, plainPaste: true, paragraphy: false, enableScript: true, inlineMode: true});
 	  });
-
-	$(function() {
-
-		$('#twitter').sharrre({
-	      share: { twitter: true },
-	      url: 'http://readsy.co',
-	      enableHover: false,
-	      enableTracking: true,
-	      template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><span></span>Twitter</div></a>',
-	      
-	      click: function(api, options){
-		    api.simulateClick();
-		    api.openPopup('twitter');
-		  }
-	    });
-
-	    $('#facebook').sharrre({
-	      share: { facebook: true },
-	      url: 'http://readsy.co',
-	      enableHover: false,
-	      enableTracking: true,
-	      template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><span></span>Facebook</div></a>',
-	      click: function(api, options){
-		    api.simulateClick();
-		    api.openPopup('facebook');
-		  }
-	    });
-
-	});
   </script>
 
 </body>

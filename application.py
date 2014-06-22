@@ -41,8 +41,8 @@ def start_app():
 
 	assets = Environment()	
 	# use closure_js once i have java 7
-	js = Bundle('js/jquery.cookie.js', 'js/app.js', 'js/froala_editor.min.js', 'js/sharrre.min.js', filters='rjsmin', output='gen/packed.js')
-	css = Bundle('css/bootstrap.min.css', 'css/froala_editor.min.css', 'css/bootstrapcustom.css', 'css/sharre.css', filters='cssmin', output='gen/packed.css')
+	js = Bundle('js/jquery.cookie.js', 'js/app.js', 'js/froala_editor.min.js', filters='rjsmin', output='gen/packed.js')
+	css = Bundle('css/bootstrap.min.css', 'css/froala_editor.min.css', 'css/bootstrapcustom.css', filters='cssmin', output='gen/packed.css')
 	assets.register('js_all', js)
 	assets.register('css_all', css)
 	app.config['ASSETS_DEBUG'] = False
@@ -119,7 +119,7 @@ def convert_pdf_to_txt(path):
 	fp = file(path, 'rb')
 	interpreter = PDFPageInterpreter(rsrcmgr, device)
 	password = ""
-	maxpages = 50
+	maxpages = 100
 	caching = True
 	pagenos=set()
 	# print "two"
