@@ -41,7 +41,7 @@ def start_app():
 
 	assets = Environment()	
 	# use closure_js once i have java 7
-	js = Bundle('js/jquery.cookie.js', 'js/app.js', 'js/froala_editor.min.js', filters='rjsmin', output='gen/packed.js')
+	js = Bundle('js/jquery.cookie.js', 'js/mousetrap.min.js', 'js/app.js', 'js/froala_editor.min.js', filters='rjsmin', output='gen/packed.js')
 	css = Bundle('css/bootstrap.min.css', 'css/froala_editor.min.css', 'css/bootstrapcustom.css', filters='cssmin', output='gen/packed.css')
 	assets.register('js_all', js)
 	assets.register('css_all', css)

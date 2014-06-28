@@ -58,7 +58,7 @@
 	
 	// Customized options
 	var customOptions = {
-			"redicleWidth" : 	434,	// Specify Redicle width
+			"redicleWidth" : 	500,	// Specify Redicle width
 			"redicleHeight" : 	135,	// Specify Redicle height
 			"defaultSpeed" :    300,
 			"speedItems" :      [50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800],
@@ -71,11 +71,15 @@
 			
 	};
 
+	if (document.documentElement.clientWidth <= 620) {
+		customOptions["redicleWidth"] = 450;
+	}
+
 	if (document.documentElement.clientWidth <= 480) {
 		customOptions["redicleWidth"] = 302;
 	}
 
-	if (document.documentElement.clientWidth > 600) {
+	if (document.documentElement.clientWidth > 700) {
 		$(document).ready(function() {
 			$('#inputText').tooltip();
 		});
@@ -97,6 +101,7 @@
  		// Construct a SpritzController passing the customization options
  		spritzController = new SPRITZ.spritzinc.SpritzerController(customOptions);
  		spritzController.setProgressReporter(showProgress);
+ 		Mousetrap.bind('space', spritzController.pauseText);
  		
  		// Attach the controller's container to this page's "spritzer" container
  		spritzController.attach(container);
@@ -109,6 +114,17 @@
 	
 	$(document).ready(function() {
 		init();
+
+		
+
+		// Mousetrap.bind(['space'], function(e) {
+		//     if (e.preventDefault) {
+		//         e.preventDefault();
+		//     } else {
+		//         // internet explorer
+		//         e.returnValue = false;
+		//     }
+		// });
 	});
 
 })();
