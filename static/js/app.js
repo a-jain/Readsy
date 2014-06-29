@@ -58,18 +58,19 @@
 	
 	// Customized options
 	var customOptions = {
-			"redicleWidth" : 	500,	// Specify Redicle width
-			"redicleHeight" : 	135,	// Specify Redicle height
-			"defaultSpeed" :    300,
-			"speedItems" :      [50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800],
-			"controlTitles" : {
-            "pause" :         "Pause",
-            "play" :          "Play",
-            "back" :          "Previous Sentence",
-            "rewind": 		  "Previous Sentence" 	
-        }
-			
-	};
+		"redicleWidth" : 	500,	// Specify Redicle width
+		"redicleHeight" : 	135,	// Specify Redicle height
+		"defaultSpeed" :    300,
+		"speedItems" :      [50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800],
+		
+		placeholderText : {
+        	startText: "Click on Readsy!"
+		},
+
+		redicle : {
+			"backgroundColor" : "#F0F0F0"
+		}
+	};	
 
 	if (document.documentElement.clientWidth <= 620) {
 		customOptions["redicleWidth"] = 450;
@@ -101,7 +102,8 @@
  		// Construct a SpritzController passing the customization options
  		spritzController = new SPRITZ.spritzinc.SpritzerController(customOptions);
  		spritzController.setProgressReporter(showProgress);
- 		Mousetrap.bind('space', spritzController.pauseText);
+
+ 		Mousetrap.bind('space', spritzController.pauseText);	
  		
  		// Attach the controller's container to this page's "spritzer" container
  		spritzController.attach(container);
@@ -114,17 +116,6 @@
 	
 	$(document).ready(function() {
 		init();
-
-		
-
-		// Mousetrap.bind(['space'], function(e) {
-		//     if (e.preventDefault) {
-		//         e.preventDefault();
-		//     } else {
-		//         // internet explorer
-		//         e.returnValue = false;
-		//     }
-		// });
 	});
 
 })();

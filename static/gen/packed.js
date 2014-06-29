@@ -15,7 +15,7 @@ function fillTextClick(){var testText="Just as she said this, she noticed that o
 function onStartSpritzClick(event){var text=$('#inputText').val();var locale="en_us;";$("#progressbar").fadeIn("fast");darken();SpritzClient.spritzify(text,locale,onSpritzifySuccess,onSpritzifyError);};function onSpritzPlay(event){darken();}
 function onSpritzPause(event){lighten();}
 function onSpeedChange(event,speed){$.cookie('spritz_speed',speed,{expires:28,path:'/'});}
-function showProgress(completed,total){$("#wordNumber").text(completed);$("#wordTotal").text(total);};var customOptions={"redicleWidth":500,"redicleHeight":135,"defaultSpeed":300,"speedItems":[50,100,150,200,250,300,400,500,600,700,800],"controlTitles":{"pause":"Pause","play":"Play","back":"Previous Sentence","rewind":"Previous Sentence"}};if(document.documentElement.clientWidth<=620){customOptions["redicleWidth"]=450;}
+function showProgress(completed,total){$("#wordNumber").text(completed);$("#wordTotal").text(total);};var customOptions={"redicleWidth":500,"redicleHeight":135,"defaultSpeed":300,"speedItems":[50,100,150,200,250,300,400,500,600,700,800],placeholderText:{startText:"Click on Readsy!"},redicle:{"backgroundColor":"#F0F0F0"}};if(document.documentElement.clientWidth<=620){customOptions["redicleWidth"]=450;}
 if(document.documentElement.clientWidth<=480){customOptions["redicleWidth"]=302;}
 if(document.documentElement.clientWidth>700){$(document).ready(function(){$('#inputText').tooltip();});}
 var cookieVal=$.cookie('spritz_speed');if(cookieVal!==undefined){customOptions['defaultSpeed']=cookieVal;}
