@@ -58,7 +58,7 @@
 	
 	// Customized options
 	var customOptions = {
-		"redicleWidth" : 	500,	// Specify Redicle width
+		"redicleWidth" : 	600,	// Specify Redicle width
 		"redicleHeight" : 	135,	// Specify Redicle height
 		"defaultSpeed" :    300,
 		"speedItems" :      [50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800],
@@ -72,12 +72,8 @@
 		}
 	};	
 
-	if (document.documentElement.clientWidth <= 620) {
-		customOptions["redicleWidth"] = 450;
-	}
-
-	if (document.documentElement.clientWidth <= 480) {
-		customOptions["redicleWidth"] = 302;
+	if (document.documentElement.clientWidth <= 670) {
+		customOptions["redicleWidth"] = document.documentElement.clientWidth - 70;
 	}
 
 	if (document.documentElement.clientWidth > 700) {

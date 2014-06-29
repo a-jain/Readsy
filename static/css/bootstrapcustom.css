@@ -142,9 +142,13 @@ h2 {
 /* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 710px;
+    max-width: 750px;
     padding-right: 20px;
     padding-left: 20px;
+  }
+
+  .jumbotron {
+    width: 750px;
   }
 }
 .container-narrow > hr {
@@ -164,6 +168,7 @@ h2 {
 /* Main marketing message and sign up button */
 .jumbotron {
   text-align: center;
+
   /*border-bottom: 1px solid #e5e5e5;*/
 }
 .jumbotron .btn {
@@ -206,4 +211,14 @@ h2 {
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
 color: #fff;
 background-color: #3399CC;
+}
+
+.spritzer-container {
+  border: none;
+  background-color: inherit;
+  box-shadow: none;
+}
+
+iframe { 
+  vertical-align: top; 
 }
