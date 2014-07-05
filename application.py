@@ -53,11 +53,11 @@ def start_app():
 
 application = start_app()
 
-try:
-	db = MySQLdb.connect(host="akashjain.c5vtmzrmhbcb.us-east-1.rds.amazonaws.com", user="akashjain", passwd="akashjain", db="usertable")
-	db.autocommit(True)
-except:
-	pass
+# try:
+	# db = MySQLdb.connect(host="akashjain.c5vtmzrmhbcb.us-east-1.rds.amazonaws.com", user="akashjain", passwd="akashjain", db="usertable")
+	# db.autocommit(True)
+# except:
+# 	pass
 
 application.config['COMPRESS_DEBUG'] = True
 
