@@ -31,7 +31,7 @@ h2 {
 .fa { font-family: FontAwesome }
 
 #inputText {
-  max-width: 436px;
+  max-width: 436px; 
   margin-left: auto;
   margin-right: auto;
   margin-top: 15px;

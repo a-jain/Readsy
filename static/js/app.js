@@ -61,7 +61,7 @@
 		"redicleWidth" : 	600,	// Specify Redicle width
 		"redicleHeight" : 	135,	// Specify Redicle height
 		"defaultSpeed" :    300,
-		"speedItems" :      [50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800],
+		"speedItems" :      [50, 100, 150, 200, 250, 300, 350, 400, 500, 600, 700, 800],
 		
 		placeholderText : {
         	startText: "Click on Readsy!"

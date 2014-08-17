@@ -119,7 +119,7 @@ def convert_pdf_to_txt(path):
 	fp = file(path, 'rb')
 	interpreter = PDFPageInterpreter(rsrcmgr, device)
 	password = ""
-	maxpages = 100
+	maxpages = 120
 	caching = True
 	pagenos=set()
 	# print "two"
