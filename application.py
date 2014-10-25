@@ -35,6 +35,7 @@ def start_app():
 	app.config['USE_S3_DEBUG'] = True # should be true
 	app.config['AWS_ACCESS_KEY_ID'] = os.environ['AWS_ACCESS_KEY_ID']
 	app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
+
 	
 	s3 = FlaskS3()
 	s3.init_app(app)
@@ -220,7 +221,7 @@ def clean(s):
 	PAT_INLINEFOOTNOTE = r'[\(\[\.,]\d{1,3}(?:[,–]\d{1,3}){0,2}[\)\]]?'
 	PAT_MOREFOOTNOTES = r'(?<!\d)[0-9]{1,3}(?:[,\- \–][0-9]{1,3}){1,3}(?=[\.,])'
 	PAT_FIGURE = r'\s?[\(\[]?[fF]ig\.? \d{1,3}[\)\]]?'
-	PAT_FIGURES = r'\(cid:\d\d?\d?\) ?'
+	PAT_FIGURES = r'\(cid:\d\) ?'
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
 	PAT_REFERENCES = r'REFERENCES\s.*'
 	PAT_EXTRASPACE = r'  +'
