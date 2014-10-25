@@ -221,7 +221,7 @@ def clean(s):
 	PAT_INLINEFOOTNOTE = r'[\(\[\.,]\d{1,3}(?:[,–]\d{1,3}){0,2}[\)\]]?'
 	PAT_MOREFOOTNOTES = r'(?<!\d)[0-9]{1,3}(?:[,\- \–][0-9]{1,3}){1,3}(?=[\.,])'
 	PAT_FIGURE = r'\s?[\(\[]?[fF]ig\.? \d{1,3}[\)\]]?'
-	PAT_FIGURES = r'\(cid:\d\) ?'
+	PAT_FIGURES = r'\(cid:\d\d?\d?\) ?'
 	PAT_RANDOMHYPHEN = r'(?<=[a-z])-\s(?=[a-z])'
 	PAT_REFERENCES = r'REFERENCES\s.*'
 	PAT_EXTRASPACE = r'  +'
