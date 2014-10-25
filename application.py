@@ -35,7 +35,6 @@ def start_app():
 	app.config['USE_S3_DEBUG'] = True # should be true
 	app.config['AWS_ACCESS_KEY_ID'] = os.environ['AWS_ACCESS_KEY_ID']
 	app.config['AWS_SECRET_ACCESS_KEY'] = os.environ['AWS_SECRET_ACCESS_KEY']
-
 	
 	s3 = FlaskS3()
 	s3.init_app(app)
