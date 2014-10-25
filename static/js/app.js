@@ -16,7 +16,8 @@
     }
 
     function onBtnSeekClick() {
-    	var num = document.forms["seekForm"]["seekNum"].value / 10;
+    	var num = document.forms["seekForm"]["seekNum"].value;
+    	num = parseInt(num, 10);
     	$('#spritzer').data('controller').seek(num, 'absolute');
 	}
     
